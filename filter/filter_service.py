@@ -64,26 +64,14 @@ TEAM_BUILD_KEYWORDS = [
 MERCHANT_AUTHOR_KEYWORDS = [
     "民宿", "酒店", "餐厅", "大排档", "包车", "陪拍",
     "导游", "旅行社", "工作室", "客栈", "度假村",
-    "金町湾", "红海湾", "海丰", "陆丰",
     "别墅", "小院", "公寓", "海景房", "度假",
-    "小姐姐", "小哥哥", "管家", "记",
-    "趣墅", "趣墅记",
+    "小姐姐", "小哥哥", "管家", "趣墅记",
 ]
 
 SHARE_POST_KEYWORDS = [
     "攻略", "分享", "推荐", "打卡", "避雷", "合集",
     "探店", "测评", "我的", "我去", "我吃",
     "不踩坑", "不踩雷", "保姆级", "超全",
-]
-
-HOTEL_PRAISE_KEYWORDS = [
-    "有温度的酒店", "不舍得离开", "服务周到", "强烈推荐",
-    "必住", "太好住了", "推荐这家民宿", "这家酒店超赞",
-]
-
-TEAM_BUILD_KEYWORDS = [
-    "团建", "HR", "10人起接", "别墅", "篝火",
-    "团建攻略", "公司团建", "团队游",
 ]
 
 TRANSPORT_KEYWORDS = [
@@ -132,7 +120,7 @@ class FilterService:
                 passed.append(detail)
 
         # 写文件
-        self._write_output(passed)
+        self._write_output(passed, keyword=getattr(detail, 'keyword', '') or '')
         return passed
 
     def filter_one(self, detail: NoteDetail) -> FilterResult:
@@ -315,7 +303,7 @@ class FilterService:
 
         return reasons
 
-    def _write_output(self, passed: list[NoteDetail]):
+    def _write_output(self, passed: list[NoteDetail], keyword: str = ""):
         """写入 filtered_for_feishu.jsonl"""
         config.FEISHU_DIR.mkdir(parents=True, exist_ok=True)
         output_path = config.FEISHU_DIR / "filtered_for_feishu.jsonl"
@@ -324,24 +312,25 @@ class FilterService:
         for detail in passed:
             # 构建 note_url
             note_url = self._build_note_url(detail)
+            fr = detail.filter_result
 
             rows.append({
-                "title": detail.content[:50],  # 无标题时用正文前50字
+                "title": detail.content[:50] if detail.title else detail.content[:50],
                 "note_url": note_url,
-                "note_id": detail.note_id() if hasattr(detail, 'note_id') else "",
-                "type": getattr(detail, 'filter_result', None) and detail.filter_result.note_type or "",
+                "note_id": detail.note_id,  # property，直接访问
+                "type": fr.note_type if fr else "",
                 "content": detail.content[:500],
-                "author": detail.author,
-                "likes": detail.likes,
-                "collects": detail.collects,
-                "comments": detail.comments,
-                "published_at": detail.published_at,
+                "author": detail.author or "",
+                "likes": detail.likes or 0,
+                "collects": detail.collects or 0,
+                "comments": detail.comments or 0,
+                "published_at": detail.published_at or "",
                 "cover_image": detail.images[0] if detail.images else "",
-                "tags": ",".join(detail.tags),
-                "keyword": "",
+                "tags": ",".join(detail.tags) if detail.tags else "",
+                "keyword": keyword,
                 "collected_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "passed": True,
-                "reasons": getattr(detail, 'filter_result', None) and detail.filter_result.reasons or "",
+                "reasons": fr.reasons if fr else "",
             })
 
         with open(output_path, "w", encoding="utf-8") as f:

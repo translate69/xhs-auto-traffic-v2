@@ -1,45 +1,17 @@
+# 飞书凭证（不推送）
+secrets.json
+
+# 数据目录
+data/
+
+# 调试脚本
+debug_*.py
+quick_test.py
+run_debug.py
+run_debug.ps1
+test_feishu.py
+
 # Python
 __pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
-.eggs/
-*.whl
-
-# Virtual environments
-venv/
-env/
-.venv/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Project specific
-xhs_cookies.json
-*.log
-logs/
-*.png
-*.jpg
-!tests/fixtures/*.png
-
-# Test artifacts
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Playwright
-.playwright/
-
-# Local output
-data/
-output/
-filtered_for_feishu.jsonl
-enriched_notes.jsonl
+*.pyc
+*.pyo

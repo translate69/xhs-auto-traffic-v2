@@ -26,9 +26,11 @@ class FeedNote:
     xsec_token: str = ""
     author: str = ""
     time_text: str = ""
-    title: str = ""          # 可选，筛选后可能为空
+    title: str = ""
 
+    @property
     def note_id(self) -> str:
+        """从 url 提取 note_id"""
         import re
         m = re.search(r"search_result/([a-zA-Z0-9]+)", self.url, re.IGNORECASE)
         return m.group(1) if m else ""
