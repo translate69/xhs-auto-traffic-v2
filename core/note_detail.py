@@ -14,7 +14,7 @@ import time
 import random
 from dataclasses import dataclass, field
 
-sys.stdout.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding="utf-8")
 
 import config
 from core.search_collector import FeedNote
@@ -56,6 +56,19 @@ class NoteDetail:
         self.xsec_token = feed.xsec_token or self.xsec_token
         self.author = feed.author or self.author
         self.time_text = feed.time_text or self.time_text
+        self.title = feed.title or self.title
+
+    @property
+    def note_id(self) -> str:
+        """从 url 提取 note_id"""
+        import re
+        m = re.search(r"search_result/([a-fA-F0-9]+)", self.url, re.IGNORECASE)
+        if m:
+            return m.group(1)
+        m2 = re.search(r"/explore/([a-fA-F0-9]+)", self.url, re.IGNORECASE)
+        if m2:
+            return m2.group(1)
+        return ""
 
 
 # ─── NoteDetailCollector ─────────────────────────────────
@@ -125,7 +138,12 @@ class NoteDetailCollector:
                 detail.merge_from_feed(feed)
 
                 if not detail.has_content():
-                    print(f"[Detail] WARN: 正文为空，降级保留搜索页数据")
+                    # 正文为空，降级：保留搜索页 title 作为 content 兜底
+                    print(f"[Detail] WARN: 正文为空，用搜索页标题降级")
+                    if detail.title:
+                        detail.content = f"[标题] {detail.title}"
+                    else:
+                        detail.content = ""
 
                 print(f"[Detail] OK: {detail.content[:30] if detail.content else '(无正文)'}...")
                 return detail
@@ -167,61 +185,17 @@ class NoteDetailCollector:
         return base
 
     def _extract_detail(self) -> NoteDetail:
-        """从当前页面 DOM 提取详情"""
-        data = self.page.evaluate("""
-(function() {
-    var r = {};
+        """从当前页面 DOM 提取详情（带 fallback）"""
+        try:
+            data = self._extract_detail_raw()
+        except Exception as e:
+            print(f"[Detail] DOM 提取异常，降级: {e}")
+            return NoteDetail()
 
-    // 正文
-    var desc = document.querySelector('#detail-desc');
-    r.content = desc ? (desc.textContent || '').trim() : '';
+        if not data.get("content"):
+            print(f"[Detail] WARN: 正文 DOM 为空")
 
-    // 标签
-    var tagEls = desc ? desc.querySelectorAll('a.tag') : [];
-    r.tags = [];
-    for (var i = 0; i < tagEls.length; i++) {
-        var txt = (tagEls[i].textContent || '').trim();
-        if (txt) r.tags.push(txt);
-    }
-
-    // 作者
-    var nameEl = document.querySelector('.author .info .name, .author-wrapper .name');
-    r.author = nameEl ? (nameEl.textContent || '').trim() : '';
-
-    // 作者 ID
-    var authorLink = document.querySelector('.author a, .author-wrapper a');
-    var href = authorLink ? (authorLink.getAttribute('href') || '') : '';
-    var m = href.match(/profile\\/([^?]+)/);
-    r.author_id = m ? m[1] : '';
-
-    // 点赞/收藏/评论
-    var countEls = document.querySelectorAll('[class*="count"]');
-    var counts = [];
-    for (var i = 0; i < countEls.length; i++) {
-        var txt = (countEls[i].textContent || '').trim();
-        if (txt && !isNaN(parseInt(txt))) counts.push(parseInt(txt));
-    }
-    r.likes = counts[0] || 0;
-    r.collects = counts[1] || 0;
-    r.comments = counts[2] || 0;
-
-    // 时间
-    var dateEl = document.querySelector('.date, [class*="date"]');
-    r.time_text = dateEl ? (dateEl.textContent || '').trim() : '';
-
-    // 正文图片
-    var imgs = desc ? desc.querySelectorAll('img') : [];
-    r.images = [];
-    for (var i = 0; i < imgs.length; i++) {
-        var src = imgs[i].getAttribute('src') || imgs[i].getAttribute('data-src') || '';
-        if (src && !src.includes('avatar')) r.images.push(src);
-    }
-
-    return r;
-})()
-        """)
-
-        # 解析时间（去掉地名后缀）
+        # 解析时间
         time_text = data.get("time_text", "")
         time_clean = time_text.split(" ")[0] if time_text else ""
 
@@ -241,3 +215,84 @@ class NoteDetailCollector:
             author=data.get("author", ""),
             author_id=data.get("author_id", ""),
         )
+
+    def _extract_detail_raw(self) -> dict:
+        """实际执行 DOM 提取（所有选择器均加异常保护）"""
+        return self.page.evaluate("""
+(function() {
+    var r = {};
+
+    // ── 正文 ────────────────────────────────────────────
+    var desc = document.querySelector('#detail-desc');
+    r.content = desc ? (desc.textContent || '').trim() : '';
+
+    // ── 标签 ───────────────────────────────────────────
+    r.tags = [];
+    if (desc) {
+        var tagEls = desc.querySelectorAll('a.tag');
+        for (var i = 0; i < tagEls.length; i++) {
+            var txt = (tagEls[i].textContent || '').trim();
+            if (txt) r.tags.push(txt);
+        }
+    }
+
+    // ── 作者（多选择器兜底）────────────────────────────
+    var nameEl = (
+        document.querySelector('.author .info .name') ||
+        document.querySelector('.author-wrapper .name') ||
+        document.querySelector('[class*="author"] [class*="name"]') ||
+        document.querySelector('.name')
+    );
+    r.author = nameEl ? (nameEl.textContent || '').trim() : '';
+
+    // ── 作者 ID ────────────────────────────────────────
+    r.author_id = '';
+    var authorLink = (
+        document.querySelector('.author a') ||
+        document.querySelector('.author-wrapper a') ||
+        document.querySelector('[class*="author"] a')
+    );
+    if (authorLink) {
+        var href = authorLink.getAttribute('href') || '';
+        var m = href.match(/profile\\/([^?]+)/);
+        if (m) r.author_id = m[1];
+    }
+
+    // ── 点赞/收藏/评论（多选择器兜底）────────────────
+    var countEls = (
+        document.querySelectorAll('[class*="count"]') ||
+        document.querySelectorAll('[class*="Count"]')
+    );
+    var counts = [];
+    for (var i = 0; i < countEls.length; i++) {
+        var txt = (countEls[i].textContent || '').trim();
+        var num = parseInt(txt);
+        if (txt && !isNaN(num)) counts.push(num);
+    }
+    r.likes = counts[0] || 0;
+    r.collects = counts[1] || 0;
+    r.comments = counts[2] || 0;
+
+    // ── 时间 ───────────────────────────────────────────
+    var dateEl = (
+        document.querySelector('.date') ||
+        document.querySelector('[class*="date"]') ||
+        document.querySelector('.time') ||
+        document.querySelector('[class*="time"]')
+    );
+    r.time_text = dateEl ? (dateEl.textContent || '').trim() : '';
+
+    // ── 正文图片 ───────────────────────────────────────
+    var imgs = desc ? desc.querySelectorAll('img') : [];
+    r.images = [];
+    for (var i = 0; i < imgs.length; i++) {
+        var src = imgs[i].getAttribute('src') ||
+                  imgs[i].getAttribute('data-src') || '';
+        if (src && !src.includes('avatar') && src.startsWith('http')) {
+            r.images.push(src);
+        }
+    }
+
+    return r;
+})()
+        """)
