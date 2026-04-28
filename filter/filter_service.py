@@ -297,9 +297,17 @@ class FilterService:
             return reasons
 
         # 宽松规则：有 note_types + 有地域（已在上层验证）= 通过
-        # 适用于真实游客有明确需求但没用 ASK 关键词的情况
+        # 收紧：必须有内容质量信号，纯分享/广告语气不允许
         if note_types:
-            reasons.append("type_match")
+            # 纯分享/广告语气 → 淘汰（家宝藏/封神/种草语气）
+            if re.search(r"宝藏|绝了|封神|太好吃|种草", content):
+                return reasons  # 不添加 type_match，走淘汰
+            # 有问句/意图信号 → 通过（真实需求）
+            if any(kw in content for kw in ["吗", "怎么", "哪里", "哪", "求", "想问", "请问"]):
+                reasons.append("type_match")
+            # 内容较长 + 有意图词 → 通过
+            elif len(content) > 30 and any(p in content for p in ["想", "计划", "打算", "准备", "行程"]):
+                reasons.append("type_match")
 
         return reasons
 

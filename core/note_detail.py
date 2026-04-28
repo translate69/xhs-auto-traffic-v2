@@ -155,6 +155,16 @@ class NoteDetailCollector:
                     else:
                         detail.content = ""
 
+                # 检测正文是否仅为 hashtag（笔记无法访问的降级态）
+                if self._is_hashtag_only(detail.content):
+                    print(f"[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级")
+                    # 搜索标题也可能是 hashtag，进一步降级为标记
+                    if self._is_hashtag_only(feed.title):
+                        # 搜索标题也是 hashtag → 正文记为无法访问标记，交由过滤器判断
+                        detail.content = "[内容无法获取]"
+                    else:
+                        detail.content = feed.title
+
                 print(f"[Detail] OK: {detail.content[:30] if detail.content else '(无正文)'}...")
                 return detail
 
@@ -193,6 +203,19 @@ class NoteDetailCollector:
         if feed.xsec_token:
             return f"{base}?xsec_token={feed.xsec_token}&xsec_source=pc_search"
         return base
+
+    def _is_hashtag_only(self, content: str) -> bool:
+        """
+        判断正文是否仅为 hashtag（无实质内容）。
+        典型场景：笔记无法访问时，DOM 可能只渲染出 hashtag 形式的标题。
+        """
+        if not content:
+            return False
+        import re
+        # 去掉 #xxx 形式 tag 后，看还剩多少实质文字
+        stripped = re.sub(r'#[^\s#]+', '', content).strip()
+        # 如果剩余字符 < 5，认为是纯 hashtag 正文
+        return len(stripped) < 5
 
     def _extract_detail(self) -> NoteDetail:
         """从当前页面 DOM 提取详情（带 fallback）"""
@@ -283,24 +306,34 @@ class NoteDetailCollector:
     r.collects = counts[1] || 0;
     r.comments = counts[2] || 0;
 
-    // ── 时间 ───────────────────────────────────────────
+    // ── 时间（详情页）─────────────────────────────────────
+    // 在正文附近找时间元素，兼容各种 class 命名
     var dateEl = (
         document.querySelector('.date') ||
         document.querySelector('[class*="date"]') ||
-        document.querySelector('.time') ||
-        document.querySelector('[class*="time"]')
+        document.querySelector('[class*="time"]') ||
+        document.querySelector('.posted') ||
+        document.querySelector('[class*="publish"]') ||
+        (desc ? desc.parentElement.querySelector('[class*="time"]') : null)
     );
     r.time_text = dateEl ? (dateEl.textContent || '').trim() : '';
 
-    // ── 正文图片 ───────────────────────────────────────
-    var imgs = desc ? desc.querySelectorAll('img') : [];
+    // ── 正文图片（封面图，不是正文字节内的 emoji）─────────
+    // 策略：在 #detail-desc 外部找第一张真实图片（排除 emoji 规格 <100px）
     r.images = [];
-    for (var i = 0; i < imgs.length; i++) {
-        var src = imgs[i].getAttribute('src') ||
-                  imgs[i].getAttribute('data-src') || '';
-        if (src && !src.includes('avatar') && src.startsWith('http')) {
-            r.images.push(src);
+    var allImgs = document.querySelectorAll('img');
+    for (var i = 0; i < allImgs.length; i++) {
+        var img = allImgs[i];
+        var src = img.getAttribute('src') || img.getAttribute('data-src') || '';
+        if (!src || !src.startsWith('http')) continue;
+        if (src.includes('avatar') || src.includes('emotion') || src.includes('emoji')) continue;
+        // 排除 desc 内部的小图（emoji）
+        if (desc && desc.contains(img)) {
+            var rect = img.getBoundingClientRect();
+            if (rect.width < 100 || rect.height < 100) continue;
         }
+        r.images.push(src);
+        break;  // 只取第一张（封面图）
     }
 
     return r;

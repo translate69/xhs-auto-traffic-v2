@@ -113,7 +113,10 @@ def _build_fields(note_id: str, row: dict) -> dict:
 
     cover_image = row.get("cover_image", "")
 
-    return {
+    from datetime import datetime
+    now_ms = int(datetime.now().timestamp() * 1000)
+
+    fields = {
         "笔记ID": note_id,
         "标题": row.get("title", ""),
         "链接": _to_url(row.get("note_url", "")),
@@ -123,14 +126,19 @@ def _build_fields(note_id: str, row: dict) -> dict:
         "收藏": int(row.get("collects", 0)) or 0,
         "评论数": int(row.get("comments", 0)) or 0,
         "笔记时间": _to_timestamp_ms(row.get("published_at", "")),
-        "笔记类型": row.get("type", ""),
+        "展示时间": row.get("time_text", ""),
+        "类型": row.get("type", ""),
         "标签": tags,
-        "封面图": cover_image,
-        "通过原因": row.get("reasons", ""),
-        "关键词": row.get("keyword", ""),
-        "采集时间": row.get("collected_at", ""),
-        "发布时间": row.get("published_at", ""),
+        "筛选原因": row.get("reasons", ""),
+        "采集关键词": row.get("keyword", ""),
+        "采集时间": now_ms,
     }
+
+    # 封面图有值才加（URL 字段不能为空对象）
+    if cover_image:
+        fields["封面图"] = _to_url(cover_image)
+
+    return fields
 
 
 def write_single_record(note_id: str, row: dict) -> bool:

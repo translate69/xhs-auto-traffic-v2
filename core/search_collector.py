@@ -10,7 +10,9 @@ SearchCollector - 搜索采集层
 """
 from __future__ import annotations
 
+import re
 import time
+import urllib.parse
 from dataclasses import dataclass, field
 
 import config
@@ -203,8 +205,8 @@ class SearchCollector:
             # 跳过无效 URL
             if not raw_url or "search_result" not in raw_url:
                 continue
-            m = re.search(r"xsec_token=([^&]+)", raw_url)
-            xsec_token = m.group(1) if m else ""
+            m = re.search(r"xsec_token=([^&\s]+)", raw_url)
+            xsec_token = urllib.parse.unquote(m.group(1)) if m else ""
             feeds.append(FeedNote(
                 url=raw_url,
                 xsec_token=xsec_token,
@@ -236,7 +238,7 @@ class SearchCollector:
                         continue  # 时间过久，跳过
 
             # 去重
-            note_id = feed.note_id()
+            note_id = feed.note_id
             if note_id and self.storage.is_recent(note_id):
                 continue  # 已采过，跳过
 

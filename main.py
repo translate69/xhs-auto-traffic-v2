@@ -39,6 +39,12 @@ def run_collect(keyword: str, limit: int, headless: bool = True):
         enriched = detail_collector.enrich_all(feeds)
         print(f"[main] enrichment 完成: {len(enriched)} 条")
 
+        # ── 记录「内容无法获取」的笔记（待人工确认）─────────
+        unavailable_notes = [n for n in enriched if n.content == "[内容无法获取]"]
+        if unavailable_notes:
+            _write_unavailable(unavailable_notes, keyword)
+            print(f"[main] 内容无法获取: {len(unavailable_notes)} 条（已写入待人工确认）")
+
         # ── FilterService 重度过滤 ────────────────────────
         filter_svc = FilterService()
         filtered = filter_svc.filter_all(enriched)
@@ -49,10 +55,39 @@ def run_collect(keyword: str, limit: int, headless: bool = True):
     # ── 输出 ──────────────────────────────────────────────
     if records:
         feishu = FeishuOutputService()
-        feishu.write(records)
+        feishu.write(records, keyword=keyword)
         print(f"[main] 飞书写入完成: {len(records)} 条")
 
     return records
+
+
+def _write_unavailable(notes: list, keyword: str):
+    """写入无法获取内容的笔记，供人工确认"""
+    import json
+    from datetime import datetime
+    config.FEISHU_DIR.mkdir(parents=True, exist_ok=True)
+    output_path = config.FEISHU_DIR / "unavailable_for_review.jsonl"
+    rows = []
+    for detail in notes:
+        import re
+        note_url = detail.url
+        if "/explore/" not in note_url and "search_result/" in detail.url:
+            m = re.search(r"search_result/([a-fA-F0-9]+)", detail.url)
+            if m:
+                note_id = m.group(1)
+                note_url = f"https://www.xiaohongshu.com/explore/{note_id}?xsec_token={detail.xsec_token}&xsec_source=pc_search"
+        rows.append({
+            "title": detail.title or "",
+            "note_url": note_url,
+            "note_id": detail.note_id,
+            "author": detail.author or "",
+            "published_at": detail.published_at or "",
+            "keyword": keyword,
+            "collected_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
+    with open(output_path, "a", encoding="utf-8") as f:
+        for row in rows:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
 def run_feishu(data_dir: Path | None = None):

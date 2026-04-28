@@ -30,7 +30,7 @@ class FeishuOutputService:
     def __init__(self):
         self.input_path = config.FEISHU_DIR / "filtered_for_feishu.jsonl"
 
-    def write(self, records: list[NoteDetail | dict]):
+    def write(self, records: list[NoteDetail | dict], keyword: str = ""):
         """
         写入飞书 Bitable（幂等：跳过已存在的 note_id）。
         records 可以是 NoteDetail 对象列表（来自 FilterService），
@@ -40,9 +40,14 @@ class FeishuOutputService:
         rows = []
         for item in records:
             if isinstance(item, NoteDetail):
+                # 注入 keyword（每条笔记可以不同，这里统一用同一个）
+                if not getattr(item, "keyword", ""):
+                    item.keyword = keyword
                 row = self._note_detail_to_row(item)
             else:
-                row = item  # 已经是 dict
+                row = dict(item)
+                if keyword and not row.get("keyword"):
+                    row["keyword"] = keyword
             rows.append(row)
 
         print(f"[FeishuOutput] 待写入 {len(rows)} 条")
@@ -99,6 +104,7 @@ class FeishuOutputService:
             "collects": detail.collects or 0,
             "comments": detail.comments or 0,
             "published_at": detail.published_at or "",
+            "time_text": detail.time_text or "",
             "cover_image": detail.images[0] if detail.images else "",
             "tags": ",".join(detail.tags) if detail.tags else "",
             "keyword": getattr(detail, "keyword", "") or "",

@@ -114,6 +114,16 @@ class TestSharePost(unittest.TestCase):
             r = filter_one(n)
             self.assertFalse(r.passed, f"'{content[:10]}' 应淘汰, got {r.reasons}")
 
+    def test_reject_baodao_style(self):
+        """家宝藏/种草语气 → 淘汰（type_match收紧规则）"""
+        n = make_note(
+            title="沉浸式做汕尾这款宝藏美食！",
+            content="沉浸式做汕尾这款宝藏美食！#芋头饺 #汕尾茶点",
+            published_at="2026-04-28",
+        )
+        r = filter_one(n)
+        self.assertFalse(r.passed, f"家宝藏语气应淘汰, got passed={r.passed}, reasons={r.reasons}")
+
 
 class TestTransportOnly(unittest.TestCase):
     """纯交通类淘汰"""
@@ -282,13 +292,13 @@ class TestTypeMatchRelaxed(unittest.TestCase):
         self.assertIn("景点推荐", r.note_type)
 
     def test_type_match_pass(self):
-        """有类型匹配但无 ASK → 通过"""
+        """有类型匹配但无 ASK → 通过（有问句语气）"""
         n = make_note(
-            content="汕尾红海湾风景不错",
+            content="汕尾红海湾风景不错，打算周末去赶海哪里好",
             published_at="2026-04-27"
         )
         r = filter_one(n)
-        self.assertTrue(r.passed, f"有景点推荐类型应通过, got {r.reasons}")
+        self.assertTrue(r.passed, f"有景点类型+意图词应通过, got {r.reasons}")
 
     def test_no_type_no_signal_fail(self):
         """无地域 + 无 ASK + 无类型 → 淘汰"""
