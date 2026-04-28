@@ -76,7 +76,14 @@ PAUSE_DURATION = 15  # 每 N 条暂停风控保护
 # JSONL 数据输出目录
 JSONL_DIR = DATA_DIR
 
-# 飞书输出目录
+# ─── 飞书 Bitable 配置（v2 专用表）───────────────────────────
+# App Token: MtpRbyHq9aOP3csA3jVc6CYenuc
+# Table ID: tblvxlFAqO5hP4fD（从飞书 URL 解析）
+# 凭证: secrets.json 或环境变量 FEISHU_APP_ID / FEISHU_APP_SECRET
+FEISHU_APP_TOKEN = "MtpRbyHq9aOP3csA3jVc6CYenuc"
+FEISHU_TABLE_ID = "tblvxlFAqO5hP4fD"
+
+# 飞书输出目录（JSONL 文件）
 FEISHU_DIR = DATA_DIR / "feishu"
 
 # ─── 日志配置 ──────────────────────────────────────────────

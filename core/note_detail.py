@@ -44,11 +44,21 @@ class NoteDetail:
     author_id: str = ""
 
     # 内部
-    _filter_result: dict | None = field(default_factory=lambda: None)  # 筛选结果
+    _filter_result: 'filter_service.FilterResult | None' = field(default_factory=lambda: None)  # 筛选结果
 
     def has_content(self) -> bool:
         """是否有正文（判断降级是否生效）"""
         return bool(self.content)
+
+    @property
+    def filter_result(self) -> "filter_service.FilterResult | None":
+        """外部访问筛选结果的属性（映射到内部 _filter_result）"""
+        return self._filter_result
+
+    @filter_result.setter
+    def filter_result(self, value: "filter_service.FilterResult | None"):
+        """允许外部赋值（FilterService.filter_all 用）"""
+        self._filter_result = value
 
     def merge_from_feed(self, feed: FeedNote):
         """用搜索页已有数据填充（降级时使用）"""
