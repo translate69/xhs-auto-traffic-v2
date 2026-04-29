@@ -40,8 +40,8 @@ def run_keyword(keyword: str, limit: int, headless: bool, storage: CollectedStor
     # ── 断点恢复 ────────────────────────────────────────
     if storage.exists(run_id):
         print(f"[{keyword}] 发现已有文件，跳过采集+enrichment，直接加载")
-        details_dicts = storage.load(run_id)
-        print(f"[{keyword}] 从断点恢复: {len(details_dicts)} 条")
+        details = storage.load(run_id)  # list[dict]
+        print(f"[{keyword}] 从断点恢复: {len(details)} 条")
     else:
         print(f"[{keyword}] 开始采集 (run_id={run_id})")
 
@@ -63,27 +63,30 @@ def run_keyword(keyword: str, limit: int, headless: bool, storage: CollectedStor
         run_file = storage.save(run_id, keyword, enriched)
         print(f"[{keyword}] 中间文件已写入: {run_file}")
 
+        # 供下游使用（list[NoteDetail]，不是 dict）
+        details = enriched
+
     # ── 过滤 + 飞书写入 ──────────────────────────────────
     from core.note_detail import NoteDetail
     from dataclasses import fields
 
-    # dict → NoteDetail
-    details = []
-    for d in details_dicts:
+    # dict → NoteDetail（断点恢复时是 dict，正常采集时是 NoteDetail）
+    notes = []
+    for d in details:
         if isinstance(d, NoteDetail):
-            details.append(d)
+            notes.append(d)
         else:
             # 从 dict 构造 NoteDetail（跳过不存在的字段）
             valid_fields = {f.name for f in fields(NoteDetail)}
             filtered = {k: v for k, v in d.items() if k in valid_fields}
-            details.append(NoteDetail(**filtered))
+            notes.append(NoteDetail(**filtered))
 
     filter_svc = FilterService()
-    filtered = filter_svc.filter_all(details)
+    filtered = filter_svc.filter_all(notes)
     print(f"[{keyword}] 筛选通过: {len(filtered)} 条")
 
     # manifest 记录
-    storage.append_manifest(run_id, keyword, len(details))
+    storage.append_manifest(run_id, keyword, len(notes))
 
     if filtered:
         feishu = FeishuOutputService()
@@ -99,7 +102,7 @@ def main():
     parser.add_argument("--limit", "-l", type=int, default=config.DEFAULT_LIMIT, help=f"采集数量（默认 {config.DEFAULT_LIMIT}）")
     parser.add_argument("--debug", action="store_true", help="headed 浏览器（可见）")
     parser.add_argument("--dry-run", action="store_true", help="只列出要跑的关键词，不实际执行")
-    parser.add_argument("--cleanup", action="store_true", help="只执行清理（删除30天前中间文件）")
+    parser.add_argument("--cleanup", action="store_true", help="只执行清理（删除30天前文件）")
     parser.add_argument("--group", type=str, default=None, help="只跑指定分组: core / longtail")
 
     args = parser.parse_args()

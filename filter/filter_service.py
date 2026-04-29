@@ -160,7 +160,7 @@ class FilterService:
         # 推荐格式标题（「xxx推荐xxx」）中的「推荐」不算 ASK 信号
         if self._is_recommendation_format(title):
             title_has_explicit_ask = False
-        content_has_ask = has_signal(content, ["求", "想问", "请问", "求指教", "帮我", "帮帮我"])
+        content_has_ask = has_signal(content, ["求", "想问", "请问", "求指教", "帮我", "帮帮我", "推荐"])
         title_has_bang = "帮我" in title or "帮帮我" in title or "帮忙" in title
         has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
 
@@ -226,7 +226,7 @@ class FilterService:
         # 推荐格式（「xxx推荐xxx」）不算求助信号
         if self._is_recommendation_format(title):
             title_has_explicit_ask = False
-        content_has_ask = has_signal(content, ["求", "想问", "请问", "求指教", "帮我", "帮帮我"])
+        content_has_ask = has_signal(content, ["求", "想问", "请问", "求指教", "帮我", "帮帮我", "推荐"])
         title_has_bang = "帮我" in title or "帮帮我" in title or "帮忙" in title
         has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
 

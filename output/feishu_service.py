@@ -109,7 +109,6 @@ class FeishuOutputService:
             "tags": ",".join(detail.tags) if detail.tags else "",
             "keyword": getattr(detail, "keyword", "") or "",
             "collected_at": getattr(detail, "collected_at", "") or "",
-            "passed": True,
             "reasons": reasons_str,
         }
 
