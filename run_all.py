@@ -22,6 +22,7 @@ from core.note_detail import NoteDetailCollector
 from filter.filter_service import FilterService
 from output.feishu_service import FeishuOutputService
 from utils.storage import CollectedStorage
+from core.search_collector import LoginRequiredError
 from load_keywords import load_keywords
 
 
@@ -138,6 +139,8 @@ def main():
 
     # ── 逐个跑 ───────────────────────────────────────────
     total_passed = 0
+    login_required_keyword = None  # 被登录态拦截的关键词
+
     for kw_info in all_kw:
         keyword = kw_info["keyword"]
         print(f"\n{'='*50}")
@@ -146,10 +149,24 @@ def main():
             n = run_keyword(keyword, args.limit, headless, storage)
             total_passed += n
             print(f"完成: {keyword} → {n} 条通过")
+        except LoginRequiredError:
+            login_required_keyword = keyword
+            print(f"\n⚠️ 登录态失效，请在浏览器中扫码登录后重试")
+            break
         except Exception as e:
             print(f"出错: {keyword} → {e}")
             import traceback
             traceback.print_exc()
+
+    # 如果是被拦截的，记录到文件方便下次恢复
+    if login_required_keyword:
+        (Path("data/collected/runs") / "_login_required.txt").write_text(
+            login_required_keyword, encoding="utf-8"
+        )
+
+        raise LoginRequiredError(
+            f"关键词 [{login_required_keyword}] 采集时检测到登录态失效，请扫码后重新运行。"
+        )
 
     print(f"\n全部完成：通过 {total_passed} 条")
 

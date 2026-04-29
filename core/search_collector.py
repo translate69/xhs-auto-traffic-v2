@@ -21,6 +21,11 @@ from utils.parse import parse_published_at
 from utils.storage import RecentStorage
 
 
+class LoginRequiredError(Exception):
+    """"Cookie 失效，需扫码登录"""
+    pass
+
+
 @dataclass
 class FeedNote:
     """搜索列表页提取的最小笔记结构"""
@@ -122,6 +127,35 @@ class SearchCollector:
         self.scroll_helper = ScrollHelper(self.page)
         self.storage = RecentStorage()
 
+    # ── 登录态检测 ───────────────────────────────────────
+
+    def _check_login(self):
+        """
+        检测当前页面是否需要登录。
+        小红书 cookie 失效后会重定向到登录页，通过 URL + 关键元素判断。
+        抛出 LoginRequiredError， callers 负责向上传递给 UI 层提示用户扫码。
+        """
+        current_url = self.page.url
+        # 登录页重定向迹象
+        if any(kw in current_url for kw in ["login", "redict", "/w/"]):
+            self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_login_required.png")
+            raise LoginRequiredError(
+                "小红书登录态失效，需重新扫码。请在浏览器中打开 xhs_cookies.json 对应的账号完成登录。"
+            )
+        # 备选：登录页特征元素
+        try:
+            self.page.wait_for_selector(
+                "[class*='login'], [class*='login-modal'], .login-container",
+                timeout=3000
+            )
+            raise LoginRequiredError(
+                "检测到登录弹窗，请在浏览器中重新扫码登录小红书后保存 cookie。"
+            )
+        except Exception:
+            pass  # 正常页面，无弹窗
+
+
+
     def collect(self, keyword: str, limit: int = 30) -> list[FeedNote]:
         """
         执行完整采集流程。
@@ -133,9 +167,13 @@ class SearchCollector:
         # 1. 访问搜索页
         url = self.SEARCH_URL.format(keyword=keyword)
         self.page.goto(url, wait_until="domcontentloaded")
+
+        # 检测登录态（cookie 失效时小红书会重定向到登录页）
+        self._check_login()
+
         time.sleep(5)
         try:
-            self.page.wait_for_selector("section.note-item", timeout=20000)
+            self.page.wait_for_selector("section.note-item", timeout=60000)
         except Exception as e:
             print(f"[SearchCollector] WARN: 等待笔记列表超时: {e}")
             self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_search_timeout.png")
