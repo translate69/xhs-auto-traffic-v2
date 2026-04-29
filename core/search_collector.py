@@ -132,17 +132,21 @@ class SearchCollector:
     def _check_login(self):
         """
         检测当前页面是否需要登录。
-        小红书 cookie 失效后会重定向到登录页，通过 URL + 关键元素判断。
+        小红书 cookie 失效时不总是 URL 重定向，
+        也可能在原 URL 显示未登录遮罩（reds-mask）。
+        用内容检测：检查是否有登录相关元素，或者缺少已登录用户元素。
         抛出 LoginRequiredError， callers 负责向上传递给 UI 层提示用户扫码。
         """
         current_url = self.page.url
-        # 登录页重定向迹象
+
+        # 1. URL 重定向检测（传统方式）
         if any(kw in current_url for kw in ["login", "redict", "/w/"]):
             self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_login_required.png")
             raise LoginRequiredError(
-                "小红书登录态失效，需重新扫码。请在浏览器中打开 xhs_cookies.json 对应的账号完成登录。"
+                "小红书登录态失效（URL 重定向），需重新扫码登录。"
             )
-        # 备选：登录页特征元素
+
+        # 2. 登录弹窗特征元素检测
         try:
             self.page.wait_for_selector(
                 "[class*='login'], [class*='login-modal'], .login-container",
@@ -153,6 +157,21 @@ class SearchCollector:
             )
         except Exception:
             pass  # 正常页面，无弹窗
+
+        # 3. 内容级检测：已登录用户的头像/昵称应在页头
+        #    未登录时页头是「登录/注册」按钮
+        try:
+            self.page.wait_for_selector(
+                ".user-author, .user-info, [class*='user-author'], [class*='avatar']",
+                timeout=5000
+            )
+        except Exception:
+            # 未找到已登录用户特征元素，可能未登录
+            # 截图留证（包含 reds-mask 等遮罩情况）
+            self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_login_required.png")
+            raise LoginRequiredError(
+                "小红书登录态失效（未检测到登录用户信息），请扫码登录后重试。"
+            )
 
 
 
