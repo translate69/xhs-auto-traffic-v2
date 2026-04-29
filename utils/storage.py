@@ -157,8 +157,19 @@ class CollectedStorage:
 
     # ── 路径解析 ──────────────────────────────────────────
 
+    def _run_id_to_path(self, run_id: str) -> Path:
+        """
+        从 run_id 提取日期和关键词，映射到实际文件路径。
+        run_id 格式: {date}_{time}_{keyword}  →  文件名: {date}_{keyword}.jsonl
+        多词关键词用 _ 连接，所以从第3段开始拼回关键词。
+        """
+        parts = run_id.split("_")
+        date = parts[0]  # e.g. "2026-04-29"
+        keyword = "_".join(parts[2:])  # e.g. "汕尾海边民宿推荐"
+        return self.RUNS_DIR / f"{date}_{keyword}.jsonl"
+
     def run_file_path(self, run_id: str) -> Path:
-        return self.RUNS_DIR / f"{run_id}.jsonl"
+        return self._run_id_to_path(run_id)
 
     def manifest_path(self) -> Path:
         return Path(self.MANIFEST_FILE)
@@ -167,14 +178,14 @@ class CollectedStorage:
 
     def save(self, run_id: str, keyword: str, details: list) -> Path:
         """
-        将 NoteDetail 列表写入 runs/ 下的文件。
+        将 NoteDetail 列表追加到 runs/ 下的文件（同一天同一关键词只对应一个文件）。
         返回文件路径。
         """
         path = self.run_file_path(run_id)
         path.parent.mkdir(parents=True, exist_ok=True)
 
         with self._lock:
-            with open(path, "w", encoding="utf-8") as f:
+            with open(path, "a", encoding="utf-8") as f:
                 for detail in details:
                     # 兼容 NoteDetail dataclass 和 dict
                     if hasattr(detail, "__dict__"):
@@ -195,9 +206,11 @@ class CollectedStorage:
                             "author_id": getattr(detail, "author_id", "") or "",
                             "keyword": keyword,
                             "collected_at": datetime.now().isoformat(),
+                            "run_id": run_id,
                         }
                     else:
                         row = detail  # 已经是 dict
+                        row["run_id"] = run_id  # 确保有 run_id 标识
                     f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
         return path
@@ -205,7 +218,11 @@ class CollectedStorage:
     # ── 读取（断点恢复用）────────────────────────────────
 
     def load(self, run_id: str) -> list[dict]:
-        """读取指定 run_id 的中间文件，返回 list[dict]"""
+        """
+        读取指定 run_id 的中间文件，返回 list[dict]。
+        文件可能包含多个 run 的数据（同一天同一关键词追加），
+        只返回当前 run_id 的记录。
+        """
         path = self.run_file_path(run_id)
         if not path.exists():
             return []
@@ -217,7 +234,9 @@ class CollectedStorage:
                 if not line:
                     continue
                 try:
-                    records.append(json.loads(line))
+                    rec = json.loads(line)
+                    if rec.get("run_id") == run_id:
+                        records.append(rec)
                 except json.JSONDecodeError:
                     continue
         return records
