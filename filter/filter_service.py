@@ -20,6 +20,7 @@ from utils.parse import parse_published_at
 # ─── 过滤常量 ────────────────────────────────────────────
 
 REGION_KEYWORDS = ["汕尾", "红海湾", "金町湾", "海丰", "陆丰", "二马路", "三马路"]
+REGION_KEYWORDS_SZ = ["深圳", "天文台", "南武当", "梧桐山", "大鹏", "较场尾", "东门", "世界之窗", "深圳湾", "东部华侨城", "中英街", "莲花山"]
 
 ASK_SIGNALS = [
     "求", "求推荐", "求带", "求问", "求攻略", "求美食",
@@ -34,6 +35,7 @@ ASK_SIGNALS = [
 
 STRONG_REJECT_KEYWORDS = [
     "旅游搭子", "找旅游搭子", "找搭子", "求搭子", "旅行搭子",
+    "包车", "带车司机", "配司机", "驾驶员", "地陪",
 ]
 
 QUESTION_SIGNALS = ["?", "？", "吗", "么", "呢"]
@@ -47,6 +49,7 @@ REJECT_PATTERNS = [
     r"旗舰店", r"专卖店", r"限时", r"福利", r"广告", r"开业",
     r"秒杀", r"抢购", r"真的绝了", r"太宝藏了", r"封神",
     r"保姆级", r"附超全", r"不踩坑", r"不踩雷",
+    r"车型[：:]", r"随停随走", r"人数1-7", r"全程[一三两五八]小时",
 ]
 
 # 纯酒店/民宿夸赞广告淘汰关键词（无求助信号 → 淘汰）
@@ -72,6 +75,7 @@ SHARE_POST_KEYWORDS = [
     "攻略", "分享", "推荐", "打卡", "避雷", "合集",
     "探店", "测评", "我的", "我去", "我吃",
     "不踩坑", "不踩雷", "保姆级", "超全",
+    "没有攻略", "无攻略", "没攻略",  # 否定语气，非求助
 ]
 
 TRANSPORT_KEYWORDS = [
@@ -79,7 +83,7 @@ TRANSPORT_KEYWORDS = [
     "大巴", "车站", "自驾", "路线",
 ]
 
-NEGATIONS = ["不想", "不要", "不是", "不含", "没兴趣", "不考虑", "不去"]
+NEGATIONS = ["不想", "不要", "不是", "不含", "没兴趣", "不考虑", "不去", "不知道", "不知", "没吃过", "没尝过"]
 
 
 # ─── FilterResult ────────────────────────────────────────
@@ -105,25 +109,29 @@ class FilterService:
       3. 分类：美食推荐/住宿推荐/行程规划/景点推荐
     """
 
-    def filter_all(self, details: list[NoteDetail]) -> list[NoteDetail]:
+    def filter_all(self, details: list[NoteDetail], keyword: str = "") -> list[NoteDetail]:
         """
         对所有笔记执行过滤，返回通过筛选的 NoteDetail 列表。
         同时写入 data/filtered_for_feishu.jsonl。
+        同时更新每条 detail 的 filter_* 字段（供保存时写入中间文件）。
         """
         passed = []
 
         for detail in details:
-            result = self.filter_one(detail)
+            result = self.filter_one(detail, keyword=keyword)
             detail.filter_result = result
+            detail.filter_passed = result.passed
+            detail.filter_reasons = result.reasons
+            detail.filter_type = result.note_type
 
             if result.passed:
                 passed.append(detail)
 
         # 写文件
-        self._write_output(passed, keyword=getattr(detail, 'keyword', '') or '')
+        self._write_output(passed, keyword=keyword)
         return passed
 
-    def filter_one(self, detail: NoteDetail) -> FilterResult:
+    def filter_one(self, detail: NoteDetail, keyword: str = "") -> FilterResult:
         """对单条笔记执行完整过滤逻辑"""
         title = detail.title or ""
         content = detail.content or ""
@@ -142,9 +150,15 @@ class FilterService:
                 pass
 
         # ── 2. 地域检查 ────────────────────────────────
-        has_region = any(kw in combined for kw in REGION_KEYWORDS)
+        # 根据关键词确定检查哪组地域词
+        kw = keyword or getattr(detail, "keyword", "") or ""
+        if "深圳" in kw:
+            region_kws = REGION_KEYWORDS_SZ
+        else:
+            region_kws = REGION_KEYWORDS
+        has_region = any(kw in combined for kw in region_kws)
         if not has_region:
-            return FilterResult(passed=False, reasons="非汕尾地域")
+            return FilterResult(passed=False, reasons=f"非目标地域")
 
         # ── 3. 强拒绝关键词 ────────────────────────────
         if any(kw in combined for kw in STRONG_REJECT_KEYWORDS):
@@ -155,20 +169,25 @@ class FilterService:
             return FilterResult(passed=False, reasons="商家账号")
 
         # ── 5. 纯攻略/分享贴 ───────────────────────────
+        # 去掉标签，避免标签里的关键词干扰信号判断和分类
+        content_no_tags = re.sub(r'#.+?(?=\s|#|$)', '', content)
+
         # 先计算 ask 信号（供多个规则共用）
         title_has_explicit_ask = has_signal(title, ASK_SIGNALS)
         # 推荐格式标题（「xxx推荐xxx」）中的「推荐」不算 ASK 信号
         if self._is_recommendation_format(title):
             title_has_explicit_ask = False
-        content_has_ask = has_signal(content, ["求", "想问", "请问", "求指教", "帮我", "帮帮我", "推荐"])
+        content_has_ask = has_signal(content_no_tags, ["求", "想问", "请问", "求指教", "帮我", "帮帮我", "推荐"])
         title_has_bang = "帮我" in title or "帮帮我" in title or "帮忙" in title
         has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
 
-        if self._is_share_post_only(title, content):
+        # 用去掉标签的内容做分享贴检查
+        if self._is_share_post_only(title, content_no_tags):
             return FilterResult(passed=False, reasons="纯分享攻略贴")
 
         # ── 6. 纯交通类 ───────────────────────────────
-        note_types = classify_types(title, content)
+        note_types = classify_types(title, content_no_tags)  # 分类时不依赖标签
+        combined = f"{title} {content_no_tags}"
         if self._is_transport_only(combined, note_types):
             return FilterResult(passed=False, reasons="纯交通问题")
 
@@ -221,12 +240,21 @@ class FilterService:
 
     def _is_share_post_only(self, title: str, content: str) -> str | None:
         """检查是否为纯分享/攻略贴。返回淘汰原因或 None"""
-        combined = title + " " + content
+        # 去掉标签，避免标签里的关键词干扰信号判断
+        content_no_tags = re.sub(r'#.+?(?=\s|#|$)', '', content)
+        combined = title + " " + content_no_tags
+
+        # 标题否定语气：没有攻略/无攻略/没攻略 → 纯分享，非求助
+        title_negation_patterns = ["没有攻略", "无攻略", "没攻略", "不用攻略", "不必攻略"]
+        if any(title.startswith(p) for p in title_negation_patterns):
+            return "纯分享攻略贴"
+
         title_has_explicit_ask = has_signal(title, ASK_SIGNALS)
         # 推荐格式（「xxx推荐xxx」）不算求助信号
         if self._is_recommendation_format(title):
             title_has_explicit_ask = False
-        content_has_ask = has_signal(content, ["求", "想问", "请问", "求指教", "帮我", "帮帮我", "推荐"])
+        # 用去掉标签的内容检查，避免标签里的「推荐」等词误判
+        content_has_ask = has_signal(content_no_tags, ["求", "想问", "请问", "求指教", "帮我", "帮帮我", "推荐"])
         title_has_bang = "帮我" in title or "帮帮我" in title or "帮忙" in title
         has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
 
@@ -245,9 +273,9 @@ class FilterService:
         if any(kw in combined for kw in SHARE_POST_KEYWORDS):
             return "纯分享攻略贴"
 
-        # 强化：纯分享风格
+        # 强化：纯分享风格（用去掉标签的内容）
         share_style = (
-            content.count("#") >= 2 or
+            content_no_tags.count("#") >= 2 or
             "打卡" in combined or
             "合集" in combined or
             (title.startswith(("我的", "我在", "我吃", "这次", "终于", "终于打卡"))) or
@@ -258,6 +286,34 @@ class FilterService:
             return "纯分享攻略贴"
 
         return None
+
+    def _has_unnegated_intent(self, text: str) -> bool:
+        """检测是否有未是否定修饰的意图词（想/计划/打算/准备/行程）"""
+        INTENT_WORDS = ["想", "计划", "打算", "准备", "行程"]
+        # 否定前缀列表（按长度降序排列，避免短前缀干扰）
+        NEG_PREFIXES_SORTED = sorted(
+            ["不想", "不想去", "不打算", "不计划", "不要", "不用", "不会", "不能", "没想", "没打算", "没计划", "不", "没", "别"],
+            key=len, reverse=True
+        )
+        text_lower = text.lower()
+
+        for kw in INTENT_WORDS:
+            idx = text_lower.find(kw)
+            if idx == -1:
+                continue
+            # 检查「想」前1字、「计划」前2字等是否是否定
+            # 从长到短检查：先检查2字否定，再检查单字否定
+            max_prefix_len = max(len(p) for p in NEG_PREFIXES_SORTED)
+            start = max(0, idx - max_prefix_len)
+            pre_text = text_lower[start:idx]
+            negated = False
+            for prefix in NEG_PREFIXES_SORTED:
+                if pre_text.endswith(prefix):
+                    negated = True
+                    break
+            if not negated:
+                return True
+        return False
 
     def _is_transport_only(self, combined: str, note_types: list[str]) -> bool:
         if not any(kw in combined for kw in TRANSPORT_KEYWORDS):
@@ -273,7 +329,9 @@ class FilterService:
     def _get_pass_reasons(self, title: str, content: str, note_types: list[str]) -> list[str]:
         """判断通过原因。宽松规则：有地域+有note_types+无强拒绝=通过"""
         reasons = []
+        # 去掉标签，避免标签里的关键词干扰信号判断
         content_no_tags = re.sub(r'#.+?(?=\s|#|$)', '', content)
+        combined_no_tags = f"{title} {content_no_tags}"
 
         # 求助信号（高优先级）
         if has_signal(content_no_tags, ASK_SIGNALS):
@@ -300,13 +358,14 @@ class FilterService:
         # 收紧：必须有内容质量信号，纯分享/广告语气不允许
         if note_types:
             # 纯分享/广告语气 → 淘汰（家宝藏/封神/种草语气）
-            if re.search(r"宝藏|绝了|封神|太好吃|种草", content):
+            if re.search(r"宝藏|绝了|封神|太好吃|种草", content_no_tags):
                 return reasons  # 不添加 type_match，走淘汰
             # 有问句/意图信号 → 通过（真实需求）
-            if any(kw in content for kw in ["吗", "怎么", "哪里", "哪", "求", "想问", "请问"]):
+            # 避免「哪」单独匹配「去哪玩不重要」这类陈述句
+            if any(kw in content_no_tags for kw in ["吗", "怎么", "哪里", "求", "想问", "请问"]) or "哪儿" in content_no_tags:
                 reasons.append("type_match")
-            # 内容较长 + 有意图词 → 通过
-            elif len(content) > 30 and any(p in content for p in ["想", "计划", "打算", "准备", "行程"]):
+            # 内容较长 + 有意图词（排除被否定修饰的） → 通过
+            elif len(content_no_tags) > 30 and self._has_unnegated_intent(content_no_tags):
                 reasons.append("type_match")
 
         return reasons
@@ -379,29 +438,30 @@ def has_signal(text: str, kw_list: list[str]) -> bool:
         idx = text_lower.find(kw.lower())
         if idx == -1:
             continue
-        # 只有在「否定词在前」时才跳过；CJK 前缀本身不跳过（干扰正常匹配）
-        if idx > 0:
-            pre_char = text_lower[idx - 1]
-            if 0x4E00 <= ord(pre_char) <= 0x9FFF:
-                # CJK 前缀：检查前面是否有否定词
-                has_negation = any(
-                    n in text_lower[idx - w:idx]
-                    for w in range(4, 0, -1)
-                    for n in NEGATIONS
-                    if idx >= w
-                )
-                if not has_negation:
-                    # 无否定词，保留匹配（如"美食求推荐"中的"求"）
-                    pass
-                else:
-                    # 有否定词前缀，跳过
-                    continue
-        # 否定词窗口检查
-        for window in range(4, 0, -1):
-            if idx >= window:
-                pre = text_lower[idx - window:idx]
-                if any(n in pre for n in NEGATIONS):
-                    break
-        else:
-            return True
+
+        # ── 否定词检查（向前看2字，否定词最长2字）────────────────
+        # 单字否定 + 完整否定短语
+        NEGATIONS_SINGLE = ["不", "没", "别", "莫", "勿", "未", "否", "休", "甭"]
+        NEGATIONS_PHRASE = ["不想", "不要", "不是", "不含", "没兴趣", "不考虑", "不去", "不知道", "不了解", "不清楚", "不确定", "没吃过", "没尝过"]
+        # 关键词后紧跟的否定词（.signal不/没/无 + 后续字）
+        POST_SIGNAL_NEG = ["不", "没", "无"]
+
+        if idx >= 2:
+            pre = text_lower[idx - 2:idx]
+            last_char = pre[-1] if pre else ''
+            if last_char in NEGATIONS_SINGLE:
+                continue  # 有否定词前缀，跳过
+            if any(n in pre for n in NEGATIONS_PHRASE):
+                continue  # 有完整否定短语，跳过
+
+        # ── 信号后否定检查（如「去哪玩不重要」）───────────────────
+        after_pos = idx + len(kw)
+        if after_pos < len(text_lower):
+            after_char = text_lower[after_pos]
+            if after_char in POST_SIGNAL_NEG:
+                # 紧跟的否定字，跳过
+                continue
+
+        # 无否定词，命中
+        return True
     return False

@@ -17,6 +17,7 @@ from core.browser_manager import BrowserManager
 from core.search_collector import SearchCollector
 from core.note_detail import NoteDetailCollector
 from filter.filter_service import FilterService
+from utils.storage import CollectedStorage
 from output.feishu_service import FeishuOutputService
 
 
@@ -49,6 +50,12 @@ def run_collect(keyword: str, limit: int, headless: bool = True):
         filter_svc = FilterService()
         filtered = filter_svc.filter_all(enriched)
         print(f"[main] 筛选完成: {len(filtered)} 条通过")
+
+        # 写入中间文件 + manifest（供 _verify_filter.py 验证）
+        storage = CollectedStorage()
+        run_id = storage.make_run_id(keyword)
+        storage.save(run_id, keyword, enriched)
+        storage.append_manifest(run_id, keyword, len(enriched))
 
         records = filtered
 
