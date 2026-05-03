@@ -110,10 +110,10 @@ def _to_timestamp_ms(val: str) -> int | None:
         return None
 
 
-def _to_url(val: str) -> dict:
-    """URL 字符串 → 飞书 URL 字段格式"""
+def _to_url(val: str) -> dict | None:
+    """URL 字符串 → 飞书 URL 字段格式，空时返回 None 跳过该字段"""
     if not val:
-        return {"link": "", "text": ""}
+        return None
     return {"link": val, "text": val}
 
 
