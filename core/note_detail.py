@@ -189,6 +189,27 @@ class NoteDetailCollector:
                 page.goto(detail_url, wait_until="networkidle")
                 _log_stage(f"  page.goto 完成", flush=False)
 
+                # ── 登录态检测（与 SearchCollector 一致）─────────────────────
+                # 检测登录弹窗
+                try:
+                    page.wait_for_selector(
+                        "[class*='login'], [class*='login-modal'], .login-container",
+                        timeout=3000
+                    )
+                    raise LoginRequiredError(
+                        "详情页检测到登录弹窗，cookie 可能已失效，需重新扫码"
+                    )
+                except Exception:
+                    pass  # 正常，无弹窗
+
+                # 检测是否跳转到了登录/安全限制页（URL 异常或页面内容异常）
+                final_url = page.url
+                if any(kw in final_url.lower() for kw in ["login", "/w/user/login", "/w/login", "error_code=", "website-login/error"]):
+                    self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_detail_login.png")
+                    raise LoginRequiredError(
+                        f"详情页 URL 异常（{final_url[:60]}），cookie 可能已失效"
+                    )
+
                 # 网络空闲后正文元素应该已经渲染，额外等一小段时间确保渲染完成
                 time.sleep(1)
                 page.wait_for_selector("#detail-desc", timeout=20000)
