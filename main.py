@@ -17,6 +17,7 @@ from core.browser_manager import BrowserManager
 from core.search_collector import SearchCollector
 from core.note_detail import NoteDetailCollector
 from filter.filter_service import FilterService
+from filter.review_service import ReviewService
 from utils.storage import CollectedStorage
 from output.feishu_service import FeishuOutputService
 
@@ -51,17 +52,23 @@ def run_collect(keyword: str, limit: int, headless: bool = True):
         filtered = filter_svc.filter_all(enriched)
         print(f"[main] 筛选完成: {len(filtered)} 条通过")
 
+        # ── ReviewService 强制复查 ──────────────────────
+        review_svc = ReviewService()
+        reviewed = review_svc.review(filtered, keyword=keyword)
+        print(f"[main] 复查完成: {len(reviewed)} 条终审通过")
+
         # 写入中间文件 + manifest（供 _verify_filter.py 验证）
         storage = CollectedStorage()
         run_id = storage.make_run_id(keyword)
         storage.save(run_id, keyword, enriched)
         storage.append_manifest(run_id, keyword, len(enriched))
 
-        records = filtered
+        records = reviewed
 
     # ── 输出 ──────────────────────────────────────────────
     if records:
         feishu = FeishuOutputService()
+        feishu.input_path = review_svc.output_path
         feishu.write(records, keyword=keyword)
         print(f"[main] 飞书写入完成: {len(records)} 条")
 
