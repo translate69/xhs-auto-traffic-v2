@@ -186,13 +186,13 @@ class NoteDetailCollector:
                     raise RuntimeError("Page 未初始化")
 
                 _log_stage(f"  goto: {detail_url[:80]}", flush=False)
-                page.goto(detail_url, wait_until="domcontentloaded")
+                page.goto(detail_url, wait_until="networkidle")
                 _log_stage(f"  page.goto 完成", flush=False)
 
-                page.wait_for_selector("#detail-desc", timeout=15000)
+                # 网络空闲后正文元素应该已经渲染，额外等一小段时间确保渲染完成
+                time.sleep(1)
+                page.wait_for_selector("#detail-desc", timeout=20000)
                 _log_stage(f"  wait_for_selector 完成", flush=False)
-
-                time.sleep(2)  # 等待异步数据加载
                 _log_stage(f"  开始提取详情", flush=False)
 
                 detail = self._extract_detail(page)
