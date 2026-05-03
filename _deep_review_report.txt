@@ -1,0 +1,558 @@
+=== logs/ dir: 153 files ===
+  深圳到汕尾自驾住哪_20260430_111234.log: 2280 bytes
+  深圳到汕尾自驾住哪_20260430_112135.log: 1154 bytes
+  深圳到汕尾自驾住哪_20260430_112224.log: 2278 bytes
+  深圳到汕尾自驾住哪_20260501_025709.log: 2075 bytes
+  深圳到汕尾自驾住哪_20260501_030027.log: 2618 bytes
+
+=== browser_manager.py key sections ===
+    try:
+                try:
+                except ValueError:
+    except Exception:
+            try:
+            except Exception:
+            try:
+            except Exception:
+            try:
+            except Exception:
+            try:
+            except Exception:
+        try:
+        except Exception:
+            try:
+            except Exception:
+
+=== run_batch.py (full) ===
+"""
+run_batch.py - 串行执行关键词采集任务
+
+每个关键词在同一个 Playwright browser 实例中顺序执行，
+共享登录态，超时保护，超时后关闭当前 context 继续下一个。
+
+用法：
+    python run_batch.py                          # 跑全部关键词
+    python run_batch.py --keyword 汕尾美食       # 只跑单个
+    python run_batch.py --limit 50              # 每关键词采集数量（默认50）
+    python run_batch.py --timeout 600           # 单任务超时秒数（默认600）
+    python run_batch.py --dry-run               # 只看要跑哪些，不实际执行
+    python run_batch.py --group core            # 只跑 core 分组
+"""
+import argparse
+import signal
+import sys
+import threading
+import time
+from pathlib import Path
+from datetime import datetime
+
+# 项目根目录
+PROJECT_ROOT = Path(__file__).parent
+
+# 导入项目模块
+sys.path.insert(0, str(PROJECT_ROOT))
+import config
+from core.browser_manager import BrowserManager
+from core.search_collector import SearchCollector
+from core.note_detail import NoteDetailCollector
+from output.feishu_service import FeishuOutputService
+from utils.storage import CollectedStorage, RecentStorage
+
+
+def _load_storage():
+    return CollectedStorage()
+
+
+def load_keywords(keywords_txt: Path | None = None) -> list[dict]:
+    """加载关键词配置"""
+    keywords_txt = keywords_txt or (PROJECT_ROOT / "keywords.txt")
+    keywords = []
+    with open(keywords_txt, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            parts = line.rsplit(",", 1)
+            keyword = parts[0].strip()
+            group = parts[1].strip() if len(parts) > 1 else "default"
+            keywords.append({"keyword": keyword, "group": group})
+    return keywords
+
+
+def run_one_keyword(
+    browser_manager: BrowserManager,
+    keyword: str,
+    limit: int,
+    timeout: int,
+    storage: CollectedStorage,
+) -> dict:
+    """
+    在同一个 browser 实例中执行单个关键词采集。
+    返回结果 dict。
+    """
+    run_id = storage.make_run_id(keyword)
+    result = {
+        "run_id": run_id,
+        "keyword": keyword,
+        "success": False,
+        "passed_count": 0,
+        "feeds_count": 0,
+        "elapsed": 0,
+        "error": None,
+    }
+
+    # 新建一个隔离的 context（共享 browser，保持 cookie）
+    context = None
+    timer = None
+    timed_out = False
+
+    try:
+        context = browser_manager.browser.new_context(
+            viewport=config.VIEWPORT,
+            user_agent=config.USER_AGENT,
+        )
+        # 注入反检测
+        context.add_init_script(
+            """Object.defineProperty(navigator, 'webdriver', {
+                get: () => false, configurable: true
+            });"""
+        )
+
+        # 加载 cookie
+        browser_manager._load_cookies_to_context(context)
+
+        start_time = time.time()
+
+        # 超时保护
+        def timeout_handler():
+            nonlocal timed_out
+            timed_out = True
+            print(f"[{keyword}] ⏰ 超时（{timeout}s），将在当前笔记完成后停止")
+
+        timer = threading.Timer(timeout, timeout_handler)
+        timer.start()
+
+        # ── 搜索采集 ─────────────────────────────────────
+        collector = SearchCollector(browser_manager.browser, context)
+        feeds = collector.collect(keyword, limit=limit)
+        result["feeds_count"] = len(feeds)
+        print(f"[{keyword}] 采集完成: {len(feeds)} 条 Feeds")
+
+        # ── Enrichment ───────────────────────────────────
+        detail_collector = NoteDetailCollector(browser_manager.browser, context)
+        notes = detail_collector.enrich_all(feeds)
+        print(f"[{keyword}] enrichment 完成: {len(notes)} 条")
+
+        # ── 筛选 ─────────────────────────────────────────
+        from filter.filter_service import FilterService
+        svc = FilterService()
+        passed_notes = []
+        for note in notes:
+            r = svc.filter_one(note, keyword=keyword)
+            note.filter_passed = r.passed
+            note.filter_reasons = r.reasons if r.reasons is not None else "",
+            if r.passed:
+                passed_notes.append(note)
+        result["passed_count"] = len(passed_notes)
+        print(f"[{keyword}] 筛选完成: {len(passed_notes)}/{len(notes)} 条通过")
+
+        # ── 写入飞书 ────────────────────────────────────
+        if passed_notes:
+            try:
+                feishu = FeishuOutputService()
+                feishu.write(passed_notes, keyword=keyword)
+                print(f"[{keyword}] 飞书写入完成")
+            except Exception as e:
+                print(f"[{keyword}] 飞书写入失败: {e}")
+
+        # ── 保存 ─────────────────────────────────────────
+        storage.save(run_id, notes, keyword)
+        storage.append_manifest(run_id, keyword, len(passed_notes))
+
+        elapsed = time.time() - start_time
+        result["success"] = True
+        result["elapsed"] = elapsed
+
+    except Exception as e:
+        import traceback
+        result["error"] = str(e)
+        print(f"[{keyword}] ❌ 失败: {e}")
+        traceback.print_exc()
+
+    finally:
+        if timer:
+            timer.cancel()
+        if context:
+            try:
+                context.close()
+            except Exception:
+                pass
+        elapsed = result.get("elapsed", 0)
+        print(f"[{keyword}] {'✅' if result['success'] else '❌'} 完成，耗时 {elapsed:.1f}s")
+
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description="串行执行关键词采集任务")
+    parser.add_argument("--keyword", "-k", type=str, default=None, help="只跑指定关键词")
+    parser.add_argument("--limit", "-l", type=int, default=50, help="每关键词采集数量（默认50）")
+    parser.add_argument("--timeout", "-t", type=int, default=600, help="单任务超时秒数（默认600）")
+    parser.add_argument("--dry-run", action="store_true", help="只列出要跑的关键词，不实际执行")
+    parser.add_argument("--group", type=str, default=None, help="只跑指定分组: core / longtail")
+    parser.add_argument("--keywords-file", type=str, default=None, help="关键词文件路径")
+
+    args = parser.parse_args()
+
+    # ── 加载关键词 ───────────────────────────────────────
+    keywords_file = Path(args.keywords_file) if args.keywords_file else None
+    all_kw = load_keywords(keywords_file)
+    if args.group:
+        all_kw = [kw for kw in all_kw if kw["group"] == args.group]
+    if args.keyword:
+        all_kw = [kw for kw in all_kw if kw["keyword"] == args.keyword]
+
+    if not all_kw:
+        print("没有要跑的关键词")
+        return
+
+    print(f"待执行 {len(all_kw)} 个关键词，超时={args.timeout}s，limit={args.limit}")
+
+    if args.dry_run:
+        for kw in all_kw:
+            print(f"  [{kw['group']}] {kw['keyword']}")
+        return
+
+    storage = _load_storage()
+
+    # ── 启动单个 Browser 实例 ──────────────────────────
+    print(f"\n{'='*50}")
+    print("启动 Playwright Browser（全局单实例）")
+    print("="*50)
+
+    browser_mgr = BrowserManager()
+    browser_started = False
+    try:
+        browser, context = browser_mgr.__enter__()
+        browser_started = True
+        print("Browser 启动成功，开始采集\n")
+
+        results = []
+        for i, kw_info in enumerate(all_kw, 1):
+            keyword = kw_info["keyword"]
+            group = kw_info["group"]
+
+            print(f"\n{'='*50}")
+            print(f"[{i}/{len(all_kw)}] [{group}] {keyword}")
+
+            result = run_one_keyword(
+                browser_manager=browser_mgr,
+                keyword=keyword,
+                limit=args.limit,
+                timeout=args.timeout,
+                storage=storage,
+            )
+            results.append(result)
+
+            # 批次间休息，避免频繁请求
+            if i < len(all_kw):
+                print(f"休息 5s...")
+                time.sleep(5)
+
+    finally:
+        if browser_started:
+            print("\n关闭 Browser...")
+            browser_mgr.__exit__(None, None, None)
+
+    # ── 汇总报告 ─────────────────────────────────────────
+    print(f"\n{'='*50}")
+    print("执行完毕")
+    success_cnt = sum(1 for r in results if r["success"])
+    pass_cnt = sum(r["passed_count"] for r in results)
+    print(f"关键词: {len(results)} 个，成功: {success_cnt}，共通过: {pass_cnt} 条")
+
+    for r in results:
+        status = "✅" if r["success"] else "❌"
+        error = f" ({r['error']})" if r["error"] else ""
+        print(f"  {status} [{r['keyword']}] 通过={r['passed_count']} Feeds={r['feeds_count']} {r['elapsed']:.1f}s{error}")
+
+
+if __name__ == "__main__":
+    main()
+
+=== config TIME_THRESHOLD_DAYS ===
+PAGE_LOAD_TIMEOUT = 30000
+TIME_THRESHOLD_DAYS = 5
+RECENT_DAYS = 7
+
+=== main.py flow (checking empty/passed len) ===
+"""
+xhs-auto-traffic-v2 唯一入口
+用法：
+    python main.py --keyword 汕尾美食 --limit 50
+    python main.py --stage collect --keyword 汕尾美食 --limit 30
+    python main.py --stage feishu
+"""
+import argparse
+import sys
+from pathlib import Path
+
+# 确保项目根目录在 sys.path
+sys.path.insert(0, str(Path(__file__).parent))
+
+import config
+from core.browser_manager import BrowserManager
+from core.search_collector import SearchCollector
+from core.note_detail import NoteDetailCollector
+from filter.filter_service import FilterService
+from filter.review_service import ReviewService
+from utils.storage import CollectedStorage
+from output.feishu_service import FeishuOutputService
+
+
+def run_collect(keyword: str, limit: int, headless: bool = True):
+    """采集 + enrichment + 过滤，完整流程"""
+    records = []
+
+    with BrowserManager(headless=headless) as (browser, context):
+        # ── 搜索采集 ─────────────────────────────────────
+        collector = SearchCollector(browser, context)
+        feeds = collector.collect(keyword, limit=limit)
+        print(f"[main] 搜索采集完成: {len(feeds)} 条")
+
+        if not feeds:
+            print("[main] 无采集结果，退出")
+            return []
+
+        # ── 详情 enrichment ──────────────────────────────
+        detail_collector = NoteDetailCollector(browser, context)
+        enriched = detail_collector.enrich_all(feeds)
+        print(f"[main] enrichment 完成: {len(enriched)} 条")
+
+        # ── 记录「内容无法获取」的笔记（待人工确认）─────────
+        unavailable_notes = [n for n in enriched if n.content == "[内容无法获取]"]
+        if unavailable_notes:
+            _write_unavailable(unavailable_notes, keyword)
+            print(f"[main] 内容无法获取: {len(unavailable_notes)} 条（已写入待人工确认）")
+
+        # ── FilterService 重度过滤 ────────────────────────
+        filter_svc = FilterService()
+        filtered = filter_svc.filter_all(enriched)
+        print(f"[main] 筛选完成: {len(filtered)} 条通过")
+
+        # ── ReviewService 强制复查 ──────────────────────
+        review_svc = ReviewService()
+        reviewed = review_svc.review(filtered, keyword=keyword)
+        print(f"[main] 复查完成: {len(reviewed)} 条终审通过")
+
+        # 写入中间文件 + manifest（供 _verify_filter.py 验证）
+        storage = CollectedStorage()
+        run_id = storage.make_run_id(keyword)
+        storage.save(run_id, keyword, enriched)
+        storage.append_manifest(run_id, keyword, len(enriched))
+
+        records = reviewed
+
+    # ── 输出 ──────────────────────────────────────────────
+    if records:
+        feishu = FeishuOutputService()
+        feishu.input_path = review_svc.output_path
+        feishu.write(records, keyword=keyword)
+        print(f"[main] 飞书写入完成: {len(records)} 条")
+
+    return records
+
+
+def _write_unavailable(notes: list, keyword: str):
+    """写入无法获取内容的笔记，供人工确认"""
+    import json
+    from datetime import datetime
+    config.FEISHU_DIR.mkdir(parents=True, exist_ok=True)
+    output_path = config.FEISHU_DIR / "unavailable_for_review.jsonl"
+    rows = []
+    for detail in notes:
+        import re
+        note_url = detail.url
+        if "/explore/" not in note_url and "search_result/" in detail.url:
+            m = re.search(r"search_result/([a-fA-F0-9]+)", detail.url)
+            if m:
+                note_id = m.group(1)
+                note_url = f"https://www.xiaohongshu.com/explore/{note_id}?xsec_token={detail.xsec_token}&xsec_source=pc_search"
+        rows.append({
+            "title": detail.title or "",
+            "note_url": note_url,
+            "note_id": detail.note_id,
+            "author": detail.author or "",
+            "published_at": detail.published_at or "",
+            "keyword": keyword,
+            "collected_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        })
+    with open(output_path, "a", encoding="utf-8") as f:
+        for row in rows:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
+def run_feishu(data_dir: Path | None = None):
+    """单独触发飞书写入"""
+    import json
+    from filter.filter_service import FilterService
+
+    data_dir = data_dir or config.DATA_DIR
+    input_path = data_dir / "filtered_for_feishu.jsonl"
+
+    if not input_path.exists():
+        print(f"[main] 文件不存在: {input_path}")
+        return []
+
+    records = []
+    with open(input_path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                records.append(json.loads(line))
+            except json.JSONDecodeError:
+                continue
+
+    if records:
+        feishu = FeishuOutputService()
+        feishu.write(records)
+        print(f"[main] 飞书写入完成: {len(records)} 条")
+
+    return records
+
+
+def main():
+    parser = argparse.ArgumentParser(description="xhs-auto-traffic-v2")
+    parser.add_argument("--keyword", "-k", type=str, help="搜索关键词")
+    parser.add_argument("--limit", "-l", type=int, default=config.DEFAULT_LIMIT, help=f"采集数量（默认 {config.DEFAULT_LIMIT}）")
+    parser.add_argument("--stage", "-s", type=str, default="all", choices=["all", "collect", "feishu"], help="运行阶段")
+    parser.add_argument("--debug", action="store_true", help="调试模式（headed 浏览器）")
+    parser.add_argument("--data-dir", type=str, default=None, help="数据目录")
+
+    args = parser.parse_args()
+
+    headless = not args.debug
+
+    if args.stage == "collect":
+        if not args.keyword:
+            print("[main] collect 阶段需要 --keyword")
+            sys.exit(1)
+        run_collect(args.keyword, args.limit, headless=headless)
+
+    elif args.stage == "feishu":
+        data_dir = Path(args.data_dir) if args.data_dir else None
+        run_feishu(data_dir)
+
+    elif args.stage == "all":
+        if not args.keyword:
+            print("[main] all 阶段需要 --keyword")
+            sys.exit(1)
+        run_collect(args.keyword, args.limit, headless=headless)
+
+
+if __name__ == "__main__":
+    main()
+
+
+=== feishu_client batch_write ===
+def batch_write(rows: list[dict] | dict, existing_ids: set[str] | None = None) -> tuple[int, int, int]:
+    """
+    批量写入飞书（幂等：跳过已存在的 note_id）。
+    支持单个 dict 或 list[dict]。
+
+    返回 (written, skipped, failed)。
+    """
+    # 兼容单个 dict 输入
+    if isinstance(rows, dict):
+        rows = [rows]
+
+    if existing_ids is None:
+        existing_ids = load_existing_note_ids()
+
+    print(f"[Feishu] 当前表格已有 {len(existing_ids)} 条记录")
+
+    written = 0
+    skipped = 0
+    failed = 0
+
+    for row in rows:
+        note_id = row.get("note_id", "")
+        if not note_id:
+            # 从 URL 提取
+            import re
+            m = re.search(r"search_result/([a-fA-F0-9]+)", row.get("url", ""), re.IGNORECASE)
+            if m:
+                note_id = m.group(1)
+            else:
+                failed += 1
+                continue
+
+        if note_id in existing_ids:
+            skipped += 1
+            print(f"[Feishu] [{note_id}] 已存在，跳过")
+            continue
+
+        ok = write_single_record(note_id, row)
+        if ok:
+            written += 1
+            existing_ids.add(note_id)
+            print(f"[Feishu] [{note_id}] 写入成功: {row.get('title', '')[:30]}")
+        else:
+            failed += 1
+            print(f"[Feishu] [{note_id}] 写入失败")
+
+    print(f"[Feishu] 完成: 写入 {written}，跳过 {skipped}，失败 {failed}")
+    return written, skipped, failed
+
+=== feishu_client load_existing_note_ids ===
+def load_existing_note_ids() -> set[str]:
+    """获取飞书表格中已存在的所有 note_id（避免重复写入）"""
+    token = os.environ.get("FEISHU_TOKEN", "") or _get_tenant_token()
+    if not token:
+        return set()
+
+    existing_ids: set[str] = set()
+    app_token = config.FEISHU_APP_TOKEN
+    table_id = config.FEISHU_TABLE_ID
+    url = f"https://open.feishu.cn/open-apis/bitable/v1/apps/{app_token}/tables/{table_id}/records?page_size=500"
+
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={"Authorization": f"Bearer {token}"},
+            method="GET",
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            result = json.load(resp)
+            records = result.get("data", {}).get("items", [])
+            for rec in records:
+                fields = rec.get("fields", {})
+                note_id = fields.get("笔记ID", "")
+                if note_id:
+                    existing_ids.add(note_id)
+    except Exception:
+        pass
+
+    return existing_ids
+
+=== search_collector: error recovery ===
+            except Exception:
+except ImportError:
+class LoginRequiredError(Exception):
+        except Exception:
+        except Exception:
+        except Exception as e:
+        except Exception:
+        except Exception as e:
+        except Exception as e:
+
+=== note_detail: error recovery ===
+            except Exception:
+except ImportError:
+            except Exception as e:
+            finally:
+            except Exception as e:
+                    time.sleep(config.ENRICHMENT_RETRY_DELAY)
+        except Exception as e:

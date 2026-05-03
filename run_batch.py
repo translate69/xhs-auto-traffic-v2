@@ -119,6 +119,7 @@ def run_one_keyword(
 
         # ── 筛选 ─────────────────────────────────────────
         from filter.filter_service import FilterService
+        from filter.review_service import ReviewService
         svc = FilterService()
         passed_notes = []
         for note in notes:
@@ -130,11 +131,17 @@ def run_one_keyword(
         result["passed_count"] = len(passed_notes)
         print(f"[{keyword}] 筛选完成: {len(passed_notes)}/{len(notes)} 条通过")
 
+        # ── 复查（强制 gate）───────────────────────────
+        review_svc = ReviewService()
+        reviewed = review_svc.review(passed_notes, keyword=keyword)
+        print(f"[{keyword}] 复查完成: {len(reviewed)} 条终审通过")
+
         # ── 写入飞书 ────────────────────────────────────
-        if passed_notes:
+        if reviewed:
             try:
                 feishu = FeishuOutputService()
-                feishu.write(passed_notes, keyword=keyword)
+                feishu.input_path = review_svc.output_path
+                feishu.write(reviewed, keyword=keyword)
                 print(f"[{keyword}] 飞书写入完成")
             except Exception as e:
                 print(f"[{keyword}] 飞书写入失败: {e}")

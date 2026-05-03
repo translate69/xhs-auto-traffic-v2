@@ -16678,3 +16678,37 @@ attempting click action
 [11:45:23.318] [NoteDetail]   Page 已关闭
 [11:45:23.438] [NoteDetail] 处理笔记 11/15: 64ba423e000000001700dc2f
 [11:45:23.439] [NoteDetail]   goto: https://www.xiaohongshu.com/explore/64ba423e000000001700dc2f?xsec_token=ABbCLHT5
+[11:45:26.613] [NoteDetail]   page.goto 完成
+[11:45:28.462] [NoteDetail]   wait_for_selector 完成
+[11:45:30.463] [NoteDetail]   开始提取详情
+[11:45:30.479] [NoteDetail]   提取完成 content_len=148
+[11:45:33.564] [NoteDetail]   Page 已关闭
+[11:45:33.668] [NoteDetail] 处理笔记 12/15: 64ba507e000000001201cb42
+[11:45:33.668] [NoteDetail]   goto: https://www.xiaohongshu.com/explore/64ba507e000000001201cb42?xsec_token=ABbCLHT5
+[11:45:34.680] [NoteDetail]   page.goto 完成
+[11:45:35.683] [NoteDetail]   wait_for_selector 完成
+[11:45:37.684] [NoteDetail]   开始提取详情
+[11:45:37.700] [NoteDetail]   提取完成 content_len=128
+[11:45:42.541] [NoteDetail]   Page 已关闭
+[11:45:42.645] [NoteDetail] 处理笔记 13/15: 6469f0c800000000130378d5
+[11:45:42.645] [NoteDetail]   goto: https://www.xiaohongshu.com/explore/6469f0c800000000130378d5?xsec_token=ABkMJSd3
+[11:45:43.622] [NoteDetail]   page.goto 完成
+[11:45:44.692] [NoteDetail]   wait_for_selector 完成
+[11:45:46.693] [NoteDetail]   开始提取详情
+[11:45:46.712] [NoteDetail]   提取完成 content_len=27
+[11:45:49.933] [NoteDetail]   Page 已关闭
+[11:45:50.051] [NoteDetail] 处理笔记 14/15: 643ebf720000000013037120
+[11:45:50.051] [NoteDetail]   goto: https://www.xiaohongshu.com/explore/643ebf720000000013037120?xsec_token=ABB7yHf8
+[11:45:51.018] [NoteDetail]   page.goto 完成
+[11:45:52.088] [NoteDetail]   wait_for_selector 完成
+[11:45:54.090] [NoteDetail]   开始提取详情
+[11:45:54.104] [NoteDetail]   提取完成 content_len=67
+[11:45:58.034] [NoteDetail]   Page 已关闭
+[11:45:58.153] [NoteDetail] 处理笔记 15/15: 641fc36a0000000012032924
+[11:45:58.154] [NoteDetail]   goto: https://www.xiaohongshu.com/explore/641fc36a0000000012032924?xsec_token=ABTqktFK
+[11:46:00.552] [NoteDetail]   page.goto 完成
+[11:46:01.662] [NoteDetail]   wait_for_selector 完成
+[11:46:03.663] [NoteDetail]   开始提取详情
+[11:46:03.682] [NoteDetail]   提取完成 content_len=6
+[11:46:23.372] [NoteDetail]   Page 已关闭
+[11:46:23.402] [NoteDetail] enrich_all 完成，返回 15 条
