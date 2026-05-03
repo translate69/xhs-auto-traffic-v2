@@ -13,7 +13,7 @@ COOKIE_FILE = PROJECT_ROOT / "xhs_cookies.json"
 # ─── 浏览器配置 ────────────────────────────────────────────
 
 # 生产环境 headless，调试环境 headed
-HEADLESS = True
+HEADLESS = False  # 调试模式，浏览器窗口可见
 
 # Playwright Chromium 启动参数（反检测）
 BROWSER_ARGS = [
