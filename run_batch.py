@@ -123,7 +123,7 @@ def run_one_keyword(
             except Exception as e:
                 print(f"[{keyword}] 飞书写入失败: {e}")
 
-        storage.save(run_id, notes, keyword)
+        storage.save(run_id, keyword, notes)
         storage.append_manifest(run_id, keyword, len(passed_notes))
 
         result["elapsed"] = time.time() - start_time
@@ -172,6 +172,8 @@ def run_with_browser_restart(
                 browser_mgr.__exit__(None, None, None)
                 time.sleep(3)  # 等待旧进程完全退出
                 print(f"[{i}] 启动新浏览器")
+                browser_mgr = BrowserManager()
+                browser, _ = browser_mgr.__enter__()
             else:
                 print(f"\n{'='*50}")
                 print("启动 Playwright Browser")
