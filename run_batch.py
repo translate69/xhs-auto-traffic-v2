@@ -103,6 +103,7 @@ def run_one_keyword(
             r = filter_svc.filter_one(note, keyword=keyword)
             note.filter_passed = r.passed
             note.filter_reasons = r.reasons if r.reasons is not None else ""
+            note.filter_result = r  # 重要：ReviewService 依赖此字段
             if r.passed:
                 passed_notes.append(note)
         result["passed_count"] = len(passed_notes)
