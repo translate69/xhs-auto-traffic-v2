@@ -172,50 +172,83 @@ class SearchCollector:
     def _check_login(self):
         """
         检测当前页面是否需要登录。
-        小红书 cookie 失效时不总是 URL 重定向，
-        也可能在原 URL 显示未登录遮罩（reds-mask）。
-        用内容检测：检查是否有登录相关元素，或者缺少已登录用户元素。
+        小红书 cookie 失效时会弹出登录遮罩（QR码弹窗），
+        此时 DOM 里 body 会有 class='login-modal-open' 或类似状态。
+        用 JS 直接检查：login modal 是否盖住了页面内容。
         抛出 LoginRequiredError， callers 负责向上传递给 UI 层提示用户扫码。
         """
         current_url = self.page.url
 
-        # 1. URL 重定向检测（传统方式）
+        # 1. URL 重定向检测
         if any(kw in current_url.lower() for kw in ["login", "/w/user/login", "/w/login"]):
-            import os
-            screenshot_path = "E:/translate/claw/xhs-auto-traffic-v2/debug_login_url.png"
-            self.page.screenshot(path=screenshot_path)
+            self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_login_url.png")
             with open("E:/translate/claw/xhs-auto-traffic-v2/debug_login_url.txt", "w", encoding="utf-8") as f:
                 f.write(f"URL={current_url}\n")
             raise LoginRequiredError(
                 "小红书登录态失效（URL 重定向），需重新扫码登录。"
             )
 
-        # 2. 登录弹窗特征元素检测
-        try:
-            self.page.wait_for_selector(
-                "[class*='login'], [class*='login-modal'], .login-container",
-                timeout=3000
-            )
-            raise LoginRequiredError(
-                "检测到登录弹窗，请在浏览器中重新扫码登录小红书后保存 cookie。"
-            )
-        except Exception:
-            pass  # 正常页面，无弹窗
+        # 2. JS 检测：body 是否有遮罩 modal（XHS 登录弹窗是全屏遮罩）
+        #    检查 body 的 class 和 modal 是否 visible
+        is_blocked = self.page.evaluate("""() => {
+            // XHS 登录弹窗特征：.login-modal 或 .login-modal-cover
+            const modals = document.querySelectorAll(
+                '[class*=\"login-modal\"], [class*=\"login-modal-open\"], [class*=\"qrcode\"][class*=\"modal\"]'
+            );
+            for (const m of modals) {
+                const style = window.getComputedStyle(m);
+                const visible = style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+                const box = m.getBoundingClientRect();
+                const coversViewport = box.width > 300 && box.height > 300;
+                if (visible && coversViewport) return true;
+            }
+            // 也可以检查 body 是否有弹窗 class
+            const bodyClass = document.body.className || '';
+            if (bodyClass.includes('login-modal-open') || bodyClass.includes('modal-open')) {
+                return true;
+            }
+            return false;
+        }""")
 
-        # 3. 内容级检测：已登录用户的头像/昵称应在页头
-        #    未登录时页头是「登录/注册」按钮
-        try:
-            self.page.wait_for_selector(
-                ".user-author, .user-info, [class*='user-author'], [class*='avatar']",
-                timeout=5000
-            )
-        except Exception:
-            # 未找到已登录用户特征元素，可能未登录
-            # 截图留证（包含 reds-mask 等遮罩情况）
+        if is_blocked:
             self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_login_required.png")
             raise LoginRequiredError(
-                "小红书登录态失效（未检测到登录用户信息），请扫码登录后重试。"
+                "小红书登录态失效（检测到登录遮罩弹窗），请扫码登录后重试。"
             )
+
+        # 3. 内容级检测：页头是否有「登录/注册」按钮（未登录特征）
+        #    用 JS 检查页头区域是否有"登录"文字（准确，弹窗里的"登录"文字不会在 header 里）
+        has_login_btn = self.page.evaluate("""() => {
+            // XHS 未登录时，页头右侧有「登录/注册」文字
+            const headerText = document.body.innerText;
+            return headerText.includes('登录') && headerText.includes('注册');
+        }""")
+
+        if has_login_btn:
+            self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_login_required.png")
+            raise LoginRequiredError(
+                "小红书登录态失效（页头有登录/注册按钮），请扫码登录后重试。"
+            )
+
+        # 4. 检查登录后的关键元素是否存在（feed 流或个人中心入口）
+        #    未登录时这些元素不存在
+        has_feeds = self.page.evaluate("""() => {
+            // 小红书 feed 流容器 or 搜索结果容器
+            return !!(document.querySelector('.feeds-page') ||
+                     document.querySelector('.search-result') ||
+                     document.querySelector('[class*=\"feeds\"]') ||
+                     document.querySelector('.note-item'));
+        }""")
+
+        if not has_feeds:
+            # 没有 feed 流也没找到登录弹窗（边界情况），截图留证
+            self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_login_required.png")
+            raise LoginRequiredError(
+                "小红书登录态失效（无法确认页面状态），请扫码登录后重试。"
+            )
+
+        # 登录态正常
+        return
 
 
 
