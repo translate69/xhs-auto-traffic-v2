@@ -1,0 +1,86 @@
+关键词: 汕尾住宿推荐
+分组: core
+开始时间: 2026-04-30 11:23:13
+耗时: 82.1s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:21:53.781] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾住宿推荐&type=51
+[11:21:54.948] [SearchColl] 页面加载完成
+[11:21:57.991] [SearchColl] 登录检测通过
+[11:22:03.213] [SearchColl] 笔记列表出现
+[11:22:03.214] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:22:09.043] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:22:11.075] [SearchColl] 滚动加载完成
+[11:22:11.076] [SearchColl] 开始提取Feeds
+[11:22:11.095] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 5/17 条（时间+去重后）
+[main] 搜索采集完成: 5 条
+[11:22:11.114] [NoteDetail] 创建 NoteDetailCollector
+[11:22:11.117] [NoteDetail] enrich_all 开始，共 5 条
+[11:22:11.205] [NoteDetail] 处理笔记 1/5: 69ef14c8000000003601bb17
+[Detail] [1/5] /search_result/69ef14c8000000003601bb17?xsec_token=ABO6-Khbl...
+[11:22:11.206] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef14c8000000003601bb17?xsec_token=AB
+[11:22:12.683] [NoteDetail]   page.goto 完成
+[11:22:13.885] [NoteDetail]   wait_for_selector 完成
+[11:22:15.886] [NoteDetail]   开始提取详情
+[11:22:15.899] [NoteDetail]   提取完成 content_len=430
+[Detail] OK: 被邀请到汕尾喝喜酒，喜酒时间周日，周六就顺便去了趟海边。
+周...
+[11:22:20.510] [NoteDetail]   Page 已关闭
+[11:22:20.610] [NoteDetail] 处理笔记 2/5: 69eccc99000000003603315e
+[Detail] [2/5] /search_result/69eccc99000000003603315e?xsec_token=ABVf4fdSa...
+[11:22:20.611] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69eccc99000000003603315e?xsec_token=AB
+[11:22:21.603] [NoteDetail]   page.goto 完成
+[11:22:23.059] [NoteDetail]   wait_for_selector 完成
+[11:22:25.061] [NoteDetail]   开始提取详情
+[11:22:25.075] [NoteDetail]   提取完成 content_len=352
+[Detail] OK: 听我一句劝，去汕尾直接把行程丢给百度地图行程助手
+-
+3 天...
+[11:22:29.372] [NoteDetail]   Page 已关闭
+[11:22:29.486] [NoteDetail] 处理笔记 3/5: 69ec3b8d000000003700df78
+[Detail] [3/5] /search_result/69ec3b8d000000003700df78?xsec_token=ABVf4fdSa...
+[11:22:29.487] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ec3b8d000000003700df78?xsec_token=AB
+[11:22:30.427] [NoteDetail]   page.goto 完成
+[11:22:31.628] [NoteDetail]   wait_for_selector 完成
+[11:22:33.629] [NoteDetail]   开始提取详情
+[11:22:33.642] [NoteDetail]   提取完成 content_len=111
+[Detail] OK: 五一汕尾的酒店是不是又要涨价啊？那咋办啊？还想去汕尾旅游呢？...
+[11:22:37.210] [NoteDetail]   Page 已关闭
+[11:22:37.326] [NoteDetail] 处理笔记 4/5: 69ef2b170000000023016cbb
+[Detail] [4/5] /search_result/69ef2b170000000023016cbb?xsec_token=ABO6-Khbl...
+[11:22:37.326] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef2b170000000023016cbb?xsec_token=AB
+[11:22:38.216] [NoteDetail]   page.goto 完成
+[11:22:39.340] [NoteDetail]   wait_for_selector 完成
+[11:22:41.341] [NoteDetail]   开始提取详情
+[11:22:41.354] [NoteDetail]   提取完成 content_len=26
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 汕尾全屋定制| 星河湾 | 落地...
+[11:22:46.328] [NoteDetail]   Page 已关闭
+[11:22:46.428] [NoteDetail] 处理笔记 5/5: 69ef69020000000035039246
+[Detail] [5/5] /search_result/69ef69020000000035039246?xsec_token=ABO6-Khbl...
+[11:22:46.429] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef69020000000035039246?xsec_token=AB
+[11:22:47.337] [NoteDetail]   page.goto 完成
+[11:22:48.422] [NoteDetail]   wait_for_selector 完成
+[11:22:50.424] [NoteDetail]   开始提取详情
+[11:22:50.438] [NoteDetail]   提取完成 content_len=259
+[Detail] OK: 不接受反驳哈哈哈哈
+烤得好多汁juicy    鸡翅鸡爪都很...
+[Detail] 已采集 5 条，暂停 15s
+[11:23:09.871] [NoteDetail]   Page 已关闭
+[11:23:09.902] [NoteDetail] enrich_all 完成，返回 5 条
+[main] enrichment 完成: 5 条
+[main] 筛选完成: 1 条通过
+[FeishuOutput] 待写入 1 条
+[Feishu] 当前表格已有 33 条记录
+[Feishu] [69ec3b8d000000003700df78] 写入成功: 五一汕尾的酒店是不是又要涨价啊？那咋办啊？还想去汕尾旅游呢？
+[Feishu] 完成: 写入 1，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 1，跳过 0，失败 0
+[main] 飞书写入完成: 1 条
+
+=== STDERR ===

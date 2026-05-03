@@ -1,0 +1,78 @@
+关键词: 汕尾亲子游
+分组: longtail
+开始时间: 2026-04-30 11:10:24
+耗时: 80.9s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:09:05.682] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾亲子游&type=51
+[11:09:06.947] [SearchColl] 页面加载完成
+[11:09:09.985] [SearchColl] 登录检测通过
+[11:09:15.207] [SearchColl] 笔记列表出现
+[11:09:15.208] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:09:21.026] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:09:23.058] [SearchColl] 滚动加载完成
+[11:09:23.060] [SearchColl] 开始提取Feeds
+[11:09:23.074] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 5/17 条（时间+去重后）
+[main] 搜索采集完成: 5 条
+[11:09:23.084] [NoteDetail] 创建 NoteDetailCollector
+[11:09:23.087] [NoteDetail] enrich_all 开始，共 5 条
+[11:09:23.175] [NoteDetail] 处理笔记 1/5: 69ef0ad9000000003700c64b
+[Detail] [1/5] /search_result/69ef0ad9000000003700c64b?xsec_token=ABO6-Khbl...
+[11:09:23.175] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef0ad9000000003700c64b?xsec_token=AB
+[11:09:24.138] [NoteDetail]   page.goto 完成
+[11:09:25.224] [NoteDetail]   wait_for_selector 完成
+[11:09:27.226] [NoteDetail]   开始提取详情
+[11:09:27.239] [NoteDetail]   提取完成 content_len=108
+[Detail] OK: 接待俩位游客打卡红海湾一日游～跟拍中
+今天天气超好，大太阳，...
+[11:09:32.013] [NoteDetail]   Page 已关闭
+[11:09:32.112] [NoteDetail] 处理笔记 2/5: 69edf326000000002202572c
+[Detail] [2/5] /search_result/69edf326000000002202572c?xsec_token=ABEr0hNps...
+[11:09:32.113] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69edf326000000002202572c?xsec_token=AB
+[11:09:35.010] [NoteDetail]   page.goto 完成
+[11:09:36.379] [NoteDetail]   wait_for_selector 完成
+[11:09:38.380] [NoteDetail]   开始提取详情
+[11:09:38.393] [NoteDetail]   提取完成 content_len=620
+[Detail] OK: 🌊五一汕尾海丰露营派对！英歌舞炸场+舞狮狂欢，这才是夏天的正...
+[11:09:42.406] [NoteDetail]   Page 已关闭
+[11:09:42.507] [NoteDetail] 处理笔记 3/5: 69edea220000000036032c0a
+[Detail] [3/5] /search_result/69edea220000000036032c0a?xsec_token=ABEr0hNps...
+[11:09:42.508] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69edea220000000036032c0a?xsec_token=AB
+[11:09:43.632] [NoteDetail]   page.goto 完成
+[11:09:44.976] [NoteDetail]   wait_for_selector 完成
+[11:09:46.977] [NoteDetail]   开始提取详情
+[11:09:46.990] [NoteDetail]   提取完成 content_len=319
+[Detail] OK: #我拍到了夏天的味道 #热爱这夏日里的每一处风景 #捕捉身边...
+[11:09:50.512] [NoteDetail]   Page 已关闭
+[11:09:50.632] [NoteDetail] 处理笔记 4/5: 69ed8b900000000036033a93
+[Detail] [4/5] /search_result/69ed8b900000000036033a93?xsec_token=ABEr0hNps...
+[11:09:50.632] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ed8b900000000036033a93?xsec_token=AB
+[11:09:51.612] [NoteDetail]   page.goto 完成
+[11:09:52.806] [NoteDetail]   wait_for_selector 完成
+[11:09:54.807] [NoteDetail]   开始提取详情
+[11:09:54.821] [NoteDetail]   提取完成 content_len=220
+[Detail] OK: ✅出行建议：
+▪️本地司机带你一日游/8个小时
+▪️全程九个...
+[11:09:59.423] [NoteDetail]   Page 已关闭
+[11:09:59.540] [NoteDetail] 处理笔记 5/5: 69ecdd880000000037036628
+[Detail] [5/5] /search_result/69ecdd880000000037036628?xsec_token=ABVf4fdSa...
+[11:09:59.540] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ecdd880000000037036628?xsec_token=AB
+[11:10:00.578] [NoteDetail]   page.goto 完成
+[11:10:01.859] [NoteDetail]   wait_for_selector 完成
+[11:10:03.861] [NoteDetail]   开始提取详情
+[11:10:03.874] [NoteDetail]   提取完成 content_len=15
+[Detail] OK: 好想再去一次汕尾，真的好美！！...
+[Detail] 已采集 5 条，暂停 15s
+[11:10:23.369] [NoteDetail]   Page 已关闭
+[11:10:23.382] [NoteDetail] enrich_all 完成，返回 5 条
+[main] enrichment 完成: 5 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

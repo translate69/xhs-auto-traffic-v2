@@ -288,33 +288,32 @@ class FilterService:
         return None
 
     def _has_unnegated_intent(self, text: str) -> bool:
-        """检测是否有未是否定修饰的意图词（想/计划/打算/准备/行程）"""
+        """检测是否有未是否定修饰的意图词（想/计划/打算/准备/行程）
+        注意：「想」后接 CJK 字符（想想/想要/想去）复合词不算独立意图"""
+        CJK_RANGE = frozenset(range(0x4E00, 0x9FFF + 1)) | frozenset(range(0x3400, 0x4DBF + 1))
         INTENT_WORDS = ["想", "计划", "打算", "准备", "行程"]
-        # 否定前缀列表（按长度降序排列，避免短前缀干扰）
         NEG_PREFIXES_SORTED = sorted(
             ["不想", "不想去", "不打算", "不计划", "不要", "不用", "不会", "不能", "没想", "没打算", "没计划", "不", "没", "别"],
             key=len, reverse=True
         )
         text_lower = text.lower()
-
         for kw in INTENT_WORDS:
             idx = text_lower.find(kw)
             if idx == -1:
                 continue
-            # 检查「想」前1字、「计划」前2字等是否是否定
-            # 从长到短检查：先检查2字否定，再检查单字否定
             max_prefix_len = max(len(p) for p in NEG_PREFIXES_SORTED)
             start = max(0, idx - max_prefix_len)
             pre_text = text_lower[start:idx]
-            negated = False
-            for prefix in NEG_PREFIXES_SORTED:
-                if pre_text.endswith(prefix):
-                    negated = True
-                    break
-            if not negated:
-                return True
+            negated = any(pre_text.endswith(prefix) for prefix in NEG_PREFIXES_SORTED)
+            if negated:
+                continue
+            # 「想」后接 CJK → 复合词（想想/想要/想去），跳过
+            if kw == "想" and idx + 1 < len(text_lower):
+                after_char = text_lower[idx + 1]
+                if ord(after_char) in CJK_RANGE:
+                    continue
+            return True
         return False
-
     def _is_transport_only(self, combined: str, note_types: list[str]) -> bool:
         if not any(kw in combined for kw in TRANSPORT_KEYWORDS):
             return False
@@ -361,11 +360,12 @@ class FilterService:
             if re.search(r"宝藏|绝了|封神|太好吃|种草", content_no_tags):
                 return reasons  # 不添加 type_match，走淘汰
             # 有问句/意图信号 → 通过（真实需求）
-            # 避免「哪」单独匹配「去哪玩不重要」这类陈述句
-            if any(kw in content_no_tags for kw in ["吗", "怎么", "哪里", "求", "想问", "请问"]) or "哪儿" in content_no_tags:
+            # 限制：只用特定的行程咨询信号，不使用泛化的「吗/么/呢」问号
+            # 因为「你们见过吗」是描述性问句，不等于求助
+            if any(kw in content_no_tags for kw in ["怎么安排", "来得及吗", "来得及么", "够吗", "合适吗", "可以吗", "方便吗", "行吗", "适合吗"]) or "哪儿" in content_no_tags:
                 reasons.append("type_match")
             # 内容较长 + 有意图词（排除被否定修饰的） → 通过
-            elif len(content_no_tags) > 30 and self._has_unnegated_intent(content_no_tags):
+            # Removed: len>30 fallback too loose for type_match; require genuine ask signal
                 reasons.append("type_match")
 
         return reasons
@@ -434,34 +434,38 @@ class FilterService:
 def has_signal(text: str, kw_list: list[str]) -> bool:
     """检查文本是否含信号词，且不在否定前缀后"""
     text_lower = text.lower()
+    CJK_RANGE = frozenset(range(0x4E00, 0x9FFF + 1)) | frozenset(range(0x3400, 0x4DBF + 1))
     for kw in kw_list:
         idx = text_lower.find(kw.lower())
         if idx == -1:
             continue
 
         # ── 否定词检查（向前看2字，否定词最长2字）────────────────
-        # 单字否定 + 完整否定短语
         NEGATIONS_SINGLE = ["不", "没", "别", "莫", "勿", "未", "否", "休", "甭"]
         NEGATIONS_PHRASE = ["不想", "不要", "不是", "不含", "没兴趣", "不考虑", "不去", "不知道", "不了解", "不清楚", "不确定", "没吃过", "没尝过"]
-        # 关键词后紧跟的否定词（.signal不/没/无 + 后续字）
         POST_SIGNAL_NEG = ["不", "没", "无"]
 
         if idx >= 2:
             pre = text_lower[idx - 2:idx]
             last_char = pre[-1] if pre else ''
             if last_char in NEGATIONS_SINGLE:
-                continue  # 有否定词前缀，跳过
+                continue
             if any(n in pre for n in NEGATIONS_PHRASE):
-                continue  # 有完整否定短语，跳过
+                continue
+
+        # ── 单字「求」被 CJK 前缀：复合词（X求）→ 跳过 ───────────
+        # 例：「要求」(demand) ≠ 求帮，求助
+        if kw == "求" and len(kw) == 1 and idx > 0:
+            pre_char = text_lower[idx - 1]
+            if ord(pre_char) in CJK_RANGE:
+                continue
 
         # ── 信号后否定检查（如「去哪玩不重要」）───────────────────
         after_pos = idx + len(kw)
         if after_pos < len(text_lower):
             after_char = text_lower[after_pos]
             if after_char in POST_SIGNAL_NEG:
-                # 紧跟的否定字，跳过
                 continue
 
-        # 无否定词，命中
         return True
     return False

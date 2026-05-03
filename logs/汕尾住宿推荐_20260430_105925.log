@@ -1,0 +1,45 @@
+关键词: 汕尾住宿推荐
+分组: core
+开始时间: 2026-04-30 10:59:25
+耗时: 31.7s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:58:55.236] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾住宿推荐&type=51
+[10:58:56.386] [SearchColl] 页面加载完成
+[10:58:59.424] [SearchColl] 登录检测通过
+[10:59:04.647] [SearchColl] 笔记列表出现
+[10:59:04.647] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:59:10.488] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:59:12.525] [SearchColl] 滚动加载完成
+[10:59:12.525] [SearchColl] 开始提取Feeds
+[10:59:12.541] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 1/17 条（时间+去重后）
+[main] 搜索采集完成: 1 条
+[10:59:12.557] [NoteDetail] 创建 NoteDetailCollector
+[10:59:12.560] [NoteDetail] enrich_all 开始，共 1 条
+[10:59:12.647] [NoteDetail] 处理笔记 1/1: 69ece2e4000000003601fb4e
+[Detail] [1/1] /search_result/69ece2e4000000003601fb4e?xsec_token=ABVf4fdSa...
+[10:59:12.648] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ece2e4000000003601fb4e?xsec_token=AB
+[10:59:13.651] [NoteDetail]   page.goto 完成
+[10:59:14.636] [NoteDetail]   wait_for_selector 完成
+[10:59:16.637] [NoteDetail]   开始提取详情
+[10:59:16.651] [NoteDetail]   提取完成 content_len=336
+[Detail] OK: 交通:🚄深圳坪山—汕尾站50¥、🚗打车去二马路:23
+住宿:...
+[10:59:19.725] [NoteDetail]   Page 已关闭
+[10:59:19.756] [NoteDetail] enrich_all 完成，返回 1 条
+[main] enrichment 完成: 1 条
+[main] 筛选完成: 1 条通过
+[FeishuOutput] 待写入 1 条
+[Feishu] 当前表格已有 44 条记录
+[Feishu] [69ece2e4000000003601fb4e] 写入成功: 带一岁宝宝—五一错峰汕尾两日游Day1
+[Feishu] 完成: 写入 1，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 1，跳过 0，失败 0
+[main] 飞书写入完成: 1 条
+
+=== STDERR ===

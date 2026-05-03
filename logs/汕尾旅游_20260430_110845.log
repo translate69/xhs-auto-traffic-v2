@@ -1,0 +1,69 @@
+关键词: 汕尾旅游
+分组: core
+开始时间: 2026-04-30 11:08:45
+耗时: 50.7s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:07:57.186] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾旅游&type=51
+[11:07:58.635] [SearchColl] 页面加载完成
+[11:08:01.727] [SearchColl] 登录检测通过
+[11:08:06.929] [SearchColl] 笔记列表出现
+[11:08:06.931] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:08:12.822] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:08:14.858] [SearchColl] 滚动加载完成
+[11:08:14.859] [SearchColl] 开始提取Feeds
+[11:08:14.877] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 3/17 条（时间+去重后）
+[main] 搜索采集完成: 3 条
+[11:08:14.895] [NoteDetail] 创建 NoteDetailCollector
+[11:08:14.897] [NoteDetail] enrich_all 开始，共 3 条
+[11:08:14.992] [NoteDetail] 处理笔记 1/3: 69f338600000000022027f59
+[Detail] [1/3] /search_result/69f338600000000022027f59?xsec_token=ABaqDJdw0...
+[11:08:14.993] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f338600000000022027f59?xsec_token=AB
+[11:08:15.927] [NoteDetail]   page.goto 完成
+[11:08:17.009] [NoteDetail]   wait_for_selector 完成
+[11:08:19.010] [NoteDetail]   开始提取详情
+[11:08:19.034] [NoteDetail]   提取完成 content_len=55
+[Detail] OK: 回湾第一晚海鲜向我奔赴而来
+#红海湾美食 #红海湾 #汕尾
+...
+[11:08:23.187] [NoteDetail]   Page 已关闭
+[11:08:23.288] [NoteDetail] 处理笔记 2/3: 69f226db0000000035021105
+[Detail] [2/3] /search_result/69f226db0000000035021105?xsec_token=ABLA2hKtZ...
+[11:08:23.288] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f226db0000000035021105?xsec_token=AB
+[11:08:25.541] [NoteDetail]   page.goto 完成
+[11:08:27.112] [NoteDetail]   wait_for_selector 完成
+[11:08:29.114] [NoteDetail]   开始提取详情
+[11:08:29.127] [NoteDetail]   提取完成 content_len=111
+[Detail] OK: 汕尾俺想你了！！
+感觉海边尊嘟很适合小白裙捏～
+夏天快到了 ...
+[11:08:32.637] [NoteDetail]   Page 已关闭
+[11:08:32.737] [NoteDetail] 处理笔记 3/3: 69f2fa9b000000003502aa0e
+[Detail] [3/3] /search_result/69f2fa9b000000003502aa0e?xsec_token=ABLA2hKtZ...
+[11:08:32.738] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2fa9b000000003502aa0e?xsec_token=AB
+[11:08:33.650] [NoteDetail]   page.goto 完成
+[11:08:34.951] [NoteDetail]   wait_for_selector 完成
+[11:08:36.953] [NoteDetail]   开始提取详情
+[11:08:36.965] [NoteDetail]   提取完成 content_len=53
+[Detail] OK: gogogo出发咯
+天气很好 紫外线强烈
+高速微堵 有车祸
+...
+[11:08:41.820] [NoteDetail]   Page 已关闭
+[11:08:41.851] [NoteDetail] enrich_all 完成，返回 3 条
+[main] enrichment 完成: 3 条
+[main] 筛选完成: 1 条通过
+[FeishuOutput] 待写入 1 条
+[Feishu] 当前表格已有 49 条记录
+[Feishu] [69f226db0000000035021105] 写入成功: 𝑆𝑒𝑎𝑠𝑖𝑑𝑒 𝐷𝑖𝑎𝑟𝑦𓇼𓈒𓏸🏖️
+[Feishu] 完成: 写入 1，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 1，跳过 0，失败 0
+[main] 飞书写入完成: 1 条
+
+=== STDERR ===

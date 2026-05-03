@@ -1,0 +1,1 @@
+URL=https://www.xiaohongshu.com/website-login/captcha?redirectPath=https%3A%2F%2Fwww.xiaohongshu.com%2Fsearch_result%2F%3Fkeyword%3D%E6%B1%95%E5%B0%BE%E4%BA%B2%E5%AD%90%E6%B8%B8%26type%3D51%26exSource%3D&verifyUuid=1208913d-4419-4c91-b8d4-f20a243e1fa2&verifyType=124&verifyBiz=461&verifyMsg=null

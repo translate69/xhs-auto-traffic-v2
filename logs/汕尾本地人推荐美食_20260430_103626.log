@@ -1,0 +1,86 @@
+关键词: 汕尾本地人推荐美食
+分组: longtail
+开始时间: 2026-04-30 10:36:26
+耗时: 83.8s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:35:04.768] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾本地人推荐美食&type=51
+[10:35:05.973] [SearchColl] 页面加载完成
+[10:35:09.016] [SearchColl] 登录检测通过
+[10:35:14.235] [SearchColl] 笔记列表出现
+[10:35:14.235] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:35:20.050] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:35:22.087] [SearchColl] 滚动加载完成
+[10:35:22.087] [SearchColl] 开始提取Feeds
+[10:35:22.101] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 6/17 条（时间+去重后）
+[main] 搜索采集完成: 6 条
+[10:35:22.121] [NoteDetail] 创建 NoteDetailCollector
+[10:35:22.123] [NoteDetail] enrich_all 开始，共 6 条
+[10:35:22.212] [NoteDetail] 处理笔记 1/6: 69edd05b000000003502ebb6
+[Detail] [1/6] /search_result/69edd05b000000003502ebb6?xsec_token=ABEr0hNps...
+[10:35:22.213] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69edd05b000000003502ebb6?xsec_token=AB
+[10:35:23.058] [NoteDetail]   page.goto 完成
+[10:35:24.204] [NoteDetail]   wait_for_selector 完成
+[10:35:26.206] [NoteDetail]   开始提取详情
+[10:35:26.221] [NoteDetail]   提取完成 content_len=61
+[Detail] OK: 没吃过生腌的宝宝们慎重！一旦开始尝试就停不下来了！#汕尾旅游...
+[10:35:30.491] [NoteDetail]   Page 已关闭
+[10:35:30.606] [NoteDetail] 处理笔记 2/6: 69f38552000000003503bd45
+[Detail] [2/6] /search_result/69f38552000000003503bd45?xsec_token=ABaqDJdw0...
+[10:35:30.606] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f38552000000003503bd45?xsec_token=AB
+[10:35:31.494] [NoteDetail]   page.goto 完成
+[10:35:32.601] [NoteDetail]   wait_for_selector 完成
+[10:35:34.603] [NoteDetail]   开始提取详情
+[10:35:34.625] [NoteDetail]   提取完成 content_len=39
+[Detail] OK: 求推荐南京必吃美食！便宜平价一点的#美食攻略 #南京 #本地...
+[10:35:38.077] [NoteDetail]   Page 已关闭
+[10:35:38.177] [NoteDetail] 处理笔记 3/6: 69f384f30000000036000dcd
+[Detail] [3/6] /search_result/69f384f30000000036000dcd?xsec_token=ABaqDJdw0...
+[10:35:38.178] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f384f30000000036000dcd?xsec_token=AB
+[10:35:39.062] [NoteDetail]   page.goto 完成
+[10:35:40.114] [NoteDetail]   wait_for_selector 完成
+[10:35:42.115] [NoteDetail]   开始提取详情
+[10:35:42.128] [NoteDetail]   提取完成 content_len=29
+[Detail] OK: #恩施 #恩施美食 #恩施旅游 能不能来个本地人推荐的餐馆...
+[10:35:45.743] [NoteDetail]   Page 已关闭
+[10:35:45.859] [NoteDetail] 处理笔记 4/6: 69f383fa0000000036033381
+[Detail] [4/6] /search_result/69f383fa0000000036033381?xsec_token=ABaqDJdw0...
+[10:35:45.859] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f383fa0000000036033381?xsec_token=AB
+[10:35:46.771] [NoteDetail]   page.goto 完成
+[10:35:47.846] [NoteDetail]   wait_for_selector 完成
+[10:35:49.848] [NoteDetail]   开始提取详情
+[10:35:49.862] [NoteDetail]   提取完成 content_len=49
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 贵阳美食求推荐...
+[10:35:54.278] [NoteDetail]   Page 已关闭
+[10:35:54.375] [NoteDetail] 处理笔记 5/6: 69f3827b000000001b020d32
+[Detail] [5/6] /search_result/69f3827b000000001b020d32?xsec_token=ABaqDJdw0...
+[10:35:54.375] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3827b000000001b020d32?xsec_token=AB
+[10:35:55.302] [NoteDetail]   page.goto 完成
+[10:35:56.415] [NoteDetail]   wait_for_selector 完成
+[10:35:58.417] [NoteDetail]   开始提取详情
+[10:35:58.430] [NoteDetail]   提取完成 content_len=49
+[Detail] OK: 禅城美食求推荐😋
+明天就去玩了 特发此帖 #美食推荐 #本地...
+[Detail] 已采集 5 条，暂停 15s
+[10:36:17.797] [NoteDetail]   Page 已关闭
+[10:36:17.899] [NoteDetail] 处理笔记 6/6: 69f38262000000001b020ce4
+[Detail] [6/6] /search_result/69f38262000000001b020ce4?xsec_token=ABaqDJdw0...
+[10:36:17.900] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f38262000000001b020ce4?xsec_token=AB
+[10:36:18.800] [NoteDetail]   page.goto 完成
+[10:36:19.963] [NoteDetail]   wait_for_selector 完成
+[10:36:21.964] [NoteDetail]   开始提取详情
+[10:36:21.979] [NoteDetail]   提取完成 content_len=47
+[Detail] OK: 求真吃家推荐！！！#特产 #贵阳 #本地特产美食 #拜托各位...
+[10:36:25.341] [NoteDetail]   Page 已关闭
+[10:36:25.372] [NoteDetail] enrich_all 完成，返回 6 条
+[main] enrichment 完成: 6 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

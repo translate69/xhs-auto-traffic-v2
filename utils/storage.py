@@ -207,10 +207,19 @@ class CollectedStorage:
                             "keyword": keyword,
                             "collected_at": datetime.now().isoformat(),
                             "run_id": run_id,
+                            # filter 结果（filter_all 后会包含此字段）
+                            "filter_passed": getattr(detail, "filter_passed", None),
+                            "filter_reasons": getattr(detail, "filter_reasons", ""),
+                            "filter_type": getattr(detail, "filter_type", ""),
                         }
                     else:
-                        row = detail  # 已经是 dict
-                        row["run_id"] = run_id  # 确保有 run_id 标识
+                        # detail 可能是 dict 或其他类型，如果是字符串则包装为 dict
+                        if isinstance(detail, dict):
+                            row = detail
+                            row["run_id"] = run_id
+                        else:
+                            # 无法识别的类型，包装为字符串内容
+                            row = {"content": str(detail), "run_id": run_id}
                     f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
         return path

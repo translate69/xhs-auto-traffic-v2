@@ -1,0 +1,67 @@
+关键词: 汕尾3天2晚攻略
+分组: longtail
+开始时间: 2026-04-30 10:34:23
+耗时: 53.6s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:33:31.506] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾3天2晚攻略&type=51
+[10:33:32.690] [SearchColl] 页面加载完成
+[10:33:35.778] [SearchColl] 登录检测通过
+[10:33:41.085] [SearchColl] 笔记列表出现
+[10:33:41.085] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:33:46.950] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:33:48.984] [SearchColl] 滚动加载完成
+[10:33:48.984] [SearchColl] 开始提取Feeds
+[10:33:48.999] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 4/17 条（时间+去重后）
+[main] 搜索采集完成: 4 条
+[10:33:49.034] [NoteDetail] 创建 NoteDetailCollector
+[10:33:49.038] [NoteDetail] enrich_all 开始，共 4 条
+[10:33:49.138] [NoteDetail] 处理笔记 1/4: 69f3182a000000003502e12a
+[Detail] [1/4] /search_result/69f3182a000000003502e12a?xsec_token=ABaqDJdw0...
+[10:33:49.138] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3182a000000003502e12a?xsec_token=AB
+[10:33:50.066] [NoteDetail]   page.goto 完成
+[10:33:51.183] [NoteDetail]   wait_for_selector 完成
+[10:33:53.185] [NoteDetail]   开始提取详情
+[10:33:53.199] [NoteDetail]   提取完成 content_len=694
+[Detail] OK: 汕尾度假天花板｜moosea晚云集别墅，私享泳池与沙滩的浪漫...
+[10:33:57.148] [NoteDetail]   Page 已关闭
+[10:33:57.271] [NoteDetail] 处理笔记 2/4: 69f2d345000000001f001d3c
+[Detail] [2/4] /search_result/69f2d345000000001f001d3c?xsec_token=ABLA2hKtZ...
+[10:33:57.271] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2d345000000001f001d3c?xsec_token=AB
+[10:33:58.363] [NoteDetail]   page.goto 完成
+[10:33:59.642] [NoteDetail]   wait_for_selector 完成
+[10:34:01.644] [NoteDetail]   开始提取详情
+[10:34:01.657] [NoteDetail]   提取完成 content_len=125
+[Detail] OK: 东莞（清溪）➡️汕尾
+图23是我们的行程安排✅
+自驾🚗去 顺...
+[10:34:04.917] [NoteDetail]   Page 已关闭
+[10:34:05.033] [NoteDetail] 处理笔记 3/4: 69f2a90d000000003700fa82
+[Detail] [3/4] /search_result/69f2a90d000000003700fa82?xsec_token=ABLA2hKtZ...
+[10:34:05.033] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2a90d000000003700fa82?xsec_token=AB
+[10:34:05.898] [NoteDetail]   page.goto 完成
+[10:34:07.054] [NoteDetail]   wait_for_selector 完成
+[10:34:09.056] [NoteDetail]   开始提取详情
+[10:34:09.069] [NoteDetail]   提取完成 content_len=1028
+[Detail] OK: 五一不想挤热门！广东这几条线，高铁1h直达/自驾2h圈，山海...
+[10:34:12.761] [NoteDetail]   Page 已关闭
+[10:34:12.859] [NoteDetail] 处理笔记 4/4: 69f053810000000036018bf2
+[Detail] [4/4] /search_result/69f053810000000036018bf2?xsec_token=AB8iUZ9FG...
+[10:34:12.859] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f053810000000036018bf2?xsec_token=AB
+[10:34:13.764] [NoteDetail]   page.goto 完成
+[10:34:15.148] [NoteDetail]   wait_for_selector 完成
+[10:34:17.149] [NoteDetail]   开始提取详情
+[10:34:17.162] [NoteDetail]   提取完成 content_len=19
+[Detail] OK: 汕尾五一到底下不下雨啊，看天气预报下雨...
+[10:34:21.874] [NoteDetail]   Page 已关闭
+[10:34:21.888] [NoteDetail] enrich_all 完成，返回 4 条
+[main] enrichment 完成: 4 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

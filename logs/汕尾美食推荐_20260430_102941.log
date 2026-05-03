@@ -1,0 +1,87 @@
+关键词: 汕尾美食推荐
+分组: core
+开始时间: 2026-04-30 10:29:41
+耗时: 85.9s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:28:17.516] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾美食推荐&type=51
+[10:28:19.532] [SearchColl] 页面加载完成
+[10:28:22.569] [SearchColl] 登录检测通过
+[10:28:27.778] [SearchColl] 笔记列表出现
+[10:28:27.778] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:28:33.616] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:28:35.659] [SearchColl] 滚动加载完成
+[10:28:35.660] [SearchColl] 开始提取Feeds
+[10:28:35.676] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 5/17 条（时间+去重后）
+[main] 搜索采集完成: 5 条
+[10:28:35.695] [NoteDetail] 创建 NoteDetailCollector
+[10:28:35.697] [NoteDetail] enrich_all 开始，共 5 条
+[10:28:35.787] [NoteDetail] 处理笔记 1/5: 69ee0c7c000000003503ac0e
+[Detail] [1/5] /search_result/69ee0c7c000000003503ac0e?xsec_token=AB3ZZo9HB...
+[10:28:35.787] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ee0c7c000000003503ac0e?xsec_token=AB
+[10:28:36.833] [NoteDetail]   page.goto 完成
+[10:28:37.153] [NoteDetail]   wait_for_selector 完成
+[10:28:39.155] [NoteDetail]   开始提取详情
+[10:28:39.170] [NoteDetail]   提取完成 content_len=140
+[Detail] OK: 汕尾金町湾美食，强烈推荐此家店：罐爷生烫·牛肉米线馄饨，我们...
+[10:28:42.962] [NoteDetail]   Page 已关闭
+[10:28:43.078] [NoteDetail] 处理笔记 2/5: 69ec2e040000000020039447
+[Detail] [2/5] /search_result/69ec2e040000000020039447?xsec_token=ABVf4fdSa...
+[10:28:43.079] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ec2e040000000020039447?xsec_token=AB
+[10:28:44.340] [NoteDetail]   page.goto 完成
+[10:28:45.421] [NoteDetail]   wait_for_selector 完成
+[10:28:47.423] [NoteDetail]   开始提取详情
+[10:28:47.436] [NoteDetail]   提取完成 content_len=308
+[Detail] OK: 来汕尾红海湾想省心玩遍景点✨
+本地年轻老司机带你玩转一日游
+...
+[10:28:51.683] [NoteDetail]   Page 已关闭
+[10:28:51.787] [NoteDetail] 处理笔记 3/5: 69f3142c00000000220267ee
+[Detail] [3/5] /search_result/69f3142c00000000220267ee?xsec_token=ABaqDJdw0...
+[10:28:51.787] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3142c00000000220267ee?xsec_token=AB
+[10:28:53.584] [NoteDetail]   page.goto 完成
+[10:28:53.903] [NoteDetail]   wait_for_selector 完成
+[10:28:55.905] [NoteDetail]   开始提取详情
+[10:28:55.920] [NoteDetail]   提取完成 content_len=651
+[Detail] OK: 汕尾📍新开的！出门沙滩de小院！五一有房
+#假期去哪玩
+真的...
+[10:28:59.097] [NoteDetail]   Page 已关闭
+[10:28:59.184] [NoteDetail] 处理笔记 4/5: 69f312eb000000002202605a
+[Detail] [4/5] /search_result/69f312eb000000002202605a?xsec_token=ABaqDJdw0...
+[10:28:59.184] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f312eb000000002202605a?xsec_token=AB
+[10:29:00.261] [NoteDetail]   page.goto 完成
+[10:29:01.146] [NoteDetail]   wait_for_selector 完成
+[10:29:03.147] [NoteDetail]   开始提取详情
+[10:29:03.167] [NoteDetail]   提取完成 content_len=172
+[Detail] OK: 终于放假啦啦啦！！
+最近上新了许多新品，有汕尾特色水果果咖『...
+[10:29:08.112] [NoteDetail]   Page 已关闭
+[10:29:08.211] [NoteDetail] 处理笔记 5/5: 69f31154000000003601b713
+[Detail] [5/5] /search_result/69f31154000000003601b713?xsec_token=ABaqDJdw0...
+[10:29:08.211] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f31154000000003601b713?xsec_token=AB
+[10:29:09.792] [NoteDetail]   page.goto 完成
+[10:29:11.072] [NoteDetail]   wait_for_selector 完成
+[10:29:13.073] [NoteDetail]   开始提取详情
+[10:29:13.088] [NoteDetail]   提取完成 content_len=626
+[Detail] OK: 小长假马上来到还在纠结假期小聚不知道去哪儿的话可以试试这家新...
+[Detail] 已采集 5 条，暂停 15s
+[10:29:32.862] [NoteDetail]   Page 已关闭
+[10:29:32.875] [NoteDetail] enrich_all 完成，返回 5 条
+[main] enrichment 完成: 5 条
+[main] 筛选完成: 2 条通过
+[FeishuOutput] 待写入 2 条
+[Feishu] 当前表格已有 21 条记录
+[Feishu] [69ee0c7c000000003503ac0e] 写入成功: 金町湾美食推荐
+[Feishu] [69f31154000000003601b713] 写入成功: 汕尾城区｜Get‼️首家泰式瓦罐小火锅—蔡瓦瓦
+[Feishu] 完成: 写入 2，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 2，跳过 0，失败 0
+[main] 飞书写入完成: 2 条
+
+=== STDERR ===

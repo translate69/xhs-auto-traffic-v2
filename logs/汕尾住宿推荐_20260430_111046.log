@@ -1,0 +1,44 @@
+关键词: 汕尾住宿推荐
+分组: core
+开始时间: 2026-04-30 11:10:46
+耗时: 32.3s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:10:16.486] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾住宿推荐&type=51
+[11:10:18.708] [SearchColl] 页面加载完成
+[11:10:21.746] [SearchColl] 登录检测通过
+[11:10:26.997] [SearchColl] 笔记列表出现
+[11:10:26.997] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:10:32.808] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:10:34.852] [SearchColl] 滚动加载完成
+[11:10:34.853] [SearchColl] 开始提取Feeds
+[11:10:34.871] [SearchColl] 提取完成，返回 16 条Feeds
+[SearchCollector] 采集完成: 1/16 条（时间+去重后）
+[main] 搜索采集完成: 1 条
+[11:10:34.887] [NoteDetail] 创建 NoteDetailCollector
+[11:10:34.891] [NoteDetail] enrich_all 开始，共 1 条
+[11:10:34.983] [NoteDetail] 处理笔记 1/1: 69f3681b000000002300670d
+[Detail] [1/1] /search_result/69f3681b000000002300670d?xsec_token=ABaqDJdw0...
+[11:10:34.983] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3681b000000002300670d?xsec_token=AB
+[11:10:35.857] [NoteDetail]   page.goto 完成
+[11:10:37.145] [NoteDetail]   wait_for_selector 完成
+[11:10:39.146] [NoteDetail]   开始提取详情
+[11:10:39.159] [NoteDetail]   提取完成 content_len=62
+[Detail] OK: 5.11出发去汕尾玩几天 两组家庭都是妈妈外婆带着宝宝  求...
+[11:10:42.934] [NoteDetail]   Page 已关闭
+[11:10:42.965] [NoteDetail] enrich_all 完成，返回 1 条
+[main] enrichment 完成: 1 条
+[main] 筛选完成: 1 条通过
+[FeishuOutput] 待写入 1 条
+[Feishu] 当前表格已有 32 条记录
+[Feishu] [69f3681b000000002300670d] 写入成功: 带小孩汕尾玩求攻略
+[Feishu] 完成: 写入 1，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 1，跳过 0，失败 0
+[main] 飞书写入完成: 1 条
+
+=== STDERR ===

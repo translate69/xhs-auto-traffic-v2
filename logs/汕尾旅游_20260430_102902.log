@@ -1,0 +1,68 @@
+关键词: 汕尾旅游
+分组: core
+开始时间: 2026-04-30 10:29:02
+耗时: 55.5s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:28:09.522] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾旅游&type=51
+[10:28:10.783] [SearchColl] 页面加载完成
+[10:28:13.819] [SearchColl] 登录检测通过
+[10:28:19.039] [SearchColl] 笔记列表出现
+[10:28:19.040] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:28:24.913] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:28:26.946] [SearchColl] 滚动加载完成
+[10:28:26.947] [SearchColl] 开始提取Feeds
+[10:28:26.962] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 4/17 条（时间+去重后）
+[main] 搜索采集完成: 4 条
+[10:28:26.980] [NoteDetail] 创建 NoteDetailCollector
+[10:28:26.982] [NoteDetail] enrich_all 开始，共 4 条
+[10:28:27.069] [NoteDetail] 处理笔记 1/4: 69f3206b000000001f006b35
+[Detail] [1/4] /search_result/69f3206b000000001f006b35?xsec_token=ABaqDJdw0...
+[10:28:27.070] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3206b000000001f006b35?xsec_token=AB
+[10:28:28.000] [NoteDetail]   page.goto 完成
+[10:28:29.159] [NoteDetail]   wait_for_selector 完成
+[10:28:31.159] [NoteDetail]   开始提取详情
+[10:28:31.184] [NoteDetail]   提取完成 content_len=282
+[Detail] OK: 谁懂啊！汕尾这家冯校长老火锅，直接把成都老火锅的烟火气搬来了...
+[10:28:34.729] [NoteDetail]   Page 已关闭
+[10:28:34.829] [NoteDetail] 处理笔记 2/4: 69f3128f0000000035026a23
+[Detail] [2/4] /search_result/69f3128f0000000035026a23?xsec_token=ABaqDJdw0...
+[10:28:34.830] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3128f0000000035026a23?xsec_token=AB
+[10:28:35.857] [NoteDetail]   page.goto 完成
+[10:28:37.054] [NoteDetail]   wait_for_selector 完成
+[10:28:39.056] [NoteDetail]   开始提取详情
+[10:28:39.073] [NoteDetail]   提取完成 content_len=191
+[Detail] OK: 汕尾红海湾约拍日常
+红海湾bao🚗，随叫随到！
+大学生好说话...
+[10:28:43.866] [NoteDetail]   Page 已关闭
+[10:28:43.970] [NoteDetail] 处理笔记 3/4: 69f302270000000023006817
+[Detail] [3/4] /search_result/69f302270000000023006817?xsec_token=ABaqDJdw0...
+[10:28:43.971] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f302270000000023006817?xsec_token=AB
+[10:28:44.902] [NoteDetail]   page.goto 完成
+[10:28:46.119] [NoteDetail]   wait_for_selector 完成
+[10:28:48.121] [NoteDetail]   开始提取详情
+[10:28:48.135] [NoteDetail]   提取完成 content_len=101
+[Detail] OK: 浮日湾太出片啦！
+#汕尾  #汕尾约拍 #汕尾旅拍    #...
+[10:28:53.061] [NoteDetail]   Page 已关闭
+[10:28:53.161] [NoteDetail] 处理笔记 4/4: 69f0848f000000003601b8ba
+[Detail] [4/4] /search_result/69f0848f000000003601b8ba?xsec_token=AB8iUZ9FG...
+[10:28:53.162] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f0848f000000003601b8ba?xsec_token=AB
+[10:28:54.109] [NoteDetail]   page.goto 完成
+[10:28:55.388] [NoteDetail]   wait_for_selector 完成
+[10:28:57.389] [NoteDetail]   开始提取详情
+[10:28:57.404] [NoteDetail]   提取完成 content_len=11
+[Detail] OK: 有啥注意事项和建议的吗...
+[10:29:01.359] [NoteDetail]   Page 已关闭
+[10:29:01.372] [NoteDetail] enrich_all 完成，返回 4 条
+[main] enrichment 完成: 4 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

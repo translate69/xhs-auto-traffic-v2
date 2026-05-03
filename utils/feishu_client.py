@@ -16,8 +16,20 @@ import config
 # ─── 凭证获取 ────────────────────────────────────────────────
 
 
+_token_cache: str = ""
+_token_cache_time: float = 0.0
+_TOKEN_CACHE_TTL: float = 60.0  # token 有效期 60s，复用同一 token
+
+
 def _get_tenant_token() -> str:
-    """获取 tenant_access_token（环境变量优先，fallback 到 secrets.json）"""
+    """获取 tenant_access_token（带进程内缓存，60s 内复用）"""
+    global _token_cache, _token_cache_time
+    import time as _time
+
+    # 缓存有效期内直接返回
+    if _token_cache and (_time.time() - _token_cache_time) < _TOKEN_CACHE_TTL:
+        return _token_cache
+
     app_id = os.environ.get("FEISHU_APP_ID", "")
     app_secret = os.environ.get("FEISHU_APP_SECRET", "")
 
@@ -39,9 +51,13 @@ def _get_tenant_token() -> str:
     headers = {"Content-Type": "application/json"}
     req = urllib.request.Request(url, data=payload, headers=headers, method="POST")
     try:
-        with urllib.request.urlopen(req, timeout=10) as resp:
+        with urllib.request.urlopen(req, timeout=20) as resp:
             result = json.load(resp)
-            return result.get("tenant_access_token", "")
+            token = result.get("tenant_access_token", "")
+            if token:
+                _token_cache = token
+                _token_cache_time = _time.time()
+            return token
     except Exception:
         return ""
 
@@ -181,12 +197,17 @@ def write_single_record(note_id: str, row: dict) -> bool:
         return False
 
 
-def batch_write(rows: list[dict], existing_ids: set[str] | None = None) -> tuple[int, int, int]:
+def batch_write(rows: list[dict] | dict, existing_ids: set[str] | None = None) -> tuple[int, int, int]:
     """
     批量写入飞书（幂等：跳过已存在的 note_id）。
+    支持单个 dict 或 list[dict]。
 
     返回 (written, skipped, failed)。
     """
+    # 兼容单个 dict 输入
+    if isinstance(rows, dict):
+        rows = [rows]
+
     if existing_ids is None:
         existing_ids = load_existing_note_ids()
 

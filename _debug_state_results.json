@@ -1,0 +1,49 @@
+{
+  "url": "https://www.xiaohongshu.com/explore",
+  "note_count": 18,
+  "feed_computed": {
+    "error": "no computed",
+    "allKeys": [
+      "computed",
+      "version",
+      "activeLink",
+      "subs",
+      "map",
+      "key",
+      "sc"
+    ]
+  },
+  "subs_data": {
+    "subsKeys": [
+      "sub",
+      "dep",
+      "version",
+      "prevActiveLink",
+      "prevSub",
+      "nextSub",
+      "prevDep",
+      "nextDep"
+    ],
+    "firstSub": {
+      "keys": [
+        "fn",
+        "setter",
+        "_value",
+        "dep",
+        "__v_isRef",
+        "deps",
+        "depsTail",
+        "flags",
+        "globalVersion",
+        "next",
+        "effect",
+        "__v_isReadonly",
+        "isSSR"
+      ],
+      "hasItems": false,
+      "itemCount": 0
+    }
+  },
+  "first_href": "/explore/6458c3d8000000000800f7a8?xsec_token=ABGokfjLvkWJIdBXqI8VHZeWDeD8190CYrD",
+  "map_data": "no map"
+}

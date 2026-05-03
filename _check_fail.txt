@@ -1,0 +1,49 @@
+Reading 2026-04-30_汕尾去哪吃.jsonl
+Total lines: 8
+  [0] nid= passed=False reasons=无明确需求
+      title=在汕尾吃过最好吃的脆皮烤鸡 新鲜便宜🍗
+      content=#脆皮烤鸡 #手撕鸡 #汕尾美食 #现杀现做更好吃 #熟食 #肉质鲜嫩多汁
+无意间发现的宝藏小店
+
+  [1] nid= passed=True reasons=ask
+      title=老汕尾人回汕尾，我一直在吃
+      content=跟着小时候的回忆吃，这两天快把我撑死了，图上是我一个人的量，但我还是要继续吃😋可惜的是还有好多没吃到的…糯米饭、薄饼、汕
+
+  [2] nid= passed=False reasons=无明确需求
+      title=周末两天长沙到汕尾第二篇
+      content=周六辗转几个景点后，下午三点半出发去陆河吃喜酒预备餐。
+首先给了我个大惊喜，入住温泉酒店，超大的院子，院子里放着音乐，带
+
+  [3] nid= passed=True reasons=ask
+      title=
+      content=五一去汕尾，有什么好吃好玩的推荐？
+
+  [4] nid= passed=True reasons=ask
+      title=一万种旅行howto
+      content=五一小长假去哪玩不重要  重要的是和谁去🫶🫶
+海边真的很治愈
+#好视频扶持计划 #一万种旅行howto #五一假期 #汕
+
+  [5] nid= passed=False reasons=纯分享攻略贴
+      title=🌟看看P人如何玩转汕尾（自驾篇）
+      content=汕尾攻略做的太轻松了
+1天市区，1天红海湾就够了
+	
+第1️⃣天：
+自然醒→吃饭→金町湾→二马路→回民宿看剧打牌吃夜宵
+
+
+  [6] nid= passed=False reasons=纯分享攻略贴
+      title=这次不上头  来汕尾了🏖️
+      content=没做任何攻略 主打随心所欲 chill旅行🌊
+自驾走到哪 玩到哪 吃到哪
+1-5📍红海湾落日码头
+2📍 THEBAY海湾
+
+  [7] nid= passed=False reasons=广告:封神
+      title=汕尾第一家泰式瓦罐火锅！青酱直接封神
+      content=在汕尾有家一秒穿越泰兰德的瓦罐小火锅
+连吃一口都觉得在泰国街头干饭🇹🇭
+	
+✨ 关于锅底
+我们点了2个味道锅底！偏爱泰式

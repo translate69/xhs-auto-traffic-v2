@@ -1,47 +1,40 @@
 """
-run_batch.py - 分批独立执行关键词任务
+run_batch.py - 串行执行关键词采集任务
 
-每个关键词作为独立进程跑，超时自动 kill，进程完全隔离。
-超时时间默认 10 分钟，可通过 --timeout 参数调整。
+每个关键词在同一个 Playwright browser 实例中顺序执行，
+共享登录态，超时保护，超时后关闭当前 context 继续下一个。
 
 用法：
     python run_batch.py                          # 跑全部关键词
     python run_batch.py --keyword 汕尾美食       # 只跑单个
-    python run_batch.py --limit 50              # 每关键词采集50条
-    python run_batch.py --timeout 600           # 超时10分钟（默认）
+    python run_batch.py --limit 50              # 每关键词采集数量（默认50）
+    python run_batch.py --timeout 600           # 单任务超时秒数（默认600）
     python run_batch.py --dry-run               # 只看要跑哪些，不实际执行
+    python run_batch.py --group core            # 只跑 core 分组
 """
 import argparse
-import subprocess
+import signal
 import sys
+import threading
 import time
-import os
-import uuid
 from pathlib import Path
 from datetime import datetime
 
 # 项目根目录
 PROJECT_ROOT = Path(__file__).parent
-MAIN_SCRIPT = PROJECT_ROOT / "main.py"
 
-# 默认超时时间（秒）
-DEFAULT_TIMEOUT = 600  # 10分钟
-
-# 修复 Windows 环境下 Python 子进程的中文输出问题
-if sys.platform == "win32":
-    import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+# 导入项目模块
+sys.path.insert(0, str(PROJECT_ROOT))
+import config
+from core.browser_manager import BrowserManager
+from core.search_collector import SearchCollector
+from core.note_detail import NoteDetailCollector
+from output.feishu_service import FeishuOutputService
+from utils.storage import CollectedStorage, RecentStorage
 
 
 def _load_storage():
-    """动态导入 CollectedStorage"""
-    import importlib.util
-    storage_path = str(PROJECT_ROOT / "utils" / "storage.py")
-    spec = importlib.util.spec_from_file_location("storage", storage_path)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod.CollectedStorage()
+    return CollectedStorage()
 
 
 def load_keywords(keywords_txt: Path | None = None) -> list[dict]:
@@ -60,113 +53,134 @@ def load_keywords(keywords_txt: Path | None = None) -> list[dict]:
     return keywords
 
 
-def run_keyword_with_retry(keyword: str, limit: int, timeout: int, debug: bool, max_retries: int = 2, retry_interval: int = 10) -> tuple[bool, bool, float]:
-    """带重试的关键字执行，检测到0结果时自动重试"""
-    last_error = None
-    for attempt in range(max_retries + 1):
-        success, timed_out, elapsed, stdout, stderr = run_keyword_subprocess(
-            keyword=keyword, limit=limit, timeout=timeout, debug=debug
-        )
-        # 检测是否0结果（不是进程失败，只是采集为0）
-        zero_results = (
-            "无采集结果" in stdout
-            or "采集完成: 0" in stdout
-            or (not timed_out and success and "0 条" in stdout)
-        )
-        if zero_results and attempt < max_retries:
-            print(f"[{keyword}] 采集0条，{retry_interval}s后重试（第{attempt+1}/{max_retries}次）...")
-            time.sleep(retry_interval)
-            continue
-        return success, timed_out, elapsed, stdout, stderr
-    # shouldn't reach here but just in case
-    return success, timed_out, elapsed, stdout, stderr
+def run_one_keyword(
+    browser_manager: BrowserManager,
+    keyword: str,
+    limit: int,
+    timeout: int,
+    storage: CollectedStorage,
+) -> dict:
+    """
+    在同一个 browser 实例中执行单个关键词采集。
+    返回结果 dict。
+    """
+    run_id = storage.make_run_id(keyword)
+    result = {
+        "run_id": run_id,
+        "keyword": keyword,
+        "success": False,
+        "passed_count": 0,
+        "feeds_count": 0,
+        "elapsed": 0,
+        "error": None,
+    }
 
-    # 用临时文件捕获输出，避免 Windows 控制台 GBK 编码问题
-    task_id = uuid.uuid4().hex[:8]
-    stdout_file = PROJECT_ROOT / "logs" / f"_stdout_{task_id}.tmp"
-    stderr_file = PROJECT_ROOT / "logs" / f"_stderr_{task_id}.tmp"
-    stdout_file.parent.mkdir(parents=True, exist_ok=True)
-
-    cmd = [
-        sys.executable,
-        str(MAIN_SCRIPT),
-        "--keyword", keyword,
-        "--limit", str(limit),
-    ]
-    if debug:
-        cmd.append("--debug")
-
-    start_time = time.time()
+    # 新建一个隔离的 context（共享 browser，保持 cookie）
+    context = None
+    timer = None
     timed_out = False
-    success = True
-
-    print(f"[{keyword}] 启动 subprocess (timeout={timeout}s)")
-
-    # 创建子进程，环境变量强制 UTF-8
-    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 
     try:
-        with open(stdout_file, "w", encoding="utf-8", errors="replace") as fout, \
-             open(stderr_file, "w", encoding="utf-8", errors="replace") as ferr:
+        context = browser_manager.browser.new_context(
+            viewport=config.VIEWPORT,
+            user_agent=config.USER_AGENT,
+        )
+        # 注入反检测
+        context.add_init_script(
+            """Object.defineProperty(navigator, 'webdriver', {
+                get: () => false, configurable: true
+            });"""
+        )
 
-            proc = subprocess.Popen(
-                cmd,
-                stdout=fout,
-                stderr=ferr,
-                cwd=str(PROJECT_ROOT),
-                env=env,
-                creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0,
-            )
+        # 加载 cookie
+        browser_manager._load_cookies_to_context(context)
 
+        start_time = time.time()
+
+        # 超时保护
+        def timeout_handler():
+            nonlocal timed_out
+            timed_out = True
+            print(f"[{keyword}] ⏰ 超时（{timeout}s），将在当前笔记完成后停止")
+
+        timer = threading.Timer(timeout, timeout_handler)
+        timer.start()
+
+        # ── 搜索采集 ─────────────────────────────────────
+        collector = SearchCollector(browser_manager.browser, context)
+        feeds = collector.collect(keyword, limit=limit)
+        result["feeds_count"] = len(feeds)
+        print(f"[{keyword}] 采集完成: {len(feeds)} 条 Feeds")
+
+        # ── Enrichment ───────────────────────────────────
+        detail_collector = NoteDetailCollector(browser_manager.browser, context)
+        notes = detail_collector.enrich_all(feeds)
+        print(f"[{keyword}] enrichment 完成: {len(notes)} 条")
+
+        # ── 筛选 ─────────────────────────────────────────
+        from filter.filter_service import FilterService
+        svc = FilterService()
+        passed_notes = []
+        for note in notes:
+            r = svc.filter_one(note, keyword=keyword)
+            note.filter_passed = r.passed
+            note.filter_reasons = r.reasons if r.reasons is not None else "",
+            if r.passed:
+                passed_notes.append(note)
+        result["passed_count"] = len(passed_notes)
+        print(f"[{keyword}] 筛选完成: {len(passed_notes)}/{len(notes)} 条通过")
+
+        # ── 写入飞书 ────────────────────────────────────
+        if passed_notes:
             try:
-                proc.wait(timeout=timeout)
-                elapsed = time.time() - start_time
-                print(f"[{keyword}] 完成，耗时 {elapsed:.1f}s")
+                feishu = FeishuOutputService()
+                feishu.write(passed_notes, keyword=keyword)
+                print(f"[{keyword}] 飞书写入完成")
+            except Exception as e:
+                print(f"[{keyword}] 飞书写入失败: {e}")
 
-            except subprocess.TimeoutExpired:
-                timed_out = True
-                elapsed = time.time() - start_time
-                print(f"[{keyword}] 超时（{timeout}s），强制终止进程")
+        # ── 保存 ─────────────────────────────────────────
+        storage.save(run_id, notes, keyword)
+        storage.append_manifest(run_id, keyword, len(passed_notes))
 
-                proc.kill()
-                proc.wait(timeout=10)
-                print(f"[{keyword}] 进程已终止")
-            finally:
-                success = proc.returncode == 0
+        elapsed = time.time() - start_time
+        result["success"] = True
+        result["elapsed"] = elapsed
+
+    except Exception as e:
+        import traceback
+        result["error"] = str(e)
+        print(f"[{keyword}] ❌ 失败: {e}")
+        traceback.print_exc()
 
     finally:
-        pass
+        if timer:
+            timer.cancel()
+        if context:
+            try:
+                context.close()
+            except Exception:
+                pass
+        elapsed = result.get("elapsed", 0)
+        print(f"[{keyword}] {'✅' if result['success'] else '❌'} 完成，耗时 {elapsed:.1f}s")
 
-    # 读取输出
-    stdout = stdout_file.read_text(encoding="utf-8", errors="replace")
-    stderr = stderr_file.read_text(encoding="utf-8", errors="replace")
-
-    # 清理临时文件
-    try:
-        stdout_file.unlink(missing_ok=True)
-        stderr_file.unlink(missing_ok=True)
-    except Exception:
-        pass
-
-    return success, timed_out, elapsed, stdout, stderr
+    return result
 
 
 def main():
-    parser = argparse.ArgumentParser(description="分批独立执行关键词任务")
+    parser = argparse.ArgumentParser(description="串行执行关键词采集任务")
     parser.add_argument("--keyword", "-k", type=str, default=None, help="只跑指定关键词")
-    parser.add_argument("--limit", "-l", type=int, default=50, help="每个关键词采集数量（默认50）")
-    parser.add_argument("--timeout", "-t", type=int, default=DEFAULT_TIMEOUT, help=f"单任务超时秒数（默认{DEFAULT_TIMEOUT}）")
-    parser.add_argument("--debug", action="store_true", help="启用 headed 浏览器（可见）")
+    parser.add_argument("--limit", "-l", type=int, default=50, help="每关键词采集数量（默认50）")
+    parser.add_argument("--timeout", "-t", type=int, default=600, help="单任务超时秒数（默认600）")
     parser.add_argument("--dry-run", action="store_true", help="只列出要跑的关键词，不实际执行")
     parser.add_argument("--group", type=str, default=None, help="只跑指定分组: core / longtail")
-    parser.add_argument("--keywords-file", type=str, default=None, help="关键词文件路径（默认 keywords.txt）")
+    parser.add_argument("--keywords-file", type=str, default=None, help="关键词文件路径")
 
     args = parser.parse_args()
 
     # ── 加载关键词 ───────────────────────────────────────
     keywords_file = Path(args.keywords_file) if args.keywords_file else None
     all_kw = load_keywords(keywords_file)
-
     if args.group:
         all_kw = [kw for kw in all_kw if kw["group"] == args.group]
     if args.keyword:
@@ -183,77 +197,58 @@ def main():
             print(f"  [{kw['group']}] {kw['keyword']}")
         return
 
-    # ── 逐个执行 ─────────────────────────────────────────
-    log_dir = PROJECT_ROOT / "logs"
-    log_dir.mkdir(parents=True, exist_ok=True)
+    storage = _load_storage()
 
-    results = []
-    for i, kw_info in enumerate(all_kw, 1):
-        keyword = kw_info["keyword"]
-        group = kw_info["group"]
+    # ── 启动单个 Browser 实例 ──────────────────────────
+    print(f"\n{'='*50}")
+    print("启动 Playwright Browser（全局单实例）")
+    print("="*50)
 
-        print(f"\n{'='*50}")
-        print(f"[{i}/{len(all_kw)}] 开始: [{group}] {keyword}")
+    browser_mgr = BrowserManager()
+    browser_started = False
+    try:
+        browser, context = browser_mgr.__enter__()
+        browser_started = True
+        print("Browser 启动成功，开始采集\n")
 
-        success, timed_out, elapsed, stdout, stderr = run_keyword_with_retry(
-            keyword=keyword,
-            limit=args.limit,
-            timeout=args.timeout,
-            debug=args.debug,
-        )
+        results = []
+        for i, kw_info in enumerate(all_kw, 1):
+            keyword = kw_info["keyword"]
+            group = kw_info["group"]
 
-        # 写日志
-        log_file = log_dir / f"{keyword}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-        with open(log_file, "w", encoding="utf-8") as f:
-            f.write(f"关键词: {keyword}\n")
-            f.write(f"分组: {group}\n")
-            f.write(f"开始时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"耗时: {elapsed:.1f}s\n")
-            f.write(f"超时: {'是' if timed_out else '否'}\n")
-            f.write(f"成功: {'是' if success else '否'}\n")
-            f.write(f"\n=== STDOUT ===\n")
-            f.write(stdout)
-            f.write(f"\n=== STDERR ===\n")
-            f.write(stderr)
+            print(f"\n{'='*50}")
+            print(f"[{i}/{len(all_kw)}] [{group}] {keyword}")
 
-        status = "超时" if timed_out else ("成功" if success else "失败")
-        results.append({
-            "keyword": keyword,
-            "group": group,
-            "status": status,
-            "elapsed": elapsed,
-            "log": log_file.name,
-        })
+            result = run_one_keyword(
+                browser_manager=browser_mgr,
+                keyword=keyword,
+                limit=args.limit,
+                timeout=args.timeout,
+                storage=storage,
+            )
+            results.append(result)
 
-        print(f"[{keyword}] {status}，耗时 {elapsed:.1f}s")
+            # 批次间休息，避免频繁请求
+            if i < len(all_kw):
+                print(f"休息 5s...")
+                time.sleep(5)
 
-        # 写 manifest（供 _verify_filter.py 使用）
-        if success:
-            try:
-                storage = _load_storage()
-                run_id = storage.make_run_id(keyword)
-                storage.append_manifest(run_id, keyword, 1)
-            except Exception:
-                pass
-
-        # 批次间休息
-        if i < len(all_kw):
-            print(f"[{keyword}] 休息 5 秒后继续...")
-            time.sleep(5)
+    finally:
+        if browser_started:
+            print("\n关闭 Browser...")
+            browser_mgr.__exit__(None, None, None)
 
     # ── 汇总报告 ─────────────────────────────────────────
     print(f"\n{'='*50}")
-    print(f"执行完毕，共 {len(all_kw)} 个关键词")
+    print("执行完毕")
+    success_cnt = sum(1 for r in results if r["success"])
+    pass_cnt = sum(r["passed_count"] for r in results)
+    print(f"关键词: {len(results)} 个，成功: {success_cnt}，共通过: {pass_cnt} 条")
 
-    success_count = sum(1 for r in results if r["status"] == "成功")
-    timeout_count = sum(1 for r in results if r["status"] == "超时")
-    fail_count = sum(1 for r in results if r["status"] == "失败")
-
-    print(f"汇总: 成功={success_count}, 超时={timeout_count}, 失败={fail_count}")
-
-    print(f"\n详细结果:")
     for r in results:
-        print(f"  [{r['group']}] {r['keyword']}: {r['status']} ({r['elapsed']:.1f}s) -> logs/{r['log']}")
+        status = "✅" if r["success"] else "❌"
+        error = f" ({r['error']})" if r["error"] else ""
+        print(f"  {status} [{r['keyword']}] 通过={r['passed_count']} Feeds={r['feeds_count']} {r['elapsed']:.1f}s{error}")
 
 
 if __name__ == "__main__":

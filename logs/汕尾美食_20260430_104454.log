@@ -1,0 +1,25 @@
+关键词: 汕尾美食
+分组: core
+开始时间: 2026-04-30 10:44:54
+耗时: 30.7s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:44:26.094] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾美食&type=51
+[10:44:37.626] [SearchColl] 页面加载完成
+[10:44:40.666] [SearchColl] 登录检测通过
+[10:44:45.881] [SearchColl] 笔记列表出现
+[10:44:45.881] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:44:51.739] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:44:53.776] [SearchColl] 滚动加载完成
+[10:44:53.777] [SearchColl] 开始提取Feeds
+[10:44:53.793] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 0/17 条（时间+去重后）
+[main] 搜索采集完成: 0 条
+[main] 无采集结果，退出
+
+=== STDERR ===

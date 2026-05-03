@@ -1,0 +1,72 @@
+关键词: 汕尾海边民宿推荐
+分组: longtail
+开始时间: 2026-04-30 10:37:26
+耗时: 55.0s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:36:33.548] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾海边民宿推荐&type=51
+[10:36:34.741] [SearchColl] 页面加载完成
+[10:36:37.789] [SearchColl] 登录检测通过
+[10:36:42.987] [SearchColl] 笔记列表出现
+[10:36:42.987] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:36:48.811] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:36:50.844] [SearchColl] 滚动加载完成
+[10:36:50.845] [SearchColl] 开始提取Feeds
+[10:36:50.861] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 4/17 条（时间+去重后）
+[main] 搜索采集完成: 4 条
+[10:36:50.896] [NoteDetail] 创建 NoteDetailCollector
+[10:36:50.898] [NoteDetail] enrich_all 开始，共 4 条
+[10:36:50.990] [NoteDetail] 处理笔记 1/4: 69f088d1000000001f005325
+[Detail] [1/4] /search_result/69f088d1000000001f005325?xsec_token=AB8iUZ9FG...
+[10:36:50.991] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f088d1000000001f005325?xsec_token=AB
+[10:36:51.919] [NoteDetail]   page.goto 完成
+[10:36:53.121] [NoteDetail]   wait_for_selector 完成
+[10:36:55.123] [NoteDetail]   开始提取详情
+[10:36:55.136] [NoteDetail]   提取完成 content_len=451
+[Detail] OK: （落地窗海景·无泡池版）
+来之前一直纠结：没订到带泡池的房型...
+[10:36:58.763] [NoteDetail]   Page 已关闭
+[10:36:58.864] [NoteDetail] 处理笔记 2/4: 69f380f5000000003503af26
+[Detail] [2/4] /search_result/69f380f5000000003503af26?xsec_token=ABaqDJdw0...
+[10:36:58.865] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f380f5000000003503af26?xsec_token=AB
+[10:37:00.108] [NoteDetail]   page.goto 完成
+[10:37:00.396] [NoteDetail]   wait_for_selector 完成
+[10:37:02.398] [NoteDetail]   开始提取详情
+[10:37:02.413] [NoteDetail]   提取完成 content_len=33
+[Detail] OK: 两室一厅，免费停车#民宿推荐 还可以订1-2号两天，五分钟直...
+[10:37:06.426] [NoteDetail]   Page 已关闭
+[10:37:06.547] [NoteDetail] 处理笔记 3/4: 69f37ac80000000020038bfa
+[Detail] [3/4] /search_result/69f37ac80000000020038bfa?xsec_token=ABaqDJdw0...
+[10:37:06.547] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f37ac80000000020038bfa?xsec_token=AB
+[10:37:07.440] [NoteDetail]   page.goto 完成
+[10:37:08.764] [NoteDetail]   wait_for_selector 完成
+[10:37:10.766] [NoteDetail]   开始提取详情
+[10:37:10.781] [NoteDetail]   提取完成 content_len=84
+[Detail] OK: 欢迎来见面，价格优惠，有缘早晚结识！#民宿推荐 #忙里偷闲的...
+[10:37:14.496] [NoteDetail]   Page 已关闭
+[10:37:14.596] [NoteDetail] 处理笔记 4/4: 69f37a2f0000000022025882
+[Detail] [4/4] /search_result/69f37a2f0000000022025882?xsec_token=ABaqDJdw0...
+[10:37:14.596] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f37a2f0000000022025882?xsec_token=AB
+[10:37:15.499] [NoteDetail]   page.goto 完成
+[10:37:16.517] [NoteDetail]   wait_for_selector 完成
+[10:37:18.519] [NoteDetail]   开始提取详情
+[10:37:18.532] [NoteDetail]   提取完成 content_len=39
+[Detail] OK: #民宿推荐 #环境卫生干净整洁 #自己家房子 #平价民宿 五...
+[10:37:22.633] [NoteDetail]   Page 已关闭
+[10:37:22.664] [NoteDetail] enrich_all 完成，返回 4 条
+[main] enrichment 完成: 4 条
+[main] 筛选完成: 1 条通过
+[FeishuOutput] 待写入 1 条
+[Feishu] 当前表格已有 38 条记录
+[Feishu] [69f088d1000000001f005325] 写入成功: 晚云集大床房｜没有泡池的夜晚，反而更治愈了
+[Feishu] 完成: 写入 1，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 1，跳过 0，失败 0
+[main] 飞书写入完成: 1 条
+
+=== STDERR ===

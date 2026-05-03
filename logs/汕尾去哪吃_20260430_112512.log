@@ -1,0 +1,76 @@
+关键词: 汕尾去哪吃
+分组: core
+开始时间: 2026-04-30 11:25:12
+耗时: 57.9s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:24:16.445] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾去哪吃&type=51
+[11:24:17.582] [SearchColl] 页面加载完成
+[11:24:20.620] [SearchColl] 登录检测通过
+[11:24:25.831] [SearchColl] 笔记列表出现
+[11:24:25.832] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:24:31.664] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:24:33.707] [SearchColl] 滚动加载完成
+[11:24:33.707] [SearchColl] 开始提取Feeds
+[11:24:33.721] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 4/17 条（时间+去重后）
+[main] 搜索采集完成: 4 条
+[11:24:33.740] [NoteDetail] 创建 NoteDetailCollector
+[11:24:33.743] [NoteDetail] enrich_all 开始，共 4 条
+[11:24:33.830] [NoteDetail] 处理笔记 1/4: 69f36762000000001a02f931
+[Detail] [1/4] /search_result/69f36762000000001a02f931?xsec_token=ABaqDJdw0...
+[11:24:33.830] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f36762000000001a02f931?xsec_token=AB
+[11:24:34.887] [NoteDetail]   page.goto 完成
+[11:24:36.260] [NoteDetail]   wait_for_selector 完成
+[11:24:38.262] [NoteDetail]   开始提取详情
+[11:24:38.275] [NoteDetail]   提取完成 content_len=60
+[Detail] OK: 自驾风车岛  海上古堡
+最近吃太好了 脸圆得根本没法看 开0...
+[11:24:42.887] [NoteDetail]   Page 已关闭
+[11:24:42.987] [NoteDetail] 处理笔记 2/4: 69f35c7d000000003601eeb8
+[Detail] [2/4] /search_result/69f35c7d000000003601eeb8?xsec_token=ABaqDJdw0...
+[11:24:42.988] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f35c7d000000003601eeb8?xsec_token=AB
+[11:24:43.909] [NoteDetail]   page.goto 完成
+[11:24:44.946] [NoteDetail]   wait_for_selector 完成
+[11:24:46.948] [NoteDetail]   开始提取详情
+[11:24:46.960] [NoteDetail]   提取完成 content_len=50
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 汕尾去哪玩...
+[11:24:50.597] [NoteDetail]   Page 已关闭
+[11:24:50.715] [NoteDetail] 处理笔记 3/4: 69f37564000000003503bc39
+[Detail] [3/4] /search_result/69f37564000000003503bc39?xsec_token=ABaqDJdw0...
+[11:24:50.715] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f37564000000003503bc39?xsec_token=AB
+[11:24:51.656] [NoteDetail]   page.goto 完成
+[11:24:51.769] [NoteDetail]   wait_for_selector 完成
+[11:24:53.771] [NoteDetail]   开始提取详情
+[11:24:53.783] [NoteDetail]   提取完成 content_len=285
+[Detail] OK: 五一建议在大马路、二马路从头吃到尾 ！！！
+✅冯校长老火锅🍲...
+[11:24:58.304] [NoteDetail]   Page 已关闭
+[11:24:58.407] [NoteDetail] 处理笔记 4/4: 69f371dc0000000035028953
+[Detail] [4/4] /search_result/69f371dc0000000035028953?xsec_token=ABaqDJdw0...
+[11:24:58.407] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f371dc0000000035028953?xsec_token=AB
+[11:24:59.283] [NoteDetail]   page.goto 完成
+[11:25:00.438] [NoteDetail]   wait_for_selector 完成
+[11:25:02.439] [NoteDetail]   开始提取详情
+[11:25:02.452] [NoteDetail]   提取完成 content_len=28
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 这种天气还适合去汕尾睡沙滩吗...
+[11:25:07.021] [NoteDetail]   Page 已关闭
+[11:25:07.035] [NoteDetail] enrich_all 完成，返回 4 条
+[main] enrichment 完成: 4 条
+[main] 筛选完成: 2 条通过
+[FeishuOutput] 待写入 2 条
+[Feishu] 当前表格已有 35 条记录
+[Feishu] [69f35c7d000000003601eeb8] 写入成功: 汕尾去哪玩
+[Feishu] [69f371dc0000000035028953] 写入成功: 这种天气还适合去汕尾睡沙滩吗
+[Feishu] 完成: 写入 2，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 2，跳过 0，失败 0
+[main] 飞书写入完成: 2 条
+
+=== STDERR ===

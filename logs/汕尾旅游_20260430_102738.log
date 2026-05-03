@@ -1,0 +1,91 @@
+关键词: 汕尾旅游
+分组: core
+开始时间: 2026-04-30 10:27:38
+耗时: 87.6s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:26:13.055] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾旅游&type=51
+[10:26:14.234] [SearchColl] 页面加载完成
+[10:26:17.272] [SearchColl] 登录检测通过
+[10:26:22.485] [SearchColl] 笔记列表出现
+[10:26:22.485] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:26:28.323] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:26:30.361] [SearchColl] 滚动加载完成
+[10:26:30.361] [SearchColl] 开始提取Feeds
+[10:26:30.376] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 6/17 条（时间+去重后）
+[main] 搜索采集完成: 6 条
+[10:26:30.386] [NoteDetail] 创建 NoteDetailCollector
+[10:26:30.389] [NoteDetail] enrich_all 开始，共 6 条
+[10:26:30.475] [NoteDetail] 处理笔记 1/6: 69f07db0000000003502da66
+[Detail] [1/6] /search_result/69f07db0000000003502da66?xsec_token=AB8iUZ9FG...
+[10:26:30.476] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f07db0000000003502da66?xsec_token=AB
+[10:26:31.409] [NoteDetail]   page.goto 完成
+[10:26:32.710] [NoteDetail]   wait_for_selector 完成
+[10:26:34.711] [NoteDetail]   开始提取详情
+[10:26:34.725] [NoteDetail]   提取完成 content_len=72
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 🚏₊⁺ 不在济州岛🏖️在汕尾🏝️...
+[10:26:39.449] [NoteDetail]   Page 已关闭
+[10:26:39.551] [NoteDetail] 处理笔记 2/6: 69f070ac000000003502c8e3
+[Detail] [2/6] /search_result/69f070ac000000003502c8e3?xsec_token=AB8iUZ9FG...
+[10:26:39.551] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f070ac000000003502c8e3?xsec_token=AB
+[10:26:40.496] [NoteDetail]   page.goto 完成
+[10:26:41.697] [NoteDetail]   wait_for_selector 完成
+[10:26:43.698] [NoteDetail]   开始提取详情
+[10:26:43.712] [NoteDetail]   提取完成 content_len=88
+[Detail] OK: 汕尾不踩坑系列，从住宿到美食到美酒加咖啡  还有很多照片没发...
+[10:26:47.744] [NoteDetail]   Page 已关闭
+[10:26:47.847] [NoteDetail] 处理笔记 3/6: 69ef85d1000000001e00d23c
+[Detail] [3/6] /search_result/69ef85d1000000001e00d23c?xsec_token=ABO6-Khbl...
+[10:26:47.848] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef85d1000000001e00d23c?xsec_token=AB
+[10:26:49.359] [NoteDetail]   page.goto 完成
+[10:26:50.677] [NoteDetail]   wait_for_selector 完成
+[10:26:52.679] [NoteDetail]   开始提取详情
+[10:26:52.694] [NoteDetail]   提取完成 content_len=57
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 不在济州岛 在汕尾🌊...
+[10:26:56.945] [NoteDetail]   Page 已关闭
+[10:26:57.061] [NoteDetail] 处理笔记 4/6: 69ee0191000000003700f62c
+[Detail] [4/6] /search_result/69ee0191000000003700f62c?xsec_token=AB3ZZo9HB...
+[10:26:57.061] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ee0191000000003700f62c?xsec_token=AB
+[10:26:57.986] [NoteDetail]   page.goto 完成
+[10:26:59.119] [NoteDetail]   wait_for_selector 完成
+[10:27:01.121] [NoteDetail]   开始提取详情
+[10:27:01.134] [NoteDetail]   提取完成 content_len=562
+[Detail] OK: 码住！汕尾吃吃喝喝逛逛攻略版！！！（无广）
+汕尾旅游美食攻略...
+[10:27:04.964] [NoteDetail]   Page 已关闭
+[10:27:05.066] [NoteDetail] 处理笔记 5/6: 69edffe500000000350280a1
+[Detail] [5/6] /search_result/69edffe500000000350280a1?xsec_token=ABEr0hNps...
+[10:27:05.067] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69edffe500000000350280a1?xsec_token=AB
+[10:27:06.094] [NoteDetail]   page.goto 完成
+[10:27:07.571] [NoteDetail]   wait_for_selector 完成
+[10:27:09.573] [NoteDetail]   开始提取详情
+[10:27:09.586] [NoteDetail]   提取完成 content_len=210
+[Detail] OK: 存一些关于海的记忆𓈒𓏸𓆝𓆡𓆜
+来海上古堡啦好美好治愈🏰🩵
+	...
+[Detail] 已采集 5 条，暂停 15s
+[10:27:28.661] [NoteDetail]   Page 已关闭
+[10:27:28.778] [NoteDetail] 处理笔记 6/6: 69ede8240000000036032015
+[Detail] [6/6] /search_result/69ede8240000000036032015?xsec_token=ABEr0hNps...
+[10:27:28.778] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ede8240000000036032015?xsec_token=AB
+[10:27:29.724] [NoteDetail]   page.goto 完成
+[10:27:30.863] [NoteDetail]   wait_for_selector 完成
+[10:27:32.864] [NoteDetail]   开始提取详情
+[10:27:32.878] [NoteDetail]   提取完成 content_len=482
+[Detail] OK: 汕尾旅游美食攻略篇🔥
+把我喜欢吃的分享给大家
+金町湾！二马路...
+[10:27:37.338] [NoteDetail]   Page 已关闭
+[10:27:37.342] [NoteDetail] enrich_all 完成，返回 6 条
+[main] enrichment 完成: 6 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

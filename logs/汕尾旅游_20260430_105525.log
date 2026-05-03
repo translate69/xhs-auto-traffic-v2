@@ -1,0 +1,163 @@
+关键词: 汕尾旅游
+分组: core
+开始时间: 2026-04-30 10:55:25
+耗时: 215.0s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:51:52.301] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾旅游&type=51
+[10:52:20.998] [SearchColl] 页面加载完成
+[10:52:24.092] [SearchColl] 登录检测通过
+[10:52:29.341] [SearchColl] 笔记列表出现
+[10:52:29.342] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:52:35.164] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:52:37.198] [SearchColl] 滚动加载完成
+[10:52:37.198] [SearchColl] 开始提取Feeds
+[10:52:37.214] [SearchColl] 提取完成，返回 16 条Feeds
+[SearchCollector] 采集完成: 12/16 条（时间+去重后）
+[main] 搜索采集完成: 12 条
+[10:52:37.236] [NoteDetail] 创建 NoteDetailCollector
+[10:52:37.239] [NoteDetail] enrich_all 开始，共 12 条
+[10:52:37.322] [NoteDetail] 处理笔记 1/12: 69f2f3850000000038020e92
+[Detail] [1/12] /search_result/69f2f3850000000038020e92?xsec_token=ABLA2hKtZ...
+[10:52:37.323] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2f3850000000038020e92?xsec_token=AB
+[10:52:44.506] [NoteDetail]   page.goto 完成
+[10:52:44.574] [NoteDetail]   wait_for_selector 完成
+[10:52:46.576] [NoteDetail]   开始提取详情
+[10:52:46.593] [NoteDetail]   提取完成 content_len=315
+[Detail] OK: 谁懂啊！来汕尾一定要拍一组渔女簪发写真，直接把海边非遗氛围感...
+[10:52:51.557] [NoteDetail]   Page 已关闭
+[10:52:51.655] [NoteDetail] 处理笔记 2/12: 69f2f039000000001f005ae0
+[Detail] [2/12] /search_result/69f2f039000000001f005ae0?xsec_token=ABLA2hKtZ...
+[10:52:51.657] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2f039000000001f005ae0?xsec_token=AB
+[10:52:54.737] [NoteDetail]   page.goto 完成
+[10:52:55.140] [NoteDetail]   wait_for_selector 完成
+[10:52:57.142] [NoteDetail]   开始提取详情
+[10:52:57.155] [NoteDetail]   提取完成 content_len=176
+[Detail] OK: 发现汕尾一个非常好看的海边！！（这几个机位
+海拍起来特别漂亮...
+[10:53:00.881] [NoteDetail]   Page 已关闭
+[10:53:00.977] [NoteDetail] 处理笔记 3/12: 69f2ebae000000002202b96a
+[Detail] [3/12] /search_result/69f2ebae000000002202b96a?xsec_token=ABLA2hKtZ...
+[10:53:00.977] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2ebae000000002202b96a?xsec_token=AB
+[10:53:02.151] [NoteDetail]   page.goto 完成
+[10:53:02.481] [NoteDetail]   wait_for_selector 完成
+[10:53:04.482] [NoteDetail]   开始提取详情
+[10:53:04.495] [NoteDetail]   提取完成 content_len=214
+[Detail] OK: 累了就来山川民谣坐一坐吧
+不用奔赴远方，在汕尾就能接住所有疲...
+[10:53:09.367] [NoteDetail]   Page 已关闭
+[10:53:09.465] [NoteDetail] 处理笔记 4/12: 69f2e808000000001e00fcc7
+[Detail] [4/12] /search_result/69f2e808000000001e00fcc7?xsec_token=ABLA2hKtZ...
+[10:53:09.466] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2e808000000001e00fcc7?xsec_token=AB
+[10:53:14.161] [NoteDetail]   page.goto 完成
+[10:53:15.321] [NoteDetail]   wait_for_selector 完成
+[10:53:17.322] [NoteDetail]   开始提取详情
+[10:53:17.336] [NoteDetail]   提取完成 content_len=680
+[Detail] OK: 姐妹们来汕尾红海湾看这一篇就够了！！
+本地人带你不走回头路版...
+[10:53:21.690] [NoteDetail]   Page 已关闭
+[10:53:21.792] [NoteDetail] 处理笔记 5/12: 69f2dfbb000000003501cf92
+[Detail] [5/12] /search_result/69f2dfbb000000003501cf92?xsec_token=ABLA2hKtZ...
+[10:53:21.793] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2dfbb000000003501cf92?xsec_token=AB
+[10:53:27.099] [NoteDetail]   page.goto 完成
+[10:53:27.212] [NoteDetail]   wait_for_selector 完成
+[10:53:29.214] [NoteDetail]   开始提取详情
+[10:53:29.228] [NoteDetail]   提取完成 content_len=80
+[Detail] OK: #美食
+汕尾周末游已回，知无不言[偷笑R][偷笑R]
+	
+#...
+[Detail] 已采集 5 条，暂停 15s
+[10:53:48.084] [NoteDetail]   Page 已关闭
+[10:53:48.197] [NoteDetail] 处理笔记 6/12: 69f2cd8c0000000035026b30
+[Detail] [6/12] /search_result/69f2cd8c0000000035026b30?xsec_token=ABLA2hKtZ...
+[10:53:48.198] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2cd8c0000000035026b30?xsec_token=AB
+[10:53:49.217] [NoteDetail]   page.goto 完成
+[10:53:49.298] [NoteDetail]   wait_for_selector 完成
+[10:53:51.300] [NoteDetail]   开始提取详情
+[10:53:51.313] [NoteDetail]   提取完成 content_len=191
+[Detail] OK: 汕尾红海湾约拍日常
+红海湾bao🚗，随叫随到！
+大学生好说话...
+[10:53:54.571] [NoteDetail]   Page 已关闭
+[10:53:54.658] [NoteDetail] 处理笔记 7/12: 69f2c226000000002003b3f9
+[Detail] [7/12] /search_result/69f2c226000000002003b3f9?xsec_token=ABLA2hKtZ...
+[10:53:54.658] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2c226000000002003b3f9?xsec_token=AB
+[10:53:57.157] [NoteDetail]   page.goto 完成
+[10:53:58.001] [NoteDetail]   wait_for_selector 完成
+[10:54:00.003] [NoteDetail]   开始提取详情
+[10:54:00.017] [NoteDetail]   提取完成 content_len=113
+[Detail] OK: 汕尾除了吃二马路，这个海边纪念品一定要带回家！
+沙子手印相框...
+[10:54:03.375] [NoteDetail]   Page 已关闭
+[10:54:03.491] [NoteDetail] 处理笔记 8/12: 69f2aafc0000000037034d15
+[Detail] [8/12] /search_result/69f2aafc0000000037034d15?xsec_token=ABLA2hKtZ...
+[10:54:03.491] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2aafc0000000037034d15?xsec_token=AB
+[10:54:04.706] [NoteDetail]   page.goto 完成
+[10:54:05.952] [NoteDetail]   wait_for_selector 完成
+[10:54:07.954] [NoteDetail]   开始提取详情
+[10:54:07.967] [NoteDetail]   提取完成 content_len=211
+[Detail] OK: 晴天的汕尾真的可以原图直出！！
+好像济州岛
+下面⬇️是三个坠...
+[10:54:12.246] [NoteDetail]   Page 已关闭
+[10:54:12.361] [NoteDetail] 处理笔记 9/12: 69f2764800000000220287ed
+[Detail] [9/12] /search_result/69f2764800000000220287ed?xsec_token=ABLA2hKtZ...
+[10:54:12.362] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2764800000000220287ed?xsec_token=AB
+[10:54:14.846] [NoteDetail]   page.goto 完成
+[10:54:15.115] [NoteDetail]   wait_for_selector 完成
+[10:54:17.116] [NoteDetail]   开始提取详情
+[10:54:17.168] [NoteDetail]   提取完成 content_len=527
+[Detail] OK: 汕尾本地司机。司机可选男女，车辆配备富士相机+1655镜头。...
+[10:54:21.626] [NoteDetail]   Page 已关闭
+[10:54:21.712] [NoteDetail] 处理笔记 10/12: 69f25c2b000000001f004a45
+[Detail] [10/12] /search_result/69f25c2b000000001f004a45?xsec_token=ABLA2hKtZ...
+[10:54:21.713] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f25c2b000000001f004a45?xsec_token=AB
+[10:54:24.981] [NoteDetail]   page.goto 完成
+[10:54:26.313] [NoteDetail]   wait_for_selector 完成
+[10:54:28.314] [NoteDetail]   开始提取详情
+[10:54:28.354] [NoteDetail]   提取完成 content_len=120
+[Detail] OK: 来汕尾逛吃，别再瞎找啦！
+整理好本地人常去的8家宝藏美食店
+...
+[Detail] 已采集 10 条，暂停 15s
+[10:54:46.392] [NoteDetail]   Page 已关闭
+[10:54:46.489] [NoteDetail] 处理笔记 11/12: 69f223aa0000000022029f0b
+[Detail] [11/12] /search_result/69f223aa0000000022029f0b?xsec_token=ABLA2hKtZ...
+[10:54:46.489] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f223aa0000000022029f0b?xsec_token=AB
+[10:54:50.560] [NoteDetail]   page.goto 完成
+[10:54:50.928] [NoteDetail]   wait_for_selector 完成
+[10:54:52.929] [NoteDetail]   开始提取详情
+[10:54:52.942] [NoteDetail]   提取完成 content_len=521
+[Detail] OK: .
+一脚油门踏上了汕尾的自驾之旅
+自带滤镜的海边城市🌊
+整理...
+[10:54:56.744] [NoteDetail]   Page 已关闭
+[10:54:56.843] [NoteDetail] 处理笔记 12/12: 69f20f06000000001b022760
+[Detail] [12/12] /search_result/69f20f06000000001b022760?xsec_token=ABLA2hKtZ...
+[10:54:56.843] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f20f06000000001b022760?xsec_token=AB
+[10:55:09.021] [NoteDetail]   page.goto 完成
+[10:55:09.393] [NoteDetail]   wait_for_selector 完成
+[10:55:11.394] [NoteDetail]   开始提取详情
+[10:55:11.409] [NoteDetail]   提取完成 content_len=71
+[Detail] OK: 汕尾保利金町湾天誉3房2厅【4床】麻将桌
+头排一线海景，下楼...
+[10:55:15.908] [NoteDetail]   Page 已关闭
+[10:55:15.938] [NoteDetail] enrich_all 完成，返回 12 条
+[main] enrichment 完成: 12 条
+[main] 筛选完成: 2 条通过
+[FeishuOutput] 待写入 2 条
+[Feishu] 当前表格已有 19 条记录
+[Feishu] [69f2ebae000000002202b96a] 写入成功: 远离城市喧嚣.汕尾藏着温柔晚风
+[Feishu] [69f2e808000000001e00fcc7] 写入成功: 汕尾本地人带你打卡红海湾热门景点
+[Feishu] 完成: 写入 2，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 2，跳过 0，失败 0
+[main] 飞书写入完成: 2 条
+
+=== STDERR ===

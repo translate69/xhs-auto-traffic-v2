@@ -16,6 +16,30 @@ from dataclasses import dataclass, field
 
 sys.stdout.reconfigure(encoding="utf-8")
 
+# ─── SIGKILL 定位日志 ───────────────────────────────────
+try:
+    import os as _os
+    _debug_log_path = _os.path.join(_os.path.dirname(__file__), "..", "_pipeline_debug.log")
+    _debug_log_enabled = True
+
+    def _log_stage(stage: str, flush: bool = True):
+        from datetime import datetime
+        ts = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+        line = f"[{ts}] [NoteDetail] {stage}\n"
+        print(line, end="", flush=True)
+        if _debug_log_enabled:
+            try:
+                with open(_debug_log_path, "a", encoding="utf-8", buffering=1) as _f:
+                    _f.write(line)
+                    if flush:
+                        _f.flush()
+                        _os.fsync(_f.fileno())
+            except Exception:
+                pass
+except ImportError:
+    def _log_stage(stage: str, flush: bool = True):
+        pass
+
 import config
 from core.search_collector import FeedNote
 
@@ -45,6 +69,9 @@ class NoteDetail:
 
     # 内部
     _filter_result: 'filter_service.FilterResult | None' = field(default_factory=lambda: None)  # 筛选结果
+    filter_passed: bool | None = None       # 筛选是否通过（filter_all 后填充）
+    filter_reasons: str = ""                # 筛选通过/拒绝原因
+    filter_type: str = ""                   # 笔记分类类型
 
     def has_content(self) -> bool:
         """是否有正文（判断降级是否生效）"""
@@ -97,33 +124,51 @@ class NoteDetailCollector:
     def __init__(self, browser, context):
         self.browser = browser
         self.context = context
-        self.page = context.new_page()
+        # 不在这里创建 page，enrich_all 里每个 note 单独建/关 page
+        _log_stage("创建 NoteDetailCollector")
 
     def enrich_all(self, feeds: list[FeedNote]) -> list[NoteDetail]:
         """
         对 feeds 列表逐条做 enrichment。
+        每条笔记单独开一个 page，用完立即 close，避免 DOM 数据积累导致 OOM。
         返回 NoteDetail 列表（失败条目降级保留搜索页数据）。
         """
         results = []
+        _log_stage(f"enrich_all 开始，共 {len(feeds)} 条")
 
         for i, feed in enumerate(feeds):
-            print(f"[Detail] [{i+1}/{len(feeds)}] {feed.url[:60]}...")
+            # ── 每条笔记独立 page，用完即关 ──
+            page = self.context.new_page()
+            try:
+                _log_stage(f"处理笔记 {i+1}/{len(feeds)}: {feed.note_id}", flush=False)
+                print(f"[Detail] [{i+1}/{len(feeds)}] {feed.url}")
 
-            detail = self._enrich_single(feed)
+                detail = self._enrich_single(feed, page)
+
+                # ── 暂停节奏 ──
+                pause = random.uniform(*config.PAUSE_BETWEEN_NOTES)
+                time.sleep(pause)
+
+                # 每 5 条暂停（风控保护）
+                if (i + 1) % 5 == 0:
+                    print(f"[Detail] 已采集 {i+1} 条，暂停 {config.PAUSE_DURATION}s")
+                    time.sleep(config.PAUSE_DURATION)
+
+            except Exception as e:
+                _log_stage(f"  例外: {e}", flush=True)
+                detail = NoteDetail()
+                detail.merge_from_feed(feed)
+
+            finally:
+                page.close()  # 立即关闭，释放 DOM 内存
+                _log_stage(f"  Page 已关闭")
+
             results.append(detail)
 
-            # 采集节奏
-            pause = random.uniform(*config.PAUSE_BETWEEN_NOTES)
-            time.sleep(pause)
-
-            # 每 5 条暂停（风控保护）
-            if (i + 1) % 5 == 0:
-                print(f"[Detail] 已采集 {i+1} 条，暂停 {config.PAUSE_DURATION}s")
-                time.sleep(config.PAUSE_DURATION)
-
+        _log_stage(f"enrich_all 完成，返回 {len(results)} 条")
         return results
 
-    def _enrich_single(self, feed: FeedNote, max_retries: int = 3) -> NoteDetail:
+    def _enrich_single(self, feed: FeedNote, page, max_retries: int = 3) -> NoteDetail:
         """单条笔记 enrichment，支持重试"""
 
         detail_url = self._build_detail_url(feed)
@@ -137,15 +182,22 @@ class NoteDetailCollector:
 
         for attempt in range(1, max_retries + 1):
             try:
-                if not self.page:
+                if not page:
                     raise RuntimeError("Page 未初始化")
 
-                self.page.goto(detail_url, wait_until="domcontentloaded")
-                self.page.wait_for_selector("#detail-desc", timeout=15000)
-                time.sleep(2)  # 等待异步数据加载
+                _log_stage(f"  goto: {detail_url[:80]}", flush=False)
+                page.goto(detail_url, wait_until="domcontentloaded")
+                _log_stage(f"  page.goto 完成", flush=False)
 
-                detail = self._extract_detail()
+                page.wait_for_selector("#detail-desc", timeout=15000)
+                _log_stage(f"  wait_for_selector 完成", flush=False)
+
+                time.sleep(2)  # 等待异步数据加载
+                _log_stage(f"  开始提取详情", flush=False)
+
+                detail = self._extract_detail(page)
                 detail.merge_from_feed(feed)
+                _log_stage(f"  提取完成 content_len={len(detail.content)}", flush=True)
 
                 if not detail.has_content():
                     # 正文为空，降级：保留搜索页 title 作为 content 兜底
@@ -182,27 +234,37 @@ class NoteDetailCollector:
         return detail
 
     def _build_detail_url(self, feed: FeedNote) -> str:
-        """从搜索结果 URL 构建 explore 详情页 URL"""
+        """从搜索结果 URL 构建详情页 URL
+        优先用 search_result URL 保持 xsec_token 上下文，减少风控触发。"""
         import re
 
-        if "/explore/" in feed.url:
-            if "xsec_token=" in feed.url:
-                return feed.url
+        # 处理相对 URL（以 / 开头）
+        if feed.url.startswith("/"):
+            base = "https://www.xiaohongshu.com"
+            full_url = base + feed.url
+        else:
+            full_url = feed.url
+
+        # 如果 URL 已经有 xsec_token，直接返回
+        if "/explore/" in full_url or "/search_result/" in full_url:
+            if "xsec_token=" in full_url:
+                return full_url
             if feed.xsec_token:
-                sep = "&" if "?" in feed.url else "?"
-                return f"{feed.url}{sep}xsec_token={feed.xsec_token}"
-            return feed.url
+                sep = "&" if "?" in full_url else "?"
+                return f"{full_url}{sep}xsec_token={feed.xsec_token}"
+            return full_url
 
-        m = re.search(r"search_result/([a-fA-F0-9]+)", feed.url, re.IGNORECASE)
-        if not m:
-            return feed.url  # 兜底
+        # 从 search_result URL 提取 note_id，保持 search_result 格式
+        m = re.search(r"search_result/([a-fA-F0-9]+)", full_url, re.IGNORECASE)
+        if m:
+            note_id = m.group(1)
+            if feed.xsec_token:
+                # 保持 search_result URL + xsec_token，保持搜索上下文
+                return (f"https://www.xiaohongshu.com/search_result/{note_id}"
+                        f"?xsec_token={feed.xsec_token}&xsec_source=pc_search")
+            return f"https://www.xiaohongshu.com/search_result/{note_id}"
 
-        note_id = m.group(1)
-        base = f"https://www.xiaohongshu.com/explore/{note_id}"
-
-        if feed.xsec_token:
-            return f"{base}?xsec_token={feed.xsec_token}&xsec_source=pc_search"
-        return base
+        return full_url  # 兜底
 
     def _is_hashtag_only(self, content: str) -> bool:
         """
@@ -217,10 +279,10 @@ class NoteDetailCollector:
         # 如果剩余字符 < 5，认为是纯 hashtag 正文
         return len(stripped) < 5
 
-    def _extract_detail(self) -> NoteDetail:
-        """从当前页面 DOM 提取详情（带 fallback）"""
+    def _extract_detail(self, page) -> NoteDetail:
+        """从 page DOM 提取详情（带 fallback）"""
         try:
-            data = self._extract_detail_raw()
+            data = self._extract_detail_raw(page)
         except Exception as e:
             print(f"[Detail] DOM 提取异常，降级: {e}")
             return NoteDetail()
@@ -249,9 +311,10 @@ class NoteDetailCollector:
             author_id=data.get("author_id", ""),
         )
 
-    def _extract_detail_raw(self) -> dict:
+    def _extract_detail_raw(self, page) -> dict:
         """实际执行 DOM 提取（所有选择器均加异常保护）"""
-        return self.page.evaluate("""
+        return page.evaluate(
+            """
 (function() {
     var r = {};
 

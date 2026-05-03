@@ -1,0 +1,27 @@
+关键词: 汕尾美食推荐
+分组: core
+开始时间: 2026-04-30 10:38:17
+耗时: 32.0s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:37:47.977] [SearchColl] goto: 小红书首页
+[10:37:54.371] [SearchColl] 搜索框已fill: 汕尾美食推荐
+[10:37:55.129] [SearchColl] 按回车触发搜索
+[10:38:00.150] [SearchColl] 搜索结果页面加载完成
+[10:38:03.190] [SearchColl] 登录检测通过
+[10:38:08.210] [SearchColl] 笔记列表出现
+[10:38:08.211] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:38:14.201] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:38:16.273] [SearchColl] 滚动加载完成
+[10:38:16.274] [SearchColl] 开始提取Feeds
+[10:38:16.289] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 0/17 条（时间+去重后）
+[main] 搜索采集完成: 0 条
+[main] 无采集结果，退出
+
+=== STDERR ===

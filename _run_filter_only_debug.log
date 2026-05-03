@@ -1,0 +1,9 @@
+[14:21:14.376] [START] log_path=E:\translate\claw\xhs-auto-traffic-v2\_run_filter_only_debug.log
+[14:21:14.376] 脚本开始
+[14:21:14.557] 读取 enrichment 结果: data/collected/runs/2026-04-29_深圳周末游.jsonl
+[14:21:14.563] 读取 10 条 enrichment 结果
+[14:21:14.566] 开始 FilterService.filter_all(keyword=深圳周末游)
+[14:21:14.578] Filter 通过: 4 条
+[14:21:14.582] 开始 FeishuOutputService.write(4 条)
+[14:21:25.148] Feishu 写入完成
+[14:21:25.154] 全部完成

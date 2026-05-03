@@ -8,7 +8,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent
 DATA_DIR = PROJECT_ROOT / "data"
-COOKIE_FILE = Path(r"E:\translate\claw\xhs-auto-traffic\xhs_cookies.json")
+COOKIE_FILE = PROJECT_ROOT / "xhs_cookies.json"
 
 # ─── 浏览器配置 ────────────────────────────────────────────
 

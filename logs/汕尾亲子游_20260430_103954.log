@@ -1,0 +1,54 @@
+关键词: 汕尾亲子游
+分组: longtail
+开始时间: 2026-04-30 10:39:54
+耗时: 40.5s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:39:16.020] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾亲子游&type=51
+[10:39:17.184] [SearchColl] 页面加载完成
+[10:39:20.223] [SearchColl] 登录检测通过
+[10:39:25.424] [SearchColl] 笔记列表出现
+[10:39:25.424] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:39:31.244] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:39:33.277] [SearchColl] 滚动加载完成
+[10:39:33.278] [SearchColl] 开始提取Feeds
+[10:39:33.291] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 2/17 条（时间+去重后）
+[main] 搜索采集完成: 2 条
+[10:39:33.325] [NoteDetail] 创建 NoteDetailCollector
+[10:39:33.328] [NoteDetail] enrich_all 开始，共 2 条
+[10:39:33.413] [NoteDetail] 处理笔记 1/2: 69ee1e4d0000000036019efd
+[Detail] [1/2] /search_result/69ee1e4d0000000036019efd?xsec_token=AB3ZZo9HB...
+[10:39:33.414] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ee1e4d0000000036019efd?xsec_token=AB
+[10:39:34.335] [NoteDetail]   page.goto 完成
+[10:39:35.574] [NoteDetail]   wait_for_selector 完成
+[10:39:37.575] [NoteDetail]   开始提取详情
+[10:39:37.588] [NoteDetail]   提取完成 content_len=137
+[Detail] OK: 西沙滩的日落。今日份没在正前方，
+原来日落方向随着季节的变化...
+[10:39:42.152] [NoteDetail]   Page 已关闭
+[10:39:42.251] [NoteDetail] 处理笔记 2/2: 69ed7dc5000000003700e74d
+[Detail] [2/2] /search_result/69ed7dc5000000003700e74d?xsec_token=ABEr0hNps...
+[10:39:42.252] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ed7dc5000000003700e74d?xsec_token=AB
+[10:39:43.275] [NoteDetail]   page.goto 完成
+[10:39:44.754] [NoteDetail]   wait_for_selector 完成
+[10:39:46.755] [NoteDetail]   开始提取详情
+[10:39:46.768] [NoteDetail]   提取完成 content_len=54
+[Detail] OK: 今天一醒来就看到美丽的汕尾了，走了这么多个地方，终于看到蓝色...
+[10:39:50.817] [NoteDetail]   Page 已关闭
+[10:39:50.848] [NoteDetail] enrich_all 完成，返回 2 条
+[main] enrichment 完成: 2 条
+[main] 筛选完成: 1 条通过
+[FeishuOutput] 待写入 1 条
+[Feishu] 当前表格已有 42 条记录
+[Feishu] [69ee1e4d0000000036019efd] 写入成功: 今日份汕尾·西沙滩日落🌇
+[Feishu] 完成: 写入 1，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 1，跳过 0，失败 0
+[main] 飞书写入完成: 1 条
+
+=== STDERR ===

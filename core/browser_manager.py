@@ -158,6 +158,16 @@ class BrowserManager:
 
         self.context.add_cookies(cookies)
 
+    def _load_cookies_to_context(self, target_context):
+        """加载 xhs_cookies.json 到指定的 Context（用于串行模式）"""
+        if not self.cookie_file.exists():
+            raise FileNotFoundError(f"Cookie 文件不存在: {self.cookie_file}")
+
+        with open(self.cookie_file, encoding="utf-8") as f:
+            cookies = json.load(f)
+
+        target_context.add_cookies(cookies)
+
     def is_logged_in(self) -> bool:
         """
         检测登录态。

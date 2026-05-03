@@ -1,0 +1,50 @@
+关键词: 汕尾美食
+分组: core
+开始时间: 2026-04-30 11:10:10
+耗时: 30.0s
+超时: 否
+成功: 否
+
+=== STDOUT ===
+[11:09:42.652] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾美食&type=51
+[11:09:53.674] [SearchColl] 页面加载完成
+
+=== STDERR ===
+Traceback (most recent call last):
+  File "E:\translate\claw\xhs-auto-traffic-v2\core\search_collector.py", line 188, in _check_login
+    self.page.wait_for_selector(
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\sync_api\_generated.py", line 8014, in wait_for_selector
+    self._sync(
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_page.py", line 397, in wait_for_selector
+    return await self._main_frame.wait_for_selector(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_frame.py", line 323, in wait_for_selector
+    await self._channel.send("waitForSelector", locals_to_params(locals()))
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_connection.py", line 59, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_connection.py", line 514, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Page.wait_for_selector: Timeout 5000ms exceeded.
+Call log:
+waiting for locator(".user-author, .user-info, [class*='user-author'], [class*='avatar']") to be visible
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 154, in <module>
+    main()
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 150, in main
+    run_collect(args.keyword, args.limit, headless=headless)
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 30, in run_collect
+    feeds = collector.collect(keyword, limit=limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\translate\claw\xhs-auto-traffic-v2\core\search_collector.py", line 217, in collect
+    self._check_login()
+  File "E:\translate\claw\xhs-auto-traffic-v2\core\search_collector.py", line 196, in _check_login
+    raise LoginRequiredError(
+core.search_collector.LoginRequiredError: 小红书登录态失效（未检测到登录用户信息），请扫码登录后重试。

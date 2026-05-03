@@ -1,0 +1,1 @@
+python "E:\translate\claw\xhs-auto-traffic-v2\run_single.py" 2>&1

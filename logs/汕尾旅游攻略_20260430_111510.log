@@ -1,0 +1,49 @@
+关键词: 汕尾旅游攻略
+分组: core
+开始时间: 2026-04-30 11:15:10
+耗时: 40.5s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:14:31.556] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾旅游攻略&type=51
+[11:14:33.775] [SearchColl] 页面加载完成
+[11:14:36.821] [SearchColl] 登录检测通过
+[11:14:42.084] [SearchColl] 笔记列表出现
+[11:14:42.084] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:14:47.948] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:14:49.983] [SearchColl] 滚动加载完成
+[11:14:49.984] [SearchColl] 开始提取Feeds
+[11:14:49.999] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 2/17 条（时间+去重后）
+[main] 搜索采集完成: 2 条
+[11:14:50.016] [NoteDetail] 创建 NoteDetailCollector
+[11:14:50.019] [NoteDetail] enrich_all 开始，共 2 条
+[11:14:50.109] [NoteDetail] 处理笔记 1/2: 69f156a90000000035038847
+[Detail] [1/2] /search_result/69f156a90000000035038847?xsec_token=ABqssVzyX...
+[11:14:50.110] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f156a90000000035038847?xsec_token=AB
+[11:14:51.099] [NoteDetail]   page.goto 完成
+[11:14:52.407] [NoteDetail]   wait_for_selector 完成
+[11:14:54.409] [NoteDetail]   开始提取详情
+[11:14:54.425] [NoteDetail]   提取完成 content_len=19
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 汕尾三天两夜旅游攻略...
+[11:14:59.239] [NoteDetail]   Page 已关闭
+[11:14:59.342] [NoteDetail] 处理笔记 2/2: 69f087f00000000035032900
+[Detail] [2/2] /search_result/69f087f00000000035032900?xsec_token=AB8iUZ9FG...
+[11:14:59.343] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f087f00000000035032900?xsec_token=AB
+[11:15:00.398] [NoteDetail]   page.goto 完成
+[11:15:01.604] [NoteDetail]   wait_for_selector 完成
+[11:15:03.606] [NoteDetail]   开始提取详情
+[11:15:03.621] [NoteDetail]   提取完成 content_len=71
+[Detail] OK: 今日接待4为浙江的女生
+#汕尾包车 #汕尾 #汕尾旅行 #汕...
+[11:15:08.587] [NoteDetail]   Page 已关闭
+[11:15:08.600] [NoteDetail] enrich_all 完成，返回 2 条
+[main] enrichment 完成: 2 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

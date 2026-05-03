@@ -1,0 +1,63 @@
+关键词: 汕尾美食推荐
+分组: core
+开始时间: 2026-04-30 11:24:09
+耗时: 50.5s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:23:20.924] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾美食推荐&type=51
+[11:23:22.124] [SearchColl] 页面加载完成
+[11:23:25.168] [SearchColl] 登录检测通过
+[11:23:30.396] [SearchColl] 笔记列表出现
+[11:23:30.397] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:23:36.246] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:23:38.282] [SearchColl] 滚动加载完成
+[11:23:38.282] [SearchColl] 开始提取Feeds
+[11:23:38.298] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 3/17 条（时间+去重后）
+[main] 搜索采集完成: 3 条
+[11:23:38.315] [NoteDetail] 创建 NoteDetailCollector
+[11:23:38.317] [NoteDetail] enrich_all 开始，共 3 条
+[11:23:38.403] [NoteDetail] 处理笔记 1/3: 69ef4172000000001e00f511
+[Detail] [1/3] /search_result/69ef4172000000001e00f511?xsec_token=ABO6-Khbl...
+[11:23:38.404] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef4172000000001e00f511?xsec_token=AB
+[11:23:39.348] [NoteDetail]   page.goto 完成
+[11:23:40.547] [NoteDetail]   wait_for_selector 完成
+[11:23:42.548] [NoteDetail]   开始提取详情
+[11:23:42.561] [NoteDetail]   提取完成 content_len=178
+[Detail] OK: 每天不是在喝果汁就是在买果汁的路上，几乎每天都要买两杯，喝了...
+[11:23:47.502] [NoteDetail]   Page 已关闭
+[11:23:47.600] [NoteDetail] 处理笔记 2/3: 69f3847c000000002003ae93
+[Detail] [2/3] /search_result/69f3847c000000002003ae93?xsec_token=ABaqDJdw0...
+[11:23:47.601] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3847c000000002003ae93?xsec_token=AB
+[11:23:48.522] [NoteDetail]   page.goto 完成
+[11:23:49.813] [NoteDetail]   wait_for_selector 完成
+[11:23:51.814] [NoteDetail]   开始提取详情
+[11:23:51.827] [NoteDetail]   提取完成 content_len=837
+[Detail] OK: 汕尾两天一夜自驾🚗广东海边躺平天花板！人少景美
+谁还没去汕尾...
+[11:23:56.510] [NoteDetail]   Page 已关闭
+[11:23:56.610] [NoteDetail] 处理笔记 3/3: 69f3810e0000000038035ddd
+[Detail] [3/3] /search_result/69f3810e0000000038035ddd?xsec_token=ABaqDJdw0...
+[11:23:56.611] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3810e0000000038035ddd?xsec_token=AB
+[11:23:57.498] [NoteDetail]   page.goto 完成
+[11:23:58.583] [NoteDetail]   wait_for_selector 完成
+[11:24:00.584] [NoteDetail]   开始提取详情
+[11:24:00.598] [NoteDetail]   提取完成 content_len=72
+[Detail] OK: 有什么景点路线美食推荐，避雷的什么也分享分享呀#求推荐好吃的...
+[11:24:05.590] [NoteDetail]   Page 已关闭
+[11:24:05.621] [NoteDetail] enrich_all 完成，返回 3 条
+[main] enrichment 完成: 3 条
+[main] 筛选完成: 1 条通过
+[FeishuOutput] 待写入 1 条
+[Feishu] 当前表格已有 34 条记录
+[Feishu] [69f3810e0000000038035ddd] 写入成功: 有什么景点路线美食推荐，避雷的什么也分享分享呀#求推荐好吃的
+[Feishu] 完成: 写入 1，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 1，跳过 0，失败 0
+[main] 飞书写入完成: 1 条
+
+=== STDERR ===

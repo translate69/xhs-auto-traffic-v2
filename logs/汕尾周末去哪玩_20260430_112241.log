@@ -1,0 +1,25 @@
+关键词: 汕尾周末去哪玩
+分组: longtail
+开始时间: 2026-04-30 11:22:41
+耗时: 4.1s
+超时: 否
+成功: 否
+
+=== STDOUT ===
+[11:22:39.645] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾周末去哪玩&type=51
+[11:22:40.410] [SearchColl] 页面加载完成
+
+=== STDERR ===
+Traceback (most recent call last):
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 161, in <module>
+    main()
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 157, in main
+    run_collect(args.keyword, args.limit, headless=headless)
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 31, in run_collect
+    feeds = collector.collect(keyword, limit=limit)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\translate\claw\xhs-auto-traffic-v2\core\search_collector.py", line 217, in collect
+    self._check_login()
+  File "E:\translate\claw\xhs-auto-traffic-v2\core\search_collector.py", line 169, in _check_login
+    raise LoginRequiredError(
+core.search_collector.LoginRequiredError: 小红书登录态失效（URL 重定向），需重新扫码登录。

@@ -1,0 +1,60 @@
+关键词: 汕尾去哪住
+分组: core
+开始时间: 2026-04-30 10:26:06
+耗时: -3551.3s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:25:19.327] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾去哪住&type=51
+[11:25:20.568] [SearchColl] 页面加载完成
+[11:25:23.612] [SearchColl] 登录检测通过
+[11:25:28.818] [SearchColl] 笔记列表出现
+[11:25:28.819] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:25:34.654] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:25:36.724] [SearchColl] 滚动加载完成
+[11:25:36.724] [SearchColl] 开始提取Feeds
+[11:25:36.739] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 3/17 条（时间+去重后）
+[main] 搜索采集完成: 3 条
+[11:25:36.759] [NoteDetail] 创建 NoteDetailCollector
+[11:25:36.760] [NoteDetail] enrich_all 开始，共 3 条
+[11:25:36.849] [NoteDetail] 处理笔记 1/3: 69f30971000000003502c215
+[Detail] [1/3] /search_result/69f30971000000003502c215?xsec_token=ABaqDJdw0...
+[11:25:36.850] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f30971000000003502c215?xsec_token=AB
+[11:25:38.948] [NoteDetail]   page.goto 完成
+[11:25:40.008] [NoteDetail]   wait_for_selector 完成
+[11:25:42.010] [NoteDetail]   开始提取详情
+[11:25:42.022] [NoteDetail]   提取完成 content_len=67
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 4.30阴天红海湾海边路海岸线汕尾包🚗一日游...
+[11:25:47.032] [NoteDetail]   Page 已关闭
+[11:25:47.148] [NoteDetail] 处理笔记 2/3: 69f370b4000000003601917a
+[Detail] [2/3] /search_result/69f370b4000000003601917a?xsec_token=ABaqDJdw0...
+[11:25:47.148] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f370b4000000003601917a?xsec_token=AB
+[11:25:48.113] [NoteDetail]   page.goto 完成
+[11:25:49.253] [NoteDetail]   wait_for_selector 完成
+[10:25:51.252] [NoteDetail]   开始提取详情
+[10:25:51.269] [NoteDetail]   提取完成 content_len=528
+[Detail] OK: #浪漫生活的记录者 #假期去哪玩
+真的有被汕尾的海狠狠惊喜到...
+[10:25:55.700] [NoteDetail]   Page 已关闭
+[10:25:55.817] [NoteDetail] 处理笔记 3/3: 69f36c0b0000000023007b35
+[Detail] [3/3] /search_result/69f36c0b0000000023007b35?xsec_token=ABaqDJdw0...
+[10:25:55.817] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f36c0b0000000023007b35?xsec_token=AB
+[10:25:56.801] [NoteDetail]   page.goto 完成
+[10:25:57.835] [NoteDetail]   wait_for_selector 完成
+[10:25:59.837] [NoteDetail]   开始提取详情
+[10:25:59.852] [NoteDetail]   提取完成 content_len=104
+[Detail] OK: 5月的汕尾气候宜人
+住在距离海滩最近的地方
+听着海浪声睡觉，...
+[10:26:04.679] [NoteDetail]   Page 已关闭
+[10:26:04.692] [NoteDetail] enrich_all 完成，返回 3 条
+[main] enrichment 完成: 3 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

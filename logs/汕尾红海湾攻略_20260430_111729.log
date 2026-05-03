@@ -1,0 +1,196 @@
+关键词: 汕尾红海湾攻略
+分组: longtail
+开始时间: 2026-04-30 11:17:29
+耗时: 198.2s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:14:13.764] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾红海湾攻略&type=51
+[11:14:14.963] [SearchColl] 页面加载完成
+[11:14:18.012] [SearchColl] 登录检测通过
+[11:14:23.209] [SearchColl] 笔记列表出现
+[11:14:23.209] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:14:29.051] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:14:31.093] [SearchColl] 滚动加载完成
+[11:14:31.094] [SearchColl] 开始提取Feeds
+[11:14:31.109] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 15/17 条（时间+去重后）
+[main] 搜索采集完成: 15 条
+[11:14:31.135] [NoteDetail] 创建 NoteDetailCollector
+[11:14:31.137] [NoteDetail] enrich_all 开始，共 15 条
+[11:14:31.224] [NoteDetail] 处理笔记 1/15: 69f1b144000000001a02d348
+[Detail] [1/15] /search_result/69f1b144000000001a02d348?xsec_token=ABqssVzyX...
+[11:14:31.225] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f1b144000000001a02d348?xsec_token=AB
+[11:14:32.189] [NoteDetail]   page.goto 完成
+[11:14:33.302] [NoteDetail]   wait_for_selector 完成
+[11:14:35.304] [NoteDetail]   开始提取详情
+[11:14:35.317] [NoteDetail]   提取完成 content_len=355
+[Detail] OK: 汕尾红海湾包车一日游
+🕙出发时间：自由选择
+📍出发地点：汕尾...
+[11:14:39.052] [NoteDetail]   Page 已关闭
+[11:14:39.154] [NoteDetail] 处理笔记 2/15: 69f16fab000000003803638a
+[Detail] [2/15] /search_result/69f16fab000000003803638a?xsec_token=ABqssVzyX...
+[11:14:39.154] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f16fab000000003803638a?xsec_token=AB
+[11:14:40.202] [NoteDetail]   page.goto 完成
+[11:14:41.394] [NoteDetail]   wait_for_selector 完成
+[11:14:43.395] [NoteDetail]   开始提取详情
+[11:14:43.409] [NoteDetail]   提取完成 content_len=218
+[Detail] OK: ✅出行建议：
+▪️本地司机带你一日游/8个小时
+▪️全程九个...
+[11:14:46.567] [NoteDetail]   Page 已关闭
+[11:14:46.663] [NoteDetail] 处理笔记 3/15: 69f0c9f4000000001f006a3d
+[Detail] [3/15] /search_result/69f0c9f4000000001f006a3d?xsec_token=AB8iUZ9FG...
+[11:14:46.664] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f0c9f4000000001f006a3d?xsec_token=AB
+[11:14:47.626] [NoteDetail]   page.goto 完成
+[11:14:48.796] [NoteDetail]   wait_for_selector 完成
+[11:14:50.797] [NoteDetail]   开始提取详情
+[11:14:50.812] [NoteDetail]   提取完成 content_len=131
+[Detail] OK: 红海湾五一出行住哪里好？
+开车需要停车五一车位肯定很难找！
+...
+[11:14:55.730] [NoteDetail]   Page 已关闭
+[11:14:55.848] [NoteDetail] 处理笔记 4/15: 69f068e3000000003503b54c
+[Detail] [4/15] /search_result/69f068e3000000003503b54c?xsec_token=AB8iUZ9FG...
+[11:14:55.848] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f068e3000000003503b54c?xsec_token=AB
+[11:14:58.325] [NoteDetail]   page.goto 完成
+[11:14:59.502] [NoteDetail]   wait_for_selector 完成
+[11:15:01.504] [NoteDetail]   开始提取详情
+[11:15:01.516] [NoteDetail]   提取完成 content_len=48
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: 4.28汕尾红海湾实时天气🌅...
+[11:15:05.325] [NoteDetail]   Page 已关闭
+[11:15:05.424] [NoteDetail] 处理笔记 5/15: 69f06411000000001f004591
+[Detail] [5/15] /search_result/69f06411000000001f004591?xsec_token=AB8iUZ9FG...
+[11:15:05.424] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f06411000000001f004591?xsec_token=AB
+[11:15:06.358] [NoteDetail]   page.goto 完成
+[11:15:07.348] [NoteDetail]   wait_for_selector 完成
+[11:15:09.350] [NoteDetail]   开始提取详情
+[11:15:09.362] [NoteDetail]   提取完成 content_len=198
+[Detail] OK: 红海湾bao🚗，随叫随到！
+（新车没有异味接一次客户消毒清洗...
+[Detail] 已采集 5 条，暂停 15s
+[11:15:28.286] [NoteDetail]   Page 已关闭
+[11:15:28.374] [NoteDetail] 处理笔记 6/15: 69f05bf30000000036003af6
+[Detail] [6/15] /search_result/69f05bf30000000036003af6?xsec_token=AB8iUZ9FG...
+[11:15:28.374] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f05bf30000000036003af6?xsec_token=AB
+[11:15:29.951] [NoteDetail]   page.goto 完成
+[11:15:30.052] [NoteDetail]   wait_for_selector 完成
+[11:15:32.053] [NoteDetail]   开始提取详情
+[11:15:32.065] [NoteDetail]   提取完成 content_len=196
+[Detail] OK: 汕尾红海湾约拍日常
+红海湾bao🚗，随叫随到！
+大学生好说话...
+[11:15:36.956] [NoteDetail]   Page 已关闭
+[11:15:37.045] [NoteDetail] 处理笔记 7/15: 69f055df0000000023017d49
+[Detail] [7/15] /search_result/69f055df0000000023017d49?xsec_token=AB8iUZ9FG...
+[11:15:37.045] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f055df0000000023017d49?xsec_token=AB
+[11:15:38.751] [NoteDetail]   page.goto 完成
+[11:15:39.236] [NoteDetail]   wait_for_selector 完成
+[11:15:41.237] [NoteDetail]   开始提取详情
+[11:15:41.250] [NoteDetail]   提取完成 content_len=89
+[Detail] OK: 天气预报原因人好少，不过不下雨
+中午还是大太阳
+五一汕尾包车...
+[11:15:45.488] [NoteDetail]   Page 已关闭
+[11:15:45.604] [NoteDetail] 处理笔记 8/15: 69f035480000000035027914
+[Detail] [8/15] /search_result/69f035480000000035027914?xsec_token=AB8iUZ9FG...
+[11:15:45.605] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f035480000000035027914?xsec_token=AB
+[11:15:46.630] [NoteDetail]   page.goto 完成
+[11:15:47.663] [NoteDetail]   wait_for_selector 完成
+[11:15:49.665] [NoteDetail]   开始提取详情
+[11:15:49.681] [NoteDetail]   提取完成 content_len=191
+[Detail] OK: 汕尾红海湾约拍日常
+红海湾bao🚗，随叫随到！
+大学生好说话...
+[11:15:53.265] [NoteDetail]   Page 已关闭
+[11:15:53.354] [NoteDetail] 处理笔记 9/15: 69f02324000000003701e711
+[Detail] [9/15] /search_result/69f02324000000003701e711?xsec_token=AB8iUZ9FG...
+[11:15:53.354] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f02324000000003701e711?xsec_token=AB
+[11:15:54.299] [NoteDetail]   page.goto 完成
+[11:15:55.373] [NoteDetail]   wait_for_selector 完成
+[11:15:57.374] [NoteDetail]   开始提取详情
+[11:15:57.387] [NoteDetail]   提取完成 content_len=47
+[Detail] OK: 避开五一客流量，玩了两天，一个人花了500。租电动车在海边当...
+[11:16:00.658] [NoteDetail]   Page 已关闭
+[11:16:00.758] [NoteDetail] 处理笔记 10/15: 69eefafd00000000360017bc
+[Detail] [10/15] /search_result/69eefafd00000000360017bc?xsec_token=AB3ZZo9HB...
+[11:16:00.758] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69eefafd00000000360017bc?xsec_token=AB
+[11:16:01.801] [NoteDetail]   page.goto 完成
+[11:16:02.868] [NoteDetail]   wait_for_selector 完成
+[11:16:04.869] [NoteDetail]   开始提取详情
+[11:16:04.883] [NoteDetail]   提取完成 content_len=73
+[Detail] OK: 今日份带玩两位成都的女生
+#汕尾包车 #汕尾 #汕尾旅行 #...
+[Detail] 已采集 10 条，暂停 15s
+[11:16:23.247] [NoteDetail]   Page 已关闭
+[11:16:23.364] [NoteDetail] 处理笔记 11/15: 69eee64b000000003501f60b
+[Detail] [11/15] /search_result/69eee64b000000003501f60b?xsec_token=AB3ZZo9HB...
+[11:16:23.365] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69eee64b000000003501f60b?xsec_token=AB
+[11:16:24.330] [NoteDetail]   page.goto 完成
+[11:16:25.612] [NoteDetail]   wait_for_selector 完成
+[11:16:27.613] [NoteDetail]   开始提取详情
+[11:16:27.626] [NoteDetail]   提取完成 content_len=805
+[Detail] OK: 谁懂啊宝子们😭 从二马路吃完美食🍜去红海湾🌊，打车动辄几十块...
+[11:16:32.225] [NoteDetail]   Page 已关闭
+[11:16:32.341] [NoteDetail] 处理笔记 12/15: 69eecf800000000037035b7e
+[Detail] [12/15] /search_result/69eecf800000000037035b7e?xsec_token=AB3ZZo9HB...
+[11:16:32.341] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69eecf800000000037035b7e?xsec_token=AB
+[11:16:33.316] [NoteDetail]   page.goto 完成
+[11:16:34.485] [NoteDetail]   wait_for_selector 完成
+[11:16:36.486] [NoteDetail]   开始提取详情
+[11:16:36.500] [NoteDetail]   提取完成 content_len=218
+[Detail] OK: ✅出行建议：
+▪️本地司机带你一日游/8个小时
+▪️全程九个...
+[11:16:39.925] [NoteDetail]   Page 已关闭
+[11:16:40.025] [NoteDetail] 处理笔记 13/15: 69ee249f000000003502502b
+[Detail] [13/15] /search_result/69ee249f000000003502502b?xsec_token=AB3ZZo9HB...
+[11:16:40.026] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ee249f000000003502502b?xsec_token=AB
+[11:16:41.315] [NoteDetail]   page.goto 完成
+[11:16:42.461] [NoteDetail]   wait_for_selector 完成
+[11:16:44.462] [NoteDetail]   开始提取详情
+[11:16:44.476] [NoteDetail]   提取完成 content_len=596
+[Detail] OK: 谁懂啊！深圳出发高铁直达汕尾✨
+不用赶行程，主打美食+绝美海...
+[11:16:49.236] [NoteDetail]   Page 已关闭
+[11:16:49.329] [NoteDetail] 处理笔记 14/15: 69eded20000000001f00677d
+[Detail] [14/15] /search_result/69eded20000000001f00677d?xsec_token=ABEr0hNps...
+[11:16:49.330] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69eded20000000001f00677d?xsec_token=AB
+[11:16:50.359] [NoteDetail]   page.goto 完成
+[11:16:51.456] [NoteDetail]   wait_for_selector 完成
+[11:16:53.457] [NoteDetail]   开始提取详情
+[11:16:53.470] [NoteDetail]   提取完成 content_len=359
+[Detail] OK: 汕尾红海湾包车一日游
+🕙出发时间：自由选择
+📍出发地点：汕尾...
+[11:16:58.411] [NoteDetail]   Page 已关闭
+[11:16:58.526] [NoteDetail] 处理笔记 15/15: 69edaaae000000002301e146
+[Detail] [15/15] /search_result/69edaaae000000002301e146?xsec_token=ABEr0hNps...
+[11:16:58.526] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69edaaae000000002301e146?xsec_token=AB
+[11:16:59.521] [NoteDetail]   page.goto 完成
+[11:17:00.717] [NoteDetail]   wait_for_selector 完成
+[11:17:02.718] [NoteDetail]   开始提取详情
+[11:17:02.733] [NoteDetail]   提取完成 content_len=190
+[Detail] OK: 🌟个人感觉浮日号这里是红海湾一日游中最出片的点
+比网红点Lo...
+[Detail] 已采集 15 条，暂停 15s
+[11:17:22.426] [NoteDetail]   Page 已关闭
+[11:17:22.456] [NoteDetail] enrich_all 完成，返回 15 条
+[main] enrichment 完成: 15 条
+[main] 筛选完成: 3 条通过
+[FeishuOutput] 待写入 3 条
+[Feishu] 当前表格已有 28 条记录
+[Feishu] [69f0c9f4000000001f006a3d] 写入成功: 红海湾五一出行住哪里方便？
+[Feishu] [69f05bf30000000036003af6] 写入成功: 4.28汕尾红海湾玻璃海实时天气
+[Feishu] [69f035480000000035027914] 写入成功: 4.28汕尾红海湾海上古堡实时天气
+[Feishu] 完成: 写入 3，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 3，跳过 0，失败 0
+[main] 飞书写入完成: 3 条
+
+=== STDERR ===

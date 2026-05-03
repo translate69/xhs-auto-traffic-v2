@@ -1,0 +1,58 @@
+关键词: 深圳到汕尾自驾住哪
+分组: longtail
+开始时间: 2026-04-30 10:30:23
+耗时: 45.4s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:29:39.785] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=深圳到汕尾自驾住哪&type=51
+[10:29:40.948] [SearchColl] 页面加载完成
+[10:29:43.991] [SearchColl] 登录检测通过
+[10:29:49.248] [SearchColl] 笔记列表出现
+[10:29:49.249] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:29:55.128] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:29:57.162] [SearchColl] 滚动加载完成
+[10:29:57.162] [SearchColl] 开始提取Feeds
+[10:29:57.178] [SearchColl] 提取完成，返回 16 条Feeds
+[SearchCollector] 采集完成: 3/16 条（时间+去重后）
+[main] 搜索采集完成: 3 条
+[10:29:57.195] [NoteDetail] 创建 NoteDetailCollector
+[10:29:57.196] [NoteDetail] enrich_all 开始，共 3 条
+[10:29:57.283] [NoteDetail] 处理笔记 1/3: 69ede663000000003701e8ce
+[Detail] [1/3] /search_result/69ede663000000003701e8ce?xsec_token=ABEr0hNps...
+[10:29:57.283] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ede663000000003701e8ce?xsec_token=AB
+[10:29:58.323] [NoteDetail]   page.goto 完成
+[10:29:59.569] [NoteDetail]   wait_for_selector 完成
+[10:30:01.571] [NoteDetail]   开始提取详情
+[10:30:01.585] [NoteDetail]   提取完成 content_len=345
+[Detail] OK: 📍深圳出发
+🏎【交通工具】：高铁+打车+电驴（红海湾）
+💥我...
+[10:30:04.664] [NoteDetail]   Page 已关闭
+[10:30:04.781] [NoteDetail] 处理笔记 2/3: 69ed974800000000230163eb
+[Detail] [2/3] /search_result/69ed974800000000230163eb?xsec_token=ABEr0hNps...
+[10:30:04.781] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ed974800000000230163eb?xsec_token=AB
+[10:30:05.785] [NoteDetail]   page.goto 完成
+[10:30:07.050] [NoteDetail]   wait_for_selector 完成
+[10:30:09.051] [NoteDetail]   开始提取详情
+[10:30:09.065] [NoteDetail]   提取完成 content_len=45
+[Detail] OK: 适合家庭出行，两房一厅，低楼层也很舒适#五一没有售价出发就在...
+[10:30:13.146] [NoteDetail]   Page 已关闭
+[10:30:13.264] [NoteDetail] 处理笔记 3/3: 69f384d4000000003501d1b7
+[Detail] [3/3] /search_result/69f384d4000000003501d1b7?xsec_token=ABaqDJdw0...
+[10:30:13.265] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f384d4000000003501d1b7?xsec_token=AB
+[10:30:14.288] [NoteDetail]   page.goto 完成
+[10:30:15.650] [NoteDetail]   wait_for_selector 完成
+[10:30:17.651] [NoteDetail]   开始提取详情
+[10:30:17.664] [NoteDetail]   提取完成 content_len=889
+[Detail] OK: 二刷深圳南山桃园站附近的这家丹东特色烤肉了！！谁懂驱车100...
+[10:30:21.872] [NoteDetail]   Page 已关闭
+[10:30:21.885] [NoteDetail] enrich_all 完成，返回 3 条
+[main] enrichment 完成: 3 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

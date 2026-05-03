@@ -1,0 +1,41 @@
+关键词: 汕尾美食推荐
+分组: core
+开始时间: 2026-04-30 10:26:24
+耗时: -3561.4s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:25:47.590] [SearchColl] goto: 小红书首页
+[10:25:53.767] [SearchColl] 搜索框已fill: 汕尾美食推荐
+[10:25:54.417] [SearchColl] 按回车触发搜索
+[10:25:59.435] [SearchColl] 搜索结果页面加载完成
+[10:26:02.465] [SearchColl] 登录检测通过
+[10:26:07.481] [SearchColl] 笔记列表出现
+[10:26:07.481] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:26:13.443] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:26:15.477] [SearchColl] 滚动加载完成
+[10:26:15.477] [SearchColl] 开始提取Feeds
+[10:26:15.494] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 1/17 条（时间+去重后）
+[main] 搜索采集完成: 1 条
+[10:26:15.509] [NoteDetail] 创建 NoteDetailCollector
+[10:26:15.512] [NoteDetail] enrich_all 开始，共 1 条
+[10:26:15.601] [NoteDetail] 处理笔记 1/1: 69eeae3f00000000230166b5
+[Detail] [1/1] /search_result/69eeae3f00000000230166b5?xsec_token=AB3ZZo9HB...
+[10:26:15.602] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69eeae3f00000000230166b5?xsec_token=AB
+[10:26:16.537] [NoteDetail]   page.goto 完成
+[10:26:17.629] [NoteDetail]   wait_for_selector 完成
+[10:26:19.630] [NoteDetail]   开始提取详情
+[10:26:19.645] [NoteDetail]   提取完成 content_len=50
+[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级
+[Detail] OK: (无正文)...
+[10:26:22.841] [NoteDetail]   Page 已关闭
+[10:26:22.872] [NoteDetail] enrich_all 完成，返回 1 条
+[main] enrichment 完成: 1 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

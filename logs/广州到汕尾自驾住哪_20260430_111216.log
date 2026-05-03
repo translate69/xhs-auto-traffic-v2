@@ -1,0 +1,38 @@
+关键词: 广州到汕尾自驾住哪
+分组: longtail
+开始时间: 2026-04-30 11:12:16
+耗时: 29.8s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[11:11:48.889] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=广州到汕尾自驾住哪&type=51
+[11:11:50.129] [SearchColl] 页面加载完成
+[11:11:53.167] [SearchColl] 登录检测通过
+[11:11:58.369] [SearchColl] 笔记列表出现
+[11:11:58.370] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[11:12:04.223] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[11:12:06.344] [SearchColl] 滚动加载完成
+[11:12:06.344] [SearchColl] 开始提取Feeds
+[11:12:06.362] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 1/17 条（时间+去重后）
+[main] 搜索采集完成: 1 条
+[11:12:06.378] [NoteDetail] 创建 NoteDetailCollector
+[11:12:06.381] [NoteDetail] enrich_all 开始，共 1 条
+[11:12:06.470] [NoteDetail] 处理笔记 1/1: 69f1ff2b0000000023006688
+[Detail] [1/1] /search_result/69f1ff2b0000000023006688?xsec_token=ABqssVzyX...
+[11:12:06.470] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f1ff2b0000000023006688?xsec_token=AB
+[11:12:07.555] [NoteDetail]   page.goto 完成
+[11:12:08.839] [NoteDetail]   wait_for_selector 完成
+[11:12:10.841] [NoteDetail]   开始提取详情
+[11:12:10.861] [NoteDetail]   提取完成 content_len=986
+[Detail] OK: 周末不想过夜又想玩得尽兴？广深自驾2.5h钻进汕尾万亩湿地，...
+[11:12:15.008] [NoteDetail]   Page 已关闭
+[11:12:15.011] [NoteDetail] enrich_all 完成，返回 1 条
+[main] enrichment 完成: 1 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

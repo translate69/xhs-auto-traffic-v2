@@ -1,0 +1,76 @@
+关键词: 广州到汕尾自驾住哪
+分组: longtail
+开始时间: 2026-04-30 10:29:32
+耗时: 76.3s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:28:18.530] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=广州到汕尾自驾住哪&type=51
+[10:28:19.782] [SearchColl] 页面加载完成
+[10:28:22.828] [SearchColl] 登录检测通过
+[10:28:28.055] [SearchColl] 笔记列表出现
+[10:28:28.056] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:28:33.911] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:28:35.948] [SearchColl] 滚动加载完成
+[10:28:35.949] [SearchColl] 开始提取Feeds
+[10:28:35.966] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 5/17 条（时间+去重后）
+[main] 搜索采集完成: 5 条
+[10:28:35.984] [NoteDetail] 创建 NoteDetailCollector
+[10:28:35.986] [NoteDetail] enrich_all 开始，共 5 条
+[10:28:36.079] [NoteDetail] 处理笔记 1/5: 69f37638000000001f00406b
+[Detail] [1/5] /search_result/69f37638000000001f00406b?xsec_token=ABaqDJdw0...
+[10:28:36.079] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f37638000000001f00406b?xsec_token=AB
+[10:28:37.055] [NoteDetail]   page.goto 完成
+[10:28:37.116] [NoteDetail]   wait_for_selector 完成
+[10:28:39.117] [NoteDetail]   开始提取详情
+[10:28:39.138] [NoteDetail]   提取完成 content_len=155
+[Detail] OK: 之前小长假，我们带娃从广州出发🚗自驾3小时，
+我们在湖光山色...
+[10:28:43.160] [NoteDetail]   Page 已关闭
+[10:28:43.253] [NoteDetail] 处理笔记 2/5: 69f377b90000000035021aa9
+[Detail] [2/5] /search_result/69f377b90000000035021aa9?xsec_token=ABaqDJdw0...
+[10:28:43.254] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f377b90000000035021aa9?xsec_token=AB
+[10:28:44.173] [NoteDetail]   page.goto 完成
+[10:28:45.238] [NoteDetail]   wait_for_selector 完成
+[10:28:47.240] [NoteDetail]   开始提取详情
+[10:28:47.255] [NoteDetail]   提取完成 content_len=569
+[Detail] OK: 谁懂啊！白云南湖藏着万科蓝山这样的低密山景社区，背靠白云山、...
+[10:28:52.147] [NoteDetail]   Page 已关闭
+[10:28:52.268] [NoteDetail] 处理笔记 3/5: 69f3758b000000001b021ac7
+[Detail] [3/5] /search_result/69f3758b000000001b021ac7?xsec_token=ABaqDJdw0...
+[10:28:52.268] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f3758b000000001b021ac7?xsec_token=AB
+[10:28:53.279] [NoteDetail]   page.goto 完成
+[10:28:54.464] [NoteDetail]   wait_for_selector 完成
+[10:28:56.465] [NoteDetail]   开始提取详情
+[10:28:56.480] [NoteDetail]   提取完成 content_len=767
+[Detail] OK: 95后夫妻，计划5.29日到乌鲁木齐，30日正式出发，路上行...
+[10:29:00.445] [NoteDetail]   Page 已关闭
+[10:29:00.546] [NoteDetail] 处理笔记 4/5: 69f36f78000000003502fce6
+[Detail] [4/5] /search_result/69f36f78000000003502fce6?xsec_token=ABaqDJdw0...
+[10:29:00.546] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f36f78000000003502fce6?xsec_token=AB
+[10:29:01.522] [NoteDetail]   page.goto 完成
+[10:29:02.758] [NoteDetail]   wait_for_selector 完成
+[10:29:04.759] [NoteDetail]   开始提取详情
+[10:29:04.771] [NoteDetail]   提取完成 content_len=178
+[Detail] OK: 五一放假，提前出发从广州自驾去北海，长达6小时的车程，宝宝巴...
+[10:29:09.036] [NoteDetail]   Page 已关闭
+[10:29:09.154] [NoteDetail] 处理笔记 5/5: 69f36b9a000000001a02cf81
+[Detail] [5/5] /search_result/69f36b9a000000001a02cf81?xsec_token=ABaqDJdw0...
+[10:29:09.154] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f36b9a000000001a02cf81?xsec_token=AB
+[10:29:10.163] [NoteDetail]   page.goto 完成
+[10:29:11.183] [NoteDetail]   wait_for_selector 完成
+[10:29:13.184] [NoteDetail]   开始提取详情
+[10:29:13.196] [NoteDetail]   提取完成 content_len=438
+[Detail] OK: 纯属节约成本玩法：长隆飞鸟乐园半天时间足够，长隆野生动物园主...
+[Detail] 已采集 5 条，暂停 15s
+[10:29:31.586] [NoteDetail]   Page 已关闭
+[10:29:31.617] [NoteDetail] enrich_all 完成，返回 5 条
+[main] enrichment 完成: 5 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

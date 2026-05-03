@@ -1,0 +1,8 @@
+[14:44:18.226] [START] log_path=E:\translate\claw\xhs-auto-traffic-v2\_run_new_kw_debug.log
+[14:44:18.226] 脚本开始
+[14:44:18.260] 导入模块完成
+[14:44:18.639] 删除断点文件: 深圳周末游
+[14:44:18.646] 开始 SearchCollector.collect()
+[14:44:18.650] 调用 run_keyword()
+[14:45:08.031] Pipeline 执行完成
+[14:45:08.044] 脚本退出

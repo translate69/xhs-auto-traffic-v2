@@ -1,0 +1,117 @@
+关键词: 汕尾去哪吃
+分组: core
+开始时间: 2026-04-30 10:48:45
+耗时: 111.0s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:46:56.413] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾去哪吃&type=51
+[10:47:00.320] [SearchColl] 页面加载完成
+[10:47:03.359] [SearchColl] 登录检测通过
+[10:47:08.560] [SearchColl] 笔记列表出现
+[10:47:08.561] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:47:14.419] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:47:16.452] [SearchColl] 滚动加载完成
+[10:47:16.452] [SearchColl] 开始提取Feeds
+[10:47:16.469] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 8/17 条（时间+去重后）
+[main] 搜索采集完成: 8 条
+[10:47:16.489] [NoteDetail] 创建 NoteDetailCollector
+[10:47:16.492] [NoteDetail] enrich_all 开始，共 8 条
+[10:47:16.580] [NoteDetail] 处理笔记 1/8: 69eb605d000000003700f3c5
+[Detail] [1/8] /search_result/69eb605d000000003700f3c5?xsec_token=ABrXI2mId...
+[10:47:16.580] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69eb605d000000003700f3c5?xsec_token=AB
+[10:47:17.543] [NoteDetail]   page.goto 完成
+[10:47:18.964] [NoteDetail]   wait_for_selector 完成
+[10:47:20.965] [NoteDetail]   开始提取详情
+[10:47:20.979] [NoteDetail]   提取完成 content_len=48
+[Detail] OK: #脆皮烤鸡 #手撕鸡 #汕尾美食 #现杀现做更好吃 #熟食 ...
+[10:47:24.603] [NoteDetail]   Page 已关闭
+[10:47:24.722] [NoteDetail] 处理笔记 2/8: 69f0a7af0000000038022441
+[Detail] [2/8] /search_result/69f0a7af0000000038022441?xsec_token=AB8iUZ9FG...
+[10:47:24.723] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f0a7af0000000038022441?xsec_token=AB
+[10:47:25.673] [NoteDetail]   page.goto 完成
+[10:47:27.004] [NoteDetail]   wait_for_selector 完成
+[10:47:29.006] [NoteDetail]   开始提取详情
+[10:47:29.019] [NoteDetail]   提取完成 content_len=164
+[Detail] OK: 跟着小时候的回忆吃，这两天快把我撑死了，图上是我一个人的量，...
+[10:47:33.138] [NoteDetail]   Page 已关闭
+[10:47:33.254] [NoteDetail] 处理笔记 3/8: 69f0290c000000003601fef9
+[Detail] [3/8] /search_result/69f0290c000000003601fef9?xsec_token=AB8iUZ9FG...
+[10:47:33.255] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f0290c000000003601fef9?xsec_token=AB
+[10:47:34.507] [NoteDetail]   page.goto 完成
+[10:47:35.780] [NoteDetail]   wait_for_selector 完成
+[10:47:37.782] [NoteDetail]   开始提取详情
+[10:47:37.796] [NoteDetail]   提取完成 content_len=189
+[Detail] OK: 周六辗转几个景点后，下午三点半出发去陆河吃喜酒预备餐。
+首先...
+[10:47:41.104] [NoteDetail]   Page 已关闭
+[10:47:41.207] [NoteDetail] 处理笔记 4/8: 69ecc3d50000000036001209
+[Detail] [4/8] /search_result/69ecc3d50000000036001209?xsec_token=ABVf4fdSa...
+[10:47:41.207] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ecc3d50000000036001209?xsec_token=AB
+[10:47:42.206] [NoteDetail]   page.goto 完成
+[10:47:43.246] [NoteDetail]   wait_for_selector 完成
+[10:47:45.247] [NoteDetail]   开始提取详情
+[10:47:45.261] [NoteDetail]   提取完成 content_len=17
+[Detail] OK: 五一去汕尾，有什么好吃好玩的推荐？...
+[10:47:48.602] [NoteDetail]   Page 已关闭
+[10:47:48.719] [NoteDetail] 处理笔记 5/8: 69f333680000000038035df0
+[Detail] [5/8] /search_result/69f333680000000038035df0?xsec_token=ABaqDJdw0...
+[10:47:48.719] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f333680000000038035df0?xsec_token=AB
+[10:47:49.830] [NoteDetail]   page.goto 完成
+[10:47:50.850] [NoteDetail]   wait_for_selector 完成
+[10:47:52.851] [NoteDetail]   开始提取详情
+[10:47:52.863] [NoteDetail]   提取完成 content_len=107
+[Detail] OK: 五一小长假去哪玩不重要  重要的是和谁去🫶🫶
+海边真的很治愈...
+[Detail] 已采集 5 条，暂停 15s
+[10:48:12.489] [NoteDetail]   Page 已关闭
+[10:48:12.588] [NoteDetail] 处理笔记 6/8: 69f33207000000003701f3e6
+[Detail] [6/8] /search_result/69f33207000000003701f3e6?xsec_token=ABaqDJdw0...
+[10:48:12.588] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f33207000000003701f3e6?xsec_token=AB
+[10:48:13.903] [NoteDetail]   page.goto 完成
+[10:48:15.035] [NoteDetail]   wait_for_selector 完成
+[10:48:17.037] [NoteDetail]   开始提取详情
+[10:48:17.050] [NoteDetail]   提取完成 content_len=407
+[Detail] OK: 汕尾攻略做的太轻松了
+1天市区，1天红海湾就够了
+	
+第1️...
+[10:48:21.190] [NoteDetail]   Page 已关闭
+[10:48:21.278] [NoteDetail] 处理笔记 7/8: 69f33120000000003601e36a
+[Detail] [7/8] /search_result/69f33120000000003601e36a?xsec_token=ABaqDJdw0...
+[10:48:21.279] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f33120000000003601e36a?xsec_token=AB
+[10:48:22.202] [NoteDetail]   page.goto 完成
+[10:48:23.498] [NoteDetail]   wait_for_selector 完成
+[10:48:25.500] [NoteDetail]   开始提取详情
+[10:48:25.515] [NoteDetail]   提取完成 content_len=222
+[Detail] OK: 没做任何攻略 主打随心所欲 chill旅行🌊
+自驾走到哪 玩...
+[10:48:29.355] [NoteDetail]   Page 已关闭
+[10:48:29.473] [NoteDetail] 处理笔记 8/8: 69f2cada000000003601a333
+[Detail] [8/8] /search_result/69f2cada000000003601a333?xsec_token=ABLA2hKtZ...
+[10:48:29.474] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f2cada000000003601a333?xsec_token=AB
+[10:48:30.433] [NoteDetail]   page.goto 完成
+[10:48:31.791] [NoteDetail]   wait_for_selector 完成
+[10:48:33.793] [NoteDetail]   开始提取详情
+[10:48:33.806] [NoteDetail]   提取完成 content_len=544
+[Detail] OK: 在汕尾有家一秒穿越泰兰德的瓦罐小火锅
+连吃一口都觉得在泰国街...
+[10:48:37.390] [NoteDetail]   Page 已关闭
+[10:48:37.404] [NoteDetail] enrich_all 完成，返回 8 条
+[main] enrichment 完成: 8 条
+[main] 筛选完成: 3 条通过
+[FeishuOutput] 待写入 3 条
+[Feishu] 当前表格已有 25 条记录
+[Feishu] [69f0a7af0000000038022441] 写入成功: 老汕尾人回汕尾，我一直在吃
+[Feishu] [69ecc3d50000000036001209] 写入成功: 五一去汕尾，有什么好吃好玩的推荐？
+[Feishu] [69f333680000000038035df0] 写入成功: 一万种旅行howto
+[Feishu] 完成: 写入 3，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 3，跳过 0，失败 0
+[main] 飞书写入完成: 3 条
+
+=== STDERR ===

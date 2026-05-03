@@ -1,0 +1,38 @@
+关键词: 汕尾美食
+分组: core
+开始时间: 2026-04-30 10:34:01
+耗时: 30.0s
+超时: 是
+成功: 否
+
+=== STDOUT ===
+[10:33:33.389] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾美食&type=51
+[10:33:36.102] [SearchColl] 页面加载完成
+[10:33:39.142] [SearchColl] 登录检测通过
+[10:33:44.364] [SearchColl] 笔记列表出现
+[10:33:44.364] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:33:50.203] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 5 条，提前结束
+[10:33:52.241] [SearchColl] 滚动加载完成
+[10:33:52.241] [SearchColl] 开始提取Feeds
+[10:33:52.256] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 1/17 条（时间+去重后）
+[main] 搜索采集完成: 1 条
+[10:33:52.272] [NoteDetail] 创建 NoteDetailCollector
+[10:33:52.275] [NoteDetail] enrich_all 开始，共 1 条
+[10:33:52.361] [NoteDetail] 处理笔记 1/1: 69f24cf8000000001a02c506
+[Detail] [1/1] /search_result/69f24cf8000000001a02c506?xsec_token=ABLA2hKtZ...
+[10:33:52.362] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f24cf8000000001a02c506?xsec_token=AB
+[10:33:54.324] [NoteDetail]   page.goto 完成
+[10:33:54.572] [NoteDetail]   wait_for_selector 完成
+[10:33:56.573] [NoteDetail]   开始提取详情
+[10:33:56.586] [NoteDetail]   提取完成 content_len=74
+[Detail] OK: 汕尾五一假期包车
+欢迎滴滴 随叫随到
+路线推荐 #汕尾包车 ...
+[10:34:00.619] [NoteDetail]   Page 已关闭
+[10:34:00.633] [NoteDetail] enrich_all 完成，返回 1 条
+
+=== STDERR ===

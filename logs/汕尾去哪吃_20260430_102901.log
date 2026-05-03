@@ -1,0 +1,57 @@
+关键词: 汕尾去哪吃
+分组: core
+开始时间: 2026-04-30 10:29:01
+耗时: 54.1s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:28:08.920] [SearchColl] goto: 小红书首页
+[10:28:15.258] [SearchColl] 搜索框已fill: 汕尾去哪吃
+[10:28:15.790] [SearchColl] 按回车触发搜索
+[10:28:20.811] [SearchColl] 搜索结果页面加载完成
+[10:28:23.958] [SearchColl] 登录检测通过
+[10:28:28.976] [SearchColl] 笔记列表出现
+[10:28:28.976] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:28:34.918] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:28:36.964] [SearchColl] 滚动加载完成
+[10:28:36.964] [SearchColl] 开始提取Feeds
+[10:28:36.980] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 2/17 条（时间+去重后）
+[main] 搜索采集完成: 2 条
+[10:28:36.997] [NoteDetail] 创建 NoteDetailCollector
+[10:28:36.999] [NoteDetail] enrich_all 开始，共 2 条
+[10:28:37.088] [NoteDetail] 处理笔记 1/2: 69edd4ab000000003502bdde
+[Detail] [1/2] /search_result/69edd4ab000000003502bdde?xsec_token=ABEr0hNps...
+[10:28:37.088] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69edd4ab000000003502bdde?xsec_token=AB
+[10:28:38.091] [NoteDetail]   page.goto 完成
+[10:28:39.281] [NoteDetail]   wait_for_selector 完成
+[10:28:41.282] [NoteDetail]   开始提取详情
+[10:28:41.295] [NoteDetail]   提取完成 content_len=97
+[Detail] OK: 生腌脑袋直接狂喜！
+新鲜度完全在线，没有一点腥味，一口下去又...
+[10:28:45.780] [NoteDetail]   Page 已关闭
+[10:28:45.897] [NoteDetail] 处理笔记 2/2: 69ecfb64000000001f004e33
+[Detail] [2/2] /search_result/69ecfb64000000001f004e33?xsec_token=ABVf4fdSa...
+[10:28:45.897] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ecfb64000000001f004e33?xsec_token=AB
+[10:28:46.763] [NoteDetail]   page.goto 完成
+[10:28:48.076] [NoteDetail]   wait_for_selector 完成
+[10:28:50.078] [NoteDetail]   开始提取详情
+[10:28:50.091] [NoteDetail]   提取完成 content_len=74
+[Detail] OK: 请问汕尾本地的宝子，除了二马路还可以去哪找吃的呀？有推荐的必...
+[10:28:54.280] [NoteDetail]   Page 已关闭
+[10:28:54.293] [NoteDetail] enrich_all 完成，返回 2 条
+[main] enrichment 完成: 2 条
+[main] 筛选完成: 2 条通过
+[FeishuOutput] 待写入 2 条
+[Feishu] 当前表格已有 58 条记录
+[Feishu] [69edd4ab000000003502bdde] 写入成功: 为了这口 我可以三刷广东汕尾🦪🦀🦑🍣🦐🦞
+[Feishu] [69ecfb64000000001f004e33] 写入成功: 请问汕尾本地的宝子，除了二马路还可以去哪找吃的呀？有推荐的必
+[Feishu] 完成: 写入 2，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 2，跳过 0，失败 0
+[main] 飞书写入完成: 2 条
+
+=== STDERR ===

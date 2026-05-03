@@ -1,0 +1,69 @@
+关键词: 深圳到汕尾自驾住哪
+分组: longtail
+开始时间: 2026-04-30 10:41:03
+耗时: 68.4s
+超时: 否
+成功: 否
+
+=== STDOUT ===
+[10:39:57.553] [SearchColl] goto: 小红书首页
+[10:40:03.934] [SearchColl] 搜索框已fill: 深圳到汕尾自驾住哪
+[10:40:04.521] [SearchColl] 按回车触发搜索
+[10:40:09.544] [SearchColl] 搜索结果页面加载完成
+[10:40:12.722] [SearchColl] 登录检测通过
+[10:40:17.738] [SearchColl] 笔记列表出现
+[10:40:17.738] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:40:23.735] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:40:25.773] [SearchColl] 滚动加载完成
+[10:40:25.773] [SearchColl] 开始提取Feeds
+[10:40:25.791] [SearchColl] 提取完成，返回 16 条Feeds
+[SearchCollector] 采集完成: 3/16 条（时间+去重后）
+[main] 搜索采集完成: 3 条
+[10:40:25.808] [NoteDetail] 创建 NoteDetailCollector
+[10:40:25.810] [NoteDetail] enrich_all 开始，共 3 条
+[10:40:25.898] [NoteDetail] 处理笔记 1/3: 69ef61dc000000002301f748
+[Detail] [1/3] /search_result/69ef61dc000000002301f748?xsec_token=ABO6-Khbl...
+[10:40:25.899] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef61dc000000002301f748?xsec_token=AB
+[10:40:26.836] [NoteDetail]   page.goto 完成
+[Detail] FAIL 1/3: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+waiting for locator("#detail-desc") to be visible
+  -   locator resolved to visible <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+
+[10:40:42.926] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef61dc000000002301f748?xsec_token=AB
+[Detail] FAIL 2/3: Page.goto: Target page, context or browser has been closed
+[10:40:57.935] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69ef61dc000000002301f748?xsec_token=AB
+[Detail] FAIL 3/3: Page.goto: Target page, context or browser has been closed
+[Detail] WARN: enrichment 全部失败，降级: Page.goto: Target page, context or browser has been closed
+[10:41:01.887] [NoteDetail]   Page 已关闭
+
+=== STDERR ===
+Traceback (most recent call last):
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 161, in <module>
+    main()
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 157, in main
+    run_collect(args.keyword, args.limit, headless=headless)
+  File "E:\translate\claw\xhs-auto-traffic-v2\main.py", line 40, in run_collect
+    enriched = detail_collector.enrich_all(feeds)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\translate\claw\xhs-auto-traffic-v2\core\note_detail.py", line 141, in enrich_all
+    page = self.context.new_page()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\sync_api\_generated.py", line 12578, in new_page
+    return mapping.from_impl(self._sync(self._impl_obj.new_page()))
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_browser_context.py", line 296, in new_page
+    return from_channel(await self._channel.send("newPage"))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_connection.py", line 59, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\24994\AppData\Roaming\Python\Python311\site-packages\playwright\_impl\_connection.py", line 514, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TargetClosedError: BrowserContext.new_page: Target page, context or browser has been closed

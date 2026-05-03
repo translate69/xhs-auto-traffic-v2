@@ -1,0 +1,40 @@
+关键词: 汕尾2天1晚行程
+分组: longtail
+开始时间: 2026-04-30 10:34:57
+耗时: 29.6s
+超时: 否
+成功: 是
+
+=== STDOUT ===
+[10:34:30.185] [SearchColl] goto: https://www.xiaohongshu.com/search_result?keyword=汕尾2天1晚行程&type=51
+[10:34:31.324] [SearchColl] 页面加载完成
+[10:34:34.363] [SearchColl] 登录检测通过
+[10:34:39.580] [SearchColl] 笔记列表出现
+[10:34:39.580] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[10:34:45.434] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 已达目标 10 条，提前结束
+[10:34:47.472] [SearchColl] 滚动加载完成
+[10:34:47.472] [SearchColl] 开始提取Feeds
+[10:34:47.487] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 1/17 条（时间+去重后）
+[main] 搜索采集完成: 1 条
+[10:34:47.504] [NoteDetail] 创建 NoteDetailCollector
+[10:34:47.506] [NoteDetail] enrich_all 开始，共 1 条
+[10:34:47.593] [NoteDetail] 处理笔记 1/1: 69f0bf27000000003501cf22
+[Detail] [1/1] /search_result/69f0bf27000000003501cf22?xsec_token=AB8iUZ9FG...
+[10:34:47.593] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f0bf27000000003501cf22?xsec_token=AB
+[10:34:48.500] [NoteDetail]   page.goto 完成
+[10:34:49.674] [NoteDetail]   wait_for_selector 完成
+[10:34:51.675] [NoteDetail]   开始提取详情
+[10:34:51.687] [NoteDetail]   提取完成 content_len=94
+[Detail] OK: 推荐路线：
+红海湾风车岛南海观音
+金町湾汕尾二马路长沙湾服务...
+[10:34:56.577] [NoteDetail]   Page 已关闭
+[10:34:56.608] [NoteDetail] enrich_all 完成，返回 1 条
+[main] enrichment 完成: 1 条
+[main] 筛选完成: 0 条通过
+
+=== STDERR ===

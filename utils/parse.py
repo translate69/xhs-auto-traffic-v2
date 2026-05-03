@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import calendar
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 # ─── 常量 ──────────────────────────────────────────────────
@@ -52,31 +52,58 @@ def parse_published_at(time_text: str) -> datetime | None:
     m = re.match(r"(\d+)小时前", time_text)
     if m:
         hours = int(m.group(1))
-        return now.replace(hour=now.hour - hours, minute=0, second=0, microsecond=0)
+        past = now - timedelta(hours=hours)
+        return past.replace(minute=0, second=0, microsecond=0)
 
     # 昨天
     if "昨天" in time_text:
-        yesterday = now.day - 1
+        yesterday_day = now.day - 1
         year, month = now.year, now.month
-        if yesterday < 1:
+        if yesterday_day < 1:
+            # Go back to previous month
             year = year - 1 if month == 1 else year
             month = 12 if month == 1 else month - 1
-            yesterday = calendar.monthrange(year, month)[1]
-        return now.replace(year=year, month=month, day=yesterday, hour=0, minute=0, second=0, microsecond=0)
+            yesterday_day = calendar.monthrange(year, month)[1]
+        try:
+            return now.replace(year=year, month=month, day=yesterday_day, hour=0, minute=0, second=0, microsecond=0)
+        except ValueError:
+            return None
 
     # 天前
     m = re.match(r"(\d+)天前", time_text)
     if m:
         days = int(m.group(1))
-        return now.replace(day=now.day - days, hour=0, minute=0, second=0, microsecond=0)
+        try:
+            past_day = now.day - days
+            if past_day < 1:
+                # Crossed month boundary
+                year, month = now.year, now.month
+                while past_day < 1:
+                    year = year - 1 if month == 1 else year
+                    month = 12 if month == 1 else month - 1
+                    past_day += calendar.monthrange(year, month)[1]
+                return now.replace(year=year, month=month, day=past_day, hour=0, minute=0, second=0, microsecond=0)
+            else:
+                return now.replace(day=past_day, hour=0, minute=0, second=0, microsecond=0)
+        except ValueError:
+            return None
 
     # 月-日 格式
     m = re.match(r"(\d{2})-(\d{2})", time_text)
     if m:
         month, day = int(m.group(1)), int(m.group(2))
+        # Validate month and day
+        if month < 1 or month > 12:
+            return None
+        max_day = calendar.monthrange(now.year, month)[1]
+        if day < 1 or day > max_day:
+            day = min(day, max_day)
         try:
             return datetime(now.year, month, day)
         except ValueError:
-            return datetime(now.year - 1, month, day)
+            try:
+                return datetime(now.year - 1, month, day)
+            except ValueError:
+                return None
 
     return None
