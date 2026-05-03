@@ -81,7 +81,7 @@ JSONL_DIR = DATA_DIR
 # Table ID: tblvxlFAqO5hP4fD（从飞书 URL 解析）
 # 凭证: secrets.json 或环境变量 FEISHU_APP_ID / FEISHU_APP_SECRET
 FEISHU_APP_TOKEN = "MtpRbyHq9aOP3csA3jVc6CYenuc"
-FEISHU_TABLE_ID = "tblvxlFAqO5hP4fD"
+FEISHU_TABLE_ID = "tbl3cmXBcrQfXa2D"  # 生产环境
 
 # 飞书输出目录（JSONL 文件）
 FEISHU_DIR = DATA_DIR / "feishu"
