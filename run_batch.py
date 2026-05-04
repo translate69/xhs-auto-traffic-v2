@@ -31,6 +31,37 @@ def _load_storage():
     return CollectedStorage()
 
 
+from __future__ import annotations
+
+import os
+
+LOG_DIR = PROJECT_ROOT / "logs"
+
+
+def _get_today_log_path() -> Path:
+    """返回今日日志文件路径：logs/YYYY-MM-DD.log"""
+    today = datetime.now().strftime("%Y-%m-%d")
+    path = LOG_DIR / f"{today}.log"
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def _log(keyword: str, level: str, msg: str):
+    """写入日志行到当日文件，同时保留 stdout 输出"""
+    ts = datetime.now().strftime("%H:%M:%S")
+    line = f"{ts} [{keyword}] [{level}] {msg}"
+    # stdout（保持原有 print 行为）
+    print(line)
+    # 文件追加（unbuffered）
+    try:
+        with open(_get_today_log_path(), "a", encoding="utf-8", buffering=1) as f:
+            f.write(line + "\n")
+            f.flush()
+            os.fsync(f.fileno())
+    except Exception:
+        pass
+
+
 def load_keywords(keywords_txt: Path | None = None) -> list[dict]:
     keywords_txt = keywords_txt or (PROJECT_ROOT / "keywords.txt")
     keywords = []
@@ -80,7 +111,7 @@ def run_one_keyword(
         start_time = time.time()
 
         def timeout_handler():
-            print(f"[{keyword}] ⏰ 超时（{timeout}s），将在当前笔记完成后停止")
+            _log(keyword, "WARN", f"⏰ 超时（{timeout}s），将在当前笔记完成后停止")
 
         timer = threading.Timer(timeout, timeout_handler)
         timer.start()
@@ -89,12 +120,12 @@ def run_one_keyword(
         collector = SearchCollector(browser_manager.browser, context)
         feeds = collector.collect(keyword, limit=limit)
         result["feeds_count"] = len(feeds)
-        print(f"[{keyword}] 采集完成: {len(feeds)} 条 Feeds")
+        _log(keyword, "INFO", f"采集完成: {len(feeds)} 条 Feeds")
 
         # Enrichment
         detail_collector = NoteDetailCollector(browser_manager.browser, context)
         notes = detail_collector.enrich_all(feeds)
-        print(f"[{keyword}] enrichment 完成: {len(notes)} 条")
+        _log(keyword, "INFO", f"enrichment 完成: {len(notes)} 条")
 
         # FilterService
         filter_svc = FilterService()
@@ -107,12 +138,12 @@ def run_one_keyword(
             if r.passed:
                 passed_notes.append(note)
         result["passed_count"] = len(passed_notes)
-        print(f"[{keyword}] 筛选完成: {len(passed_notes)}/{len(notes)} 条通过")
+        _log(keyword, "INFO", f"筛选完成: {len(passed_notes)}/{len(notes)} 条通过")
 
         # ReviewService（强制 gate）
         review_svc = ReviewService()
         reviewed = review_svc.review(passed_notes, keyword=keyword)
-        print(f"[{keyword}] 复查完成: {len(reviewed)} 条终审通过")
+        _log(keyword, "INFO", f"复查完成: {len(reviewed)} 条终审通过")
 
         # 写入飞书
         if reviewed:
@@ -120,9 +151,9 @@ def run_one_keyword(
                 feishu = FeishuOutputService()
                 feishu.input_path = review_svc.output_path
                 feishu.write(reviewed, keyword=keyword)
-                print(f"[{keyword}] 飞书写入完成")
+                _log(keyword, "INFO", "飞书写入完成")
             except Exception as e:
-                print(f"[{keyword}] 飞书写入失败: {e}")
+                _log(keyword, "ERROR", f"飞书写入失败: {e}")
 
         storage.save(run_id, keyword, notes)
         storage.append_manifest(run_id, keyword, len(passed_notes))
@@ -133,7 +164,7 @@ def run_one_keyword(
     except Exception as e:
         import traceback
         result["error"] = str(e)
-        print(f"[{keyword}] ❌ 失败: {e}")
+        _log(keyword, "ERROR", f"❌ 失败: {e}")
         traceback.print_exc()
 
     finally:
@@ -145,7 +176,8 @@ def run_one_keyword(
             except Exception:
                 pass
         elapsed = result.get("elapsed", 0)
-        print(f"[{keyword}] {'✅' if result['success'] else '❌'} 完成，耗时 {elapsed:.1f}s")
+        status = "✅" if result["success"] else "❌"
+        _log(keyword, "INFO" if result["success"] else "ERROR", f"{status} 完成，耗时 {elapsed:.1f}s")
 
     return result
 
@@ -168,22 +200,19 @@ def run_with_browser_restart(
         # 每 N 个关键词重启一次浏览器
         if i == 1 or (i - 1) % restart_every == 0:
             if i > 1:
-                print(f"\n{'='*50}")
-                print(f"[{i-1}] 重启浏览器（每 {restart_every} 个关键词自动重启）")
+                _log(keyword, "INFO", f"[{i-1}] 重启浏览器（每 {restart_every} 个关键词自动重启）")
                 browser_mgr.__exit__(None, None, None)
                 time.sleep(3)  # 等待旧进程完全退出
-                print(f"[{i}] 启动新浏览器")
+                _log(keyword, "INFO", f"[{i}] 启动新浏览器")
                 browser_mgr = BrowserManager()
                 browser, _ = browser_mgr.__enter__()
             else:
-                print(f"\n{'='*50}")
-                print("启动 Playwright Browser")
+                _log(keyword, "INFO", "启动 Playwright Browser")
                 browser_mgr = BrowserManager()
                 browser, _ = browser_mgr.__enter__()
-                print("Browser 启动成功，开始采集\n")
+                _log(keyword, "INFO", "Browser 启动成功，开始采集")
 
-        print(f"\n{'='*50}")
-        print(f"[{i}/{total}] [{group}] {keyword}")
+        _log(keyword, "INFO", f"开始采集 [{i}/{total}] [{group}] {keyword}")
 
         result = run_one_keyword(
             browser_manager=browser_mgr,
@@ -194,9 +223,8 @@ def run_with_browser_restart(
         )
         results.append(result)
 
-        # 批次间休息
         if i < total:
-            print(f"休息 5s...")
+            _log(keyword, "INFO", "休息 5s...")
             time.sleep(5)
 
     # 最终清理
@@ -255,12 +283,11 @@ def main():
         try:
             browser, _ = browser_mgr.__enter__()
             browser_started = True
-            print("Browser 启动成功，开始采集\n")
+            print("Browser 启动成功，开始采集")
             for i, kw_info in enumerate(all_kw, 1):
                 keyword = kw_info["keyword"]
                 group = kw_info["group"]
-                print(f"\n{'='*50}")
-                print(f"[{i}/{len(all_kw)}] [{group}] {keyword}")
+                _log(keyword, "INFO", f"开始采集 [{i}/{len(all_kw)}] [{group}] {keyword}")
                 result = run_one_keyword(
                     browser_manager=browser_mgr,
                     keyword=keyword,
@@ -269,16 +296,15 @@ def main():
                     storage=storage,
                 )
                 results.append(result)
-                if i < len(all_kw):
-                    print(f"休息 5s...")
-                    time.sleep(5)
+            if i < len(all_kw):
+                _log(keyword, "INFO", "休息 5s...")
+                time.sleep(5)
         finally:
             if browser_started:
-                print("\n关闭 Browser...")
+                print("关闭 Browser...")
                 browser_mgr.__exit__(None, None, None)
 
     # 汇总报告
-    print(f"\n{'='*50}")
     print("执行完毕")
     success_cnt = sum(1 for r in results if r["success"])
     pass_cnt = sum(r["passed_count"] for r in results)
