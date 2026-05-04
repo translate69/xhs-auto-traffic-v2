@@ -330,6 +330,9 @@ class SearchCollector:
             max_scrolls=config.DEFAULT_SCROLL_COUNT,
         )
         _log_stage("滚动加载完成", flush=False)
+        # 滚动后等 1-2 秒让页面稳定，再提取数据
+        time.sleep(1.5)
+        _log_stage("提取Feeds", flush=False)
 
         # 4. 提取数据
         _log_stage("开始提取Feeds", flush=False)
