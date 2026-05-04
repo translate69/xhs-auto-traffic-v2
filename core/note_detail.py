@@ -185,7 +185,7 @@ class NoteDetailCollector:
                 if not page:
                     raise RuntimeError("Page 未初始化")
 
-                _log_stage(f"  goto: {detail_url[:80]}", flush=False)
+                _log_stage(f"  goto: {detail_url}", flush=False)
                 page.goto(detail_url, wait_until="networkidle")
                 _log_stage(f"  page.goto 完成", flush=False)
 
