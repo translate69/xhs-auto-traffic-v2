@@ -7,7 +7,10 @@ run_batch.py - 串行执行关键词采集任务
     python run_batch.py --keyword 汕尾美食 --limit 30
     python run_batch.py --restart-browser-every 3  # 每3个关键词重启浏览器（避免内存累积）
 """
+from __future__ import annotations
+
 import argparse
+import os
 import signal
 import sys
 import threading
@@ -26,15 +29,6 @@ from filter.review_service import ReviewService
 from output.feishu_service import FeishuOutputService
 from utils.storage import CollectedStorage, RecentStorage
 
-
-def _load_storage():
-    return CollectedStorage()
-
-
-from __future__ import annotations
-
-import os
-
 LOG_DIR = PROJECT_ROOT / "logs"
 
 
@@ -46,13 +40,11 @@ def _get_log_path(keyword: str) -> Path:
     return path
 
 
-def _log(keyword: str, level: str, msg: str):
+def _log(keyword: str, level: str, msg: str, module: str = "run_batch"):
     """写入日志行到关键词当日文件，同时保留 stdout 输出"""
-    ts = datetime.now().strftime("%H:%M:%S")
-    line = f"{ts} [{level}] {msg}"
-    # stdout
+    ts = datetime.now().strftime("%H:%M")
+    line = f"{ts} [{keyword}] [{level}] [{module}] {msg}"
     print(line)
-    # 文件追加（unbuffered + fsync）
     try:
         with open(_get_log_path(keyword), "a", encoding="utf-8", buffering=1) as f:
             f.write(line + "\n")
@@ -60,6 +52,10 @@ def _log(keyword: str, level: str, msg: str):
             os.fsync(f.fileno())
     except Exception:
         pass
+
+
+def _load_storage():
+    return CollectedStorage()
 
 
 def load_keywords(keywords_txt: Path | None = None) -> list[dict]:
@@ -125,7 +121,18 @@ def run_one_keyword(
         # Enrichment
         detail_collector = NoteDetailCollector(browser_manager.browser, context)
         notes = detail_collector.enrich_all(feeds)
-        _log(keyword, "INFO", f"enrichment 完成: {len(notes)} 条")
+        # 丢弃不可访问的帖子（删/私/限）
+        accessible_notes = [n for n in notes if n.content != "[内容无法获取]"]
+        dropped = len(notes) - len(accessible_notes)
+        _log(keyword, "INFO", f"enrichment 完成: {len(notes)} 条（丢弃 {dropped} 条不可见帖子）")
+        notes = accessible_notes
+        for note in notes:
+            dur = round(time.time() - start_time, 1)
+            if note.content and not note.is_hashtag_fallback:
+                _log(keyword, "DEBUG", f"PASS {note.note_id} Detail (duration={dur}s)", module="Detail")
+            else:
+                reason = "hashtag正文" if note.is_hashtag_fallback else "内容为空"
+                _log(keyword, "DEBUG", f"FAIL {note.note_id} Detail {reason} (duration={dur}s)", module="Detail")
 
         # FilterService
         filter_svc = FilterService()
@@ -134,15 +141,23 @@ def run_one_keyword(
             r = filter_svc.filter_one(note, keyword=keyword)
             note.filter_passed = r.passed
             note.filter_reasons = r.reasons if r.reasons is not None else ""
-            note.filter_result = r  # 重要：ReviewService 依赖此字段
+            note.filter_result = r
             if r.passed:
+                _log(keyword, "DEBUG", f"PASS {note.note_id} Filter (reasons={r.reasons})", module="Filter")
                 passed_notes.append(note)
+            else:
+                _log(keyword, "DEBUG", f"FAIL {note.note_id} Filter {r.reasons} (duration={round(time.time()-start_time,1)}s)", module="Filter")
         result["passed_count"] = len(passed_notes)
         _log(keyword, "INFO", f"筛选完成: {len(passed_notes)}/{len(notes)} 条通过")
 
         # ReviewService（强制 gate）
         review_svc = ReviewService()
         reviewed = review_svc.review(passed_notes, keyword=keyword)
+        for note in reviewed:
+            _log(keyword, "DEBUG", f"PASS {note.note_id} Review", module="Review")
+        for note in passed_notes:
+            if not any(n.note_id == note.note_id for n in reviewed):
+                _log(keyword, "DEBUG", f"FAIL {note.note_id} Review (reasons={note.filter_reasons}) (duration={round(time.time()-start_time,1)}s)", module="Review")
         _log(keyword, "INFO", f"复查完成: {len(reviewed)} 条终审通过")
 
         # 写入飞书
@@ -223,6 +238,7 @@ def run_with_browser_restart(
         )
         results.append(result)
 
+        # 批次间休息
         if i < total:
             _log(keyword, "INFO", "休息 5s...")
             time.sleep(5)
@@ -296,9 +312,9 @@ def main():
                     storage=storage,
                 )
                 results.append(result)
-            if i < len(all_kw):
-                _log(keyword, "INFO", "休息 5s...")
-                time.sleep(5)
+                if i < len(all_kw):
+                    _log(keyword, "INFO", "休息 5s...")
+                    time.sleep(5)
         finally:
             if browser_started:
                 print("关闭 Browser...")

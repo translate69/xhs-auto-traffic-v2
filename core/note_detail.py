@@ -72,6 +72,7 @@ class NoteDetail:
     filter_passed: bool | None = None       # 筛选是否通过（filter_all 后填充）
     filter_reasons: str = ""                # 筛选通过/拒绝原因
     filter_type: str = ""                   # 笔记分类类型
+    is_hashtag_fallback: bool = False       # 正文是否因 hashtag 降级而使用了搜索页标题
 
     def has_content(self) -> bool:
         """是否有正文（判断降级是否生效）"""
@@ -214,30 +215,42 @@ class NoteDetailCollector:
                 time.sleep(1)
                 page.wait_for_selector("#detail-desc", timeout=20000)
                 _log_stage(f"  wait_for_selector 完成", flush=False)
-                _log_stage(f"  开始提取详情", flush=False)
 
+                # ── 检测帖子是否不可见（删/私/限）──────────────────────
+                # 在提取正文前先检查页面是否有"不可见"提示
+                is_unavailable = page.evaluate(
+                    """() => {
+                    var body = document.body.textContent || '';
+                    // 小红书不可见帖子的常见提示文本
+                    var unavailable_phrases = [
+                        '内容不可见', '该内容不可见', '此内容不可见',
+                        '笔记已删除', '该笔记已删除', '此笔记已删除',
+                        '已被删除', '已删除',
+                        '私密笔记', '该笔记为私密笔记',
+                        '该笔记仅对', '内容仅对',
+                        '账号异常', '该账号异常',
+                    ];
+                    for (var i = 0; i < unavailable_phrases.length; i++) {
+                        if (body.includes(unavailable_phrases[i])) {
+                            return true;
+                        }
+                    }
+                    return false;
+                    }"""
+                )
+                if is_unavailable:
+                    print(f"[Detail] WARN: 帖子不可访问（删/私/限），标记为[内容无法获取]")
+                    detail = NoteDetail()
+                    detail.merge_from_feed(feed)
+                    detail.content = "[内容无法获取]"
+                    return detail
+
+                _log_stage(f"  开始提取详情", flush=False)
                 detail = self._extract_detail(page)
                 detail.merge_from_feed(feed)
                 _log_stage(f"  提取完成 content_len={len(detail.content)}", flush=True)
 
-                if not detail.has_content():
-                    # 正文为空，降级：保留搜索页 title 作为 content 兜底
-                    print(f"[Detail] WARN: 正文为空，用搜索页标题降级")
-                    if detail.title:
-                        detail.content = f"[标题] {detail.title}"
-                    else:
-                        detail.content = ""
-
-                # 检测正文是否仅为 hashtag（笔记无法访问的降级态）
-                if self._is_hashtag_only(detail.content):
-                    print(f"[Detail] WARN: 正文仅为 hashtag（笔记可能无法访问），用搜索页标题降级")
-                    # 搜索标题也可能是 hashtag，进一步降级为标记
-                    if self._is_hashtag_only(feed.title):
-                        # 搜索标题也是 hashtag → 正文记为无法访问标记，交由过滤器判断
-                        detail.content = "[内容无法获取]"
-                    else:
-                        detail.content = feed.title
-
+                # hashtag 内容笔记正常保留，让 filter 自然判断
                 print(f"[Detail] OK: {detail.content[:30] if detail.content else '(无正文)'}...")
                 return detail
 
