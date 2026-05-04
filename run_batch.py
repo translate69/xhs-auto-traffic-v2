@@ -38,23 +38,23 @@ import os
 LOG_DIR = PROJECT_ROOT / "logs"
 
 
-def _get_today_log_path() -> Path:
-    """返回今日日志文件路径：logs/YYYY-MM-DD.log"""
+def _get_log_path(keyword: str) -> Path:
+    """返回该关键词今日日志路径：logs/{keyword}_YYYY-MM-DD.log"""
     today = datetime.now().strftime("%Y-%m-%d")
-    path = LOG_DIR / f"{today}.log"
+    path = LOG_DIR / f"{keyword}_{today}.log"
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     return path
 
 
 def _log(keyword: str, level: str, msg: str):
-    """写入日志行到当日文件，同时保留 stdout 输出"""
+    """写入日志行到关键词当日文件，同时保留 stdout 输出"""
     ts = datetime.now().strftime("%H:%M:%S")
-    line = f"{ts} [{keyword}] [{level}] {msg}"
-    # stdout（保持原有 print 行为）
+    line = f"{ts} [{level}] {msg}"
+    # stdout
     print(line)
-    # 文件追加（unbuffered）
+    # 文件追加（unbuffered + fsync）
     try:
-        with open(_get_today_log_path(), "a", encoding="utf-8", buffering=1) as f:
+        with open(_get_log_path(keyword), "a", encoding="utf-8", buffering=1) as f:
             f.write(line + "\n")
             f.flush()
             os.fsync(f.fileno())
