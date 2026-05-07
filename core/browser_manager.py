@@ -243,20 +243,22 @@ class BrowserManager:
         """关闭浏览器进程（带超时保护）"""
         deadline = time.time() + 5  # 5 秒超时
 
-        # 先尝试优雅关闭
+        # 优先用 kill() 强制杀，不用 graceful close()
+        # kill() 直接终止 Chromium 主进程，Job Object 会自动带走所有子进程
+        if self.browser:
+            try:
+                self.browser.kill()   # <-- 强制杀，不留死角
+            except Exception:
+                pass
+            finally:
+                self.browser = None
+
         if self.context:
             try:
                 self.context.close()
             except Exception:
                 pass
             self.context = None
-
-        if self.browser:
-            try:
-                self.browser.close()
-            except Exception:
-                pass
-            self.browser = None
 
         if self.playwright:
             try:
@@ -265,7 +267,7 @@ class BrowserManager:
                 pass
             self.playwright = None
 
-        # 超时则强制 kill
+        # 超时则 Targeted kill 兜底
         if time.time() >= deadline:
             _kill_only_playwright_pids(self._playwright_pids)
 
