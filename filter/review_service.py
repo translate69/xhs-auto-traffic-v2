@@ -43,7 +43,21 @@ SHARE_POST_KEYWORDS = [
     "没有攻略", "无攻略", "没攻略",
 ]
 
-ASK_SIGNALS_REVIEW = ["求", "想问", "请问", "求指教", "帮我", "帮帮我"]
+# 复查专用 ASK 信号（比 Filter 更严格）
+# 原则：纯分享/避雷/投诉 即使出现礼貌性提问也不放行
+# 排除 "请问"（单独使用时多为礼貌性/反问语气，如 "请问呢" "请问有吗"）
+ASK_SIGNALS_REVIEW = [
+    "求", "求推荐", "求带", "求问", "求攻略", "求美食",
+    "求助", "哪里好", "哪家好", "怎么玩", "住哪",
+    "有没有推荐", "怎么选", "怎么安排", "求住", "想问", "问一下",
+    "蹲蹲", "求指教",
+    "帮我", "帮帮我",
+    "有什么", "哪家好", "哪里好",
+    "去哪吃", "去哪儿吃", "请问一下", "请问各位",
+]
+
+# 避雷类分享贴检测：标题含"避雷"时，即使有 ask 信号也视为分享贴（除非有明确求助内容）
+_BLEI_KEYWORDS = ["避雷", "吐槽", "踩坑", "被骗", "好无语", "太坑了"]
 
 
 # ─── 复查结果 ────────────────────────────────────────────
@@ -125,24 +139,45 @@ class ReviewService:
         if note.author and self._is_merchant_author(note.author):
             return ReviewResult(passed=False, reason=f"商家账号({note.author})")
 
-        # ── 规则 3：纯分享帖 ─────────────────────────────
+        # ── 规则 3：纯分享帖（含礼貌性反问检测）──────────────────────
         title = note.title or ""
         content = note.content or ""
         content_no_tags = re.sub(r'#.+?(?=\s|#|$)', '', content)
         combined = f"{title} {content_no_tags}"
 
+        # 计算 ask 信号（供多个规则共用）
         title_has_explicit_ask = any(kw in title for kw in ASK_SIGNALS_REVIEW)
         content_has_ask = any(kw in content_no_tags for kw in ASK_SIGNALS_REVIEW)
         title_has_bang = "帮我" in title or "帮帮我" in title or "帮忙" in title
         has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
 
+        # ── 规则 3a：礼貌性反问（ask 只有"请问"，无真实求助意图）────
+        only_qingwen = (
+            not title_has_explicit_ask and not title_has_bang
+            and content_has_ask
+            and "请问" in content_no_tags
+            and not any(kw in content_no_tags for kw in ["请问一下", "请问各位", "请问有没有", "想问"])
+        )
+        if only_qingwen:
+            return ReviewResult(passed=False, reason="礼貌性提问（非真实求助）")
+
+        # ── 规则 3b：无求助信号时的纯分享检查 ───────────────────────
         if not has_any_ask:
-            # 纯分享关键词检查
+            # 避雷类（标题含 "避雷" → 直接拒绝）
+            title_blei_kw = [kw for kw in _BLEI_KEYWORDS if kw in title]
+            if title_blei_kw:
+                if not title.startswith("求") and not any(kw in title for kw in ["求推荐", "求住", "求带"]):
+                    return ReviewResult(passed=False, reason=f"避雷类分享贴({title_blei_kw[0]})")
             if any(kw in combined for kw in SHARE_POST_KEYWORDS):
                 return ReviewResult(passed=False, reason="纯分享攻略贴")
-            # 标题推荐格式检查（「xxx推荐xxx」）
             if self._is_recommendation_format(title):
                 return ReviewResult(passed=False, reason="纯分享推荐格式")
+
+        # ── 规则 3c：避雷/投诉类（即使有 ask 信号也拒绝）────────────
+        title_blei_kw = [kw for kw in _BLEI_KEYWORDS if kw in title]
+        if title_blei_kw:
+            if not title.startswith("求") and not any(kw in title for kw in ["求推荐", "求住", "求带"]):
+                return ReviewResult(passed=False, reason=f"避雷类分享贴({title_blei_kw[0]})")
 
         return ReviewResult(passed=True)
 

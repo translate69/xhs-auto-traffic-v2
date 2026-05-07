@@ -628,10 +628,11 @@ class FilterService:
                     reasons.remove("ask")
             elif content_has_ask and share_hit:
                 # 正文有 ask 但含分享词 → 判断 ask 信号的强度
-                # 如果 ask 信号词本身语义够强（问句/明确指向需求的词），保留 ask
-                # 如果 ask 信号是弱词（仅靠 share_hit 附近的小词），才降级
-                strong_ask = has_signal(content_no_tags, ["请问", "想问", "求", "求助", "有什么", "有没有"])
-                if not strong_ask:
+                # strong_ask: 想问/求/求助/有什么/有没有（有明确需求意向词）
+                # 补充强信号：有具体推荐问句结构（「有啥好吃推荐/有没有XX推荐」）
+                strong_ask = has_signal(content_no_tags, ["想问", "求", "求助", "有什么", "有没有"])
+                has_recommend_ask = bool(re.search(r"有.{0,6}推荐", content_no_tags))
+                if not strong_ask and not has_recommend_ask:
                     if reasons and "ask" in reasons:
                         reasons.remove("ask")
             elif title_has_ask and share_hit:
