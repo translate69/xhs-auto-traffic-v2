@@ -15,7 +15,14 @@ from pathlib import Path
 import config
 from core.note_detail import NoteDetail
 
-from utils.feishu_client import batch_write, load_existing_note_ids
+from utils.feishu_client import (
+    batch_write,
+    load_existing_note_ids,
+    load_all_records,
+    check_note_exists,
+    delete_record,
+    batch_delete_note_ids,
+)
 
 
 class FeishuOutputService:
@@ -136,3 +143,42 @@ class FeishuOutputService:
                     continue
 
         return records
+
+    def read_all_from_feishu(self) -> list[dict]:
+        """
+        从飞书表格读取所有记录。
+        返回每条记录的 dict（含 note_id / title / content / author 等关键字段）。
+        """
+        records = load_all_records()
+        print(f"[FeishuOutput] 从表格读取到 {len(records)} 条记录")
+        return records
+
+    def check_note_in_feishu(self, note_id: str) -> tuple[bool, str]:
+        """
+        查询指定 note_id 是否已在飞书表格中。
+        返回 (exists, record_id)。
+        """
+        return check_note_exists(note_id)
+
+    def delete_note(self, note_id: str) -> bool:
+        """
+        删除飞书表格中指定 note_id 的一条记录。
+        先查 record_id 再删除。返回是否成功。
+        """
+        exists, record_id = check_note_exists(note_id)
+        if not exists or not record_id:
+            print(f"[FeishuOutput] [{note_id}] 不存在于表格")
+            return False
+        ok = delete_record(record_id)
+        if ok:
+            print(f"[FeishuOutput] [{note_id}] 删除成功")
+        else:
+            print(f"[FeishuOutput] [{note_id}] 删除失败")
+        return ok
+
+    def delete_notes(self, note_ids: list[str]) -> tuple[int, int]:
+        """
+        批量删除指定 note_id 列表对应的记录。
+        返回 (deleted, failed)。
+        """
+        return batch_delete_note_ids(note_ids)

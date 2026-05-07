@@ -25,6 +25,21 @@ from playwright.sync_api import sync_playwright, Browser, BrowserContext, Playwr
 # ─── 辅助函数 ──────────────────────────────────────────────
 
 
+def _kill_all_chromes():
+    """Force kill all chrome.exe to prevent Playwright residue accumulation.
+    Multiple pipeline runs -> OOM -> SIGKILL. Server-only, no user Chrome impact.
+    """
+    import subprocess, time
+    try:
+        subprocess.run(
+            ['taskkill', '/F', '/IM', 'chrome.exe', '/T'],
+            capture_output=True, timeout=10
+        )
+    except Exception:
+        pass
+    time.sleep(0.5)
+
+
 def _get_chrome_pids() -> set[int]:
     """返回当前所有 chrome.exe PIDs"""
     try:
@@ -78,6 +93,9 @@ class BrowserManager:
         self._playwright_pids: set[int] = set()  # 仅 Playwright 的进程 PIDs
 
     def __enter__(self) -> tuple[Browser, BrowserContext]:
+        # 启动前清理残留 Chromium 进程（防止 OOM -> SIGKILL）
+        _kill_all_chromes()
+
         # 记录启动前的 PIDs
         before_pids = _get_chrome_pids()
 
@@ -137,7 +155,8 @@ class BrowserManager:
                 pass
             self.playwright = None
 
-        # 兜底清理：只杀 Playwright 启动的进程
+        # 强制清理所有 Chromium 进程（兜底，防止 Playwright PID 追踪漏报）
+        _kill_all_chromes()
         time.sleep(0.5)
         for pid in self._playwright_pids:
             try:

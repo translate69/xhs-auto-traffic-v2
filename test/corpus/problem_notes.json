@@ -13,18 +13,17 @@
     "content": "五月二去从深圳去汕尾玩，凌晨五点的动车，有什么汕尾推荐游玩的住宿的地方吗#五一出行问活人 #汕尾",
     "expected": true,
     "reason": "问推荐句子，content_has_ask漏识别「推荐」，被误判为纯分享攻略贴",
-    "found_at": "2026-04-29",
-    "fixed_at": "a3702d9"
+    "found_at": "2026-05-06",
+    "fixed_at": "filter_service.py: content_has_ask加回「有什么」，同时 EXPERIENCE_SHARE_KEYWORDS加「好吃推荐/炒鸡推荐」等结构化分享词"
   },
   {
     "note_id": "69f1ebee000000001e00dbd8",
     "title": "汕尾包车，7座商务车",
-    "content": "汕尾红海湾包车一日游\n🕙出发时间：自由选择\n📍出发地点：汕尾站或汕尾市区或金町湾\n🚗车型：5 座 或7座 人数1-7人随停随走😜\n⏰时限：全程一天 8 小时",
+    "content": "汕尾红海湾包车一日游\n🕙出发时间：自由选择\n📍出发地点：汕尾站或汕尾市区或金町湾\n🚗车型：5 座 或7座 人数1-7人随停随走随走😜\n⏰时限：全程一天 8 小时",
     "author": "跟着阳光游汕尾🚗📷",
     "expected": false,
     "reason": "商家广告，STRONG_REJECT加包车/地陪关键词后过滤",
-    "found_at": "2026-04-29",
-    "fixed_at": "filter_service.py STRONG_REJECT"
+    "found_at": "2026-05-06"
   },
   {
     "note_id": "69f1fe1a000000001a0373fa",
@@ -33,8 +32,7 @@
     "author": "肥肥",
     "expected": false,
     "reason": "纯分享贴，标题「没有攻略」否定语气被漏检",
-    "found_at": "2026-04-29",
-    "fixed_at": "filter_service.py SHARE_POST_KEYWORDS"
+    "found_at": "2026-05-06"
   },
   {
     "note_id": "69f2ebae000000002202b96a",
@@ -43,8 +41,7 @@
     "author": "山川民谣",
     "expected": false,
     "reason": "纯分享贴，标签里「推荐/攻略」导致content_has_ask误判，绕过SHARE_POST_KEYWORDS检查，type_match通过",
-    "found_at": "2026-04-30",
-    "fixed_at": "filter_service.py 标签关键词干扰修复"
+    "found_at": "2026-05-06"
   },
   {
     "note_id": "69f2e808000000001e00fcc7",
@@ -53,8 +50,7 @@
     "author": "小林不吃饼🍪",
     "expected": false,
     "reason": "纯分享攻略贴，含「攻略」但无求助信号；「绝了」触发广告语气拒绝",
-    "found_at": "2026-04-30",
-    "fixed_at": "filter_service.py 标签关键词干扰修复"
+    "found_at": "2026-05-06"
   },
   {
     "note_id": "69f31154000000003601b713",
@@ -63,8 +59,7 @@
     "author": "Cheermmm",
     "expected": false,
     "reason": "纯分享种草，「不知道」前3字含否定词「不」但has_signal误判为ASK信号而通过",
-    "found_at": "2026-04-30",
-    "fixed_at": "filter_service.py has_signal否定词检测修复"
+    "found_at": "2026-05-06"
   },
   {
     "note_id": "69f0eb760000000023014e51",
@@ -73,8 +68,7 @@
     "author": "番薯大大",
     "expected": false,
     "reason": "纯分享攻略，意图词「想」被否定前缀「不」修饰（不想挤网红），type_match误判为通过",
-    "found_at": "2026-04-30",
-    "fixed_at": "filter_service.py _has_unnegated_intent否定意图词检测"
+    "found_at": "2026-05-06"
   },
   {
     "note_id": "69f05bf300000000036003af6",
@@ -98,6 +92,111 @@
     "content": "跟着小时候的回忆吃，这两天快把我撑死了，图上是我一个人的量，但我还是要继续吃…糯米饭、薄饼、汕中冰室、炒粿、层糕粿，麻鱼煤，我没有肚子可以留给你们了…明天下午就要走了，我要想一下有什么可以打包的…如果可以我要全...",
     "expected": false,
     "reason": "自言自语，'有什么可以打包'是内心独白而非求助，_is_self_talk检测为自言自语",
-    "found_at": "2026-04-30"
+    "found_at": "2026-05-06"
+  },
+  {
+    "note_id": "69f9ce6600000000360002fa",
+    "title": "壹方城业主怎么了？低于成交200万出",
+    "content": "壹方城业主怎么了？低于成交200万出，急急急急急急！建面115平，套内95平，满五，红本在手，底价可谈，业主急售，诚心想出，看上的老板直接聊",
+    "author": "SZ阿成说好房",
+    "keyword": "深圳到汕尾自驾住哪",
+    "expected": false,
+    "reason": "深圳房地产广告，REJECT_PATTERNS新增房地产广告格式后过滤；地域检查用keyword而非笔记实际内容导致误判",
+    "found_at": "2026-05-05"
+  },
+  {
+    "note_id": "69f07a33000000001f007e21",
+    "url": "/search_result/69f07a33000000001f007e21",
+    "title": "五一放假不知道去哪玩，那就去汕尾吧😏",
+    "content": "汕尾，一个被低估的海边小城\n🏠住宿推荐:1️⃣海涵度假公寓...",
+    "expected": false,
+    "reason": "攻略帖含完整住宿推荐结构，reasons=ask靠标签误判",
+    "found_at": "2026-05-06"
+  },
+  {
+    "note_id": "69f0c9f4000000001f006a3d",
+    "url": "/search_result/69f0c9f4000000001f006a3d",
+    "title": "红海湾五一出行住哪里方便？",
+    "content": "自带停车位的民宿来啦！整栋三房五床四卫两厅➕大阳台",
+    "expected": false,
+    "reason": "民宿商家自推广帖，三房五床未被MERCHANT_ACCOM_KEYWORDS覆盖",
+    "found_at": "2026-05-06"
+  },
+  {
+    "note_id": "69f2ae980000000022029a22",
+    "url": "/search_result/69f2ae980000000022029a22",
+    "title": "竹隐闲沉 汕尾有木有河图同好",
+    "content": "河图  荼蘼  同好\n汕尾地区有没有喜欢河图的朋友？",
+    "expected": false,
+    "reason": "找音乐同好，与汕尾旅游需求无关",
+    "found_at": "2026-05-06"
+  },
+  {
+    "note_id": "69f1f8670000000035029ed7",
+    "url": "/search_result/69f1f8670000000035029ed7",
+    "title": "五一来汕尾没白玩玩❗️❗️❗️",
+    "content": "很多宝子五一来汕尾金町湾，不知道有哪些可以打卡地方",
+    "expected": false,
+    "reason": "攻略指南帖，含周边景点推荐结构，不是真求助",
+    "found_at": "2026-05-06"
+  },
+  {
+    "note_id": "69f31292000000001a02d8b8",
+    "url": "/search_result/69f31292000000001a02d8b8",
+    "title": "两年前的汕尾红海湾🏝️",
+    "content": "翻到了两年前在红海湾玻璃海附近拍的视频",
+    "expected": false,
+    "reason": "旅行回忆帖，share_hit降级ask后被type_match兜底误放",
+    "found_at": "2026-05-06"
+  },
+  {
+    "note_id": "69f71deb000000002003a4ca",
+    "title": "潮汕美食第二弹——海陆丰篇",
+    "content": "——陆丰东海小吃街——\nP1-2 炒卷粿 10r\n看图片就知道多有食欲了，最后炒完浇的那个汁是点睛之笔，铁盘炒的很有锅气，尤其有些炒的焦焦脆脆的最好吃，配菜有热狗、豆芽、肉饼，有湿炒粿条那味了～好吃推荐\nP3-4 鸽古春 5r\n纯粹抱着没喝过尝试的心态买的，emmm…别轻易尝试。红糖水加西米露，一股廉价的甜水味，尤其最后加的香蕉露，喝出了一种科技与狠活的赶脚。\nP5-6 绿豆沙 5r\n同样的饮品价格，这家就很不错。老板每天现熬绿豆粥，然后打成的绿豆沙，有常温和冷的两种选择。口感绵密，不会很甜，好喝\n——海丰美食——\nP7-8 彭锦记鸡蛋饼 11r\n这家店排队的人比较多，听口音很多都是本地人。买了鸡蛋饼和格子饼，两种饼加的料都是一样的（黄油、花生酱、炼乳），里面的花生酱容易糊嘴，来点清爽的饮料会更配哦。鸡蛋饼非常宣软，格子饼就比较有韧劲一点，两种都很好吃，看个人口味。\nP9-10 明记薄饼 15r\n超好吃的一家薄饼店，这家也是很多本地人来吃。我们吃的是现炒咸薄饼，饼皮很有嚼劲，里面的料很丰富，有豆芽、叉烧、鸡蛋、花生…虽然来之前已经吃饱了，但还是吃得停不下来。这家炒鸡推荐小tips:一定要趁热吃口感最好。\nP11-14 海丰老吕麻鱼煤 140r\n晚上9点到的这家店依旧很多人，位置需要靠自己占，上菜慢，人一多服务态度自然就…你懂的 麻鱼煤其实就是海鳗粥，粥很鲜甜，白灼小管平平无奇，没什么记忆点，椒盐鳝丝不错，炸得酥酥的，空口吃会咸，配粥刚刚好。#地方传统美食 #寻找风味小食 #各地特色美食",
+    "author": "平民窟美食家",
+    "expected": false,
+    "reason": "纯分享种草帖，正文含「好吃推荐」「炒鸡推荐」等分享语气，content_has_ask检测到「推荐」触发ask信号导致误通过",
+    "found_at": "2026-05-06",
+    "fixed_at": "filter_service.py: content_has_ask移除「推荐」，EXPERIENCE_SHARE_KEYWORDS加「好吃推荐/炒鸡推荐/必吃/强力推荐」等"
+  },
+  {
+    "note_id": "69f989e8000000003701d100",
+    "title": "明天就去汕尾了",
+    "content": "本地人都爱吃啥店求推荐#汕尾旅行 #汕尾探店 #汕尾美食",
+    "author": "QQ美莓",
+    "expected": true,
+    "reason": "正文短（11字）只有「求推荐」，content_has_ask短列表未包含「求推荐」复合词导致误判为纯分享攻略贴；后改为ASK_SIGNALS全列表解决",
+    "found_at": "2026-05-07",
+    "fixed_at": "filter_service.py: content_has_ask短列表改为ASK_SIGNALS全列表"
+  },
+  {
+    "note_id": "69f6bbdc000000001a02c40a",
+    "title": "地图副本-海的味道我知道！\"玻璃海\"苔｜汕尾",
+    "content": "下次还来\n#汕尾 #一起去海边 #汕尾美食 #五一#玻璃海 #牛肉火锅 #五果汤 #落日 #海边落日",
+    "author": "嗯是你啊",
+    "expected": false,
+    "reason": "纯分享记录帖，无任何求助信号；「知道」在ASK_SIGNALS里导致标题匹配到ask信号而误通过",
+    "found_at": "2026-05-07",
+    "fixed_at": "filter_service.py: ASK_SIGNALS移除「知道」「去哪玩」「去哪儿玩」等误报词"
+  },
+  {
+    "note_id": "69f3ebc4000000001b023642",
+    "title": "周末去哪玩の惠州汕尾两日游",
+    "content": "🚗这是一个参观＋游玩的旅程\n天气好去汕尾就是一种享受\n蓝蓝的天空，蓝蓝的海，不一样的蓝却是一样的美！玻璃海真的无敌了！\n✅惠州抹香鲸馆\n👀巨无霸抹香鲸，👂讲解员说说鲸类的知识\n✅汕尾博物馆\n👋仅存唯一的鸪仔船，在船上有种不一样的体验，只有进去了才知道😁\n        \n#假期去海边 #周末出去走走 #周末遛娃 #出行好去处 #汕尾旅行 #惠州抹香鲸馆 #汕尾红海湾",
+    "author": "Joyce-細",
+    "expected": false,
+    "reason": "纯分享攻略贴，正文大量感叹句式+攻略结构；「去哪玩」在ASK_SIGNALS里导致标题匹配到ask信号而误通过",
+    "found_at": "2026-05-07",
+    "fixed_at": "filter_service.py: ASK_SIGNALS移除「去哪玩」「去哪儿玩」"
+  },
+  {
+    "note_id": "69f35bfc000000002202aaa0",
+    "title": "汕尾的朋友呀，我来了",
+    "content": "长沙出发，带着闺女去挖沙。\n请问汕尾天气咋样，天气预报都是阴天，希望有个好天气。\n另外有啥好吃的推荐吗？\n我连酒店都没订，主打一个到了再说",
+    "author": "瞎折腾的Linlin",
+    "expected": true,
+    "reason": "真实求助帖，正文含「请问」+「有啥好吃的推荐」；EXPERIENCE_SHARE_KEYWORDS含「带着」导致share_hit降级ask被拦截",
+    "found_at": "2026-05-07",
+    "fixed_at": "filter_service.py: share_hit降级条件改为必须strong_ask词才降级; 新增正文<30字且标题有ask信号时放行规则（内容可能在图片中）"
   }
 ]

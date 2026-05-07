@@ -66,34 +66,173 @@ def _get_tenant_token() -> str:
 
 
 def load_existing_note_ids() -> set[str]:
-    """获取飞书表格中已存在的所有 note_id（避免重复写入）"""
+    """获取飞书表格中已存在的所有 note_id（幂等去重用）"""
+    records = _load_all_records_raw()
+    ids = set()
+    for rec in records:
+        fields = rec.get("fields", {})
+        note_id = fields.get("笔记ID", "")
+        if note_id:
+            ids.add(note_id)
+    return ids
+
+
+def load_all_records() -> list[dict]:
+    """
+    读取表格全部记录（自动翻页），返回 dict 列表。
+    每条记录包含所有字段。
+    """
+    records = _load_all_records_raw()
+    results = []
+    for rec in records:
+        fields = rec.get("fields", {})
+        results.append({
+            "record_id": rec.get("record_id", ""),
+            "note_id": fields.get("笔记ID", ""),
+            "title": fields.get("标题", ""),
+            "note_url": _extract_url(fields.get("链接")),
+            "content": fields.get("正文摘要", ""),
+            "author": fields.get("作者", ""),
+            "likes": fields.get("点赞", 0),
+            "collects": fields.get("收藏", 0),
+            "comments": fields.get("评论数", 0),
+            "published_at": _parse_timestamp_ms(fields.get("笔记时间")),
+            "time_text": fields.get("展示时间", ""),
+            "type": fields.get("类型", ""),
+            "tags": fields.get("标签", ""),
+            "reasons": fields.get("筛选原因", ""),
+            "keyword": fields.get("采集关键词", ""),
+            "cover_image": _extract_url(fields.get("封面图")),
+        })
+    return results
+
+
+def check_note_exists(note_id: str) -> tuple[bool, str]:
+    """
+    查询指定 note_id 是否已存在于表格。
+    返回 (exists, record_id)。若不存在 record_id 为空字符串。
+    """
+    records = _load_all_records_raw()
+    for rec in records:
+        fields = rec.get("fields", {})
+        if fields.get("笔记ID", "") == note_id:
+            return True, rec.get("record_id", "")
+    return False, ""
+
+
+def delete_record(record_id: str) -> bool:
+    """
+    根据 record_id 删除表格中的一条记录。
+    返回 True 删除成功，False 失败。
+    """
     token = os.environ.get("FEISHU_TOKEN", "") or _get_tenant_token()
     if not token:
-        return set()
+        print("[Feishu] 无有效 token")
+        return False
 
-    existing_ids: set[str] = set()
     app_token = config.FEISHU_APP_TOKEN
     table_id = config.FEISHU_TABLE_ID
-    url = f"https://open.feishu.cn/open-apis/bitable/v1/apps/{app_token}/tables/{table_id}/records?page_size=500"
+    url = (f"https://open.feishu.cn/open-apis/bitable/v1/apps/{app_token}"
+           f"/tables/{table_id}/records/{record_id}")
 
+    req = urllib.request.Request(
+        url,
+        headers={"Authorization": f"Bearer {token}"},
+        method="DELETE",
+    )
     try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            result = json.load(resp)
+            return result.get("code") == 0
+    except Exception as e:
+        print(f"[Feishu] 删除失败 {record_id}: {e}")
+        return False
+
+
+def batch_delete_note_ids(note_ids: list[str]) -> tuple[int, int]:
+    """
+    批量删除指定 note_id 对应的记录。
+    返回 (deleted, failed)。
+    """
+    deleted = 0
+    failed = 0
+    for nid in note_ids:
+        exists, record_id = check_note_exists(nid)
+        if not exists or not record_id:
+            print(f"[Feishu] [{nid}] 不存在，跳过")
+            failed += 1
+            continue
+        if delete_record(record_id):
+            print(f"[Feishu] [{nid}] 删除成功")
+            deleted += 1
+        else:
+            print(f"[Feishu] [{nid}] 删除失败")
+            failed += 1
+    print(f"[Feishu] 批量删除完成: 删除 {deleted}，失败 {failed}")
+    return deleted, failed
+
+
+# ─── 内部辅助 ────────────────────────────────────────────────
+
+
+def _load_all_records_raw() -> list[dict]:
+    """读取表格所有记录（自动翻页），返回 raw items 列表"""
+    token = os.environ.get("FEISHU_TOKEN", "") or _get_tenant_token()
+    if not token:
+        return []
+
+    app_token = config.FEISHU_APP_TOKEN
+    table_id = config.FEISHU_TABLE_ID
+    base_url = (f"https://open.feishu.cn/open-apis/bitable/v1/apps/{app_token}"
+                f"/tables/{table_id}/records")
+
+    all_records: list[dict] = []
+    page_token = ""
+
+    while True:
+        url = f"{base_url}?page_size=500"
+        if page_token:
+            url += f"&page_token={page_token}"
+
         req = urllib.request.Request(
             url,
             headers={"Authorization": f"Bearer {token}"},
             method="GET",
         )
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            result = json.load(resp)
-            records = result.get("data", {}).get("items", [])
-            for rec in records:
-                fields = rec.get("fields", {})
-                note_id = fields.get("笔记ID", "")
-                if note_id:
-                    existing_ids.add(note_id)
-    except Exception:
-        pass
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                result = json.load(resp)
+                items = result.get("data", {}).get("items", [])
+                all_records.extend(items)
+                has_more = result.get("data", {}).get("has_more", False)
+                page_token = result.get("data", {}).get("page_token", "")
+                if not has_more or not page_token:
+                    break
+        except Exception:
+            break
 
-    return existing_ids
+    return all_records
+
+
+def _extract_url(field_val) -> str:
+    """从飞书 URL 字段格式中提取链接字符串"""
+    if not field_val:
+        return ""
+    if isinstance(field_val, str):
+        return field_val
+    if isinstance(field_val, dict):
+        return field_val.get("link", "")
+    return ""
+
+
+def _parse_timestamp_ms(ts_ms) -> str:
+    """毫秒时间戳 → YYYY-MM-DD 字符串"""
+    if not ts_ms:
+        return ""
+    try:
+        return datetime.fromtimestamp(int(ts_ms) / 1000).strftime("%Y-%m-%d")
+    except Exception:
+        return ""
 
 
 # ─── 单条写入 ────────────────────────────────────────────────
