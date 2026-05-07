@@ -14,4 +14,4 @@ test_feishu.py
 # Python
 __pycache__/
 *.pyc
-*.pyo
+*.pyo.playwright_pids
