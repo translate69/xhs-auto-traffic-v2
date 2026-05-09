@@ -1,0 +1,512 @@
+待执行 3 个关键词，超时=600s，limit=20
+浏览器重启策略: 每 3 个关键词重启一次
+12:40 [汕尾去哪吃] [INFO] [run_batch] 启动 Playwright Browser
+12:40 [汕尾去哪吃] [INFO] [run_batch] Browser 启动成功，开始采集
+12:40 [汕尾去哪吃] [INFO] [run_batch] 开始采集 [1/3] [core] 汕尾去哪吃
+[12:40:30.179] [SearchColl] goto: 小红书首页
+[12:40:35.856] [SearchColl] 搜索框已fill: 汕尾去哪吃
+[12:40:36.857] [SearchColl] 按回车触发搜索
+[12:40:42.306] [SearchColl] 搜索结果页面加载完成
+[12:40:42.354] [SearchColl] 登录检测通过
+[12:40:47.375] [SearchColl] 笔记列表出现
+[12:40:47.375] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[12:40:53.290] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 滚动 4/8: 当前 18 条
+[ScrollHelper] 滚动 6/8: 当前 18 条
+[ScrollHelper] 滚动 8/8: 当前 18 条
+[12:41:01.497] [SearchColl] 滚动加载完成
+[12:41:02.999] [SearchColl] 提取Feeds
+[12:41:02.999] [SearchColl] 开始提取Feeds
+[12:41:03.020] [SearchColl] 提取完成，返回 16 条Feeds
+[SearchCollector] 采集完成: 9/16 条（时间+去重后）
+12:41 [汕尾去哪吃] [INFO] [run_batch] 采集完成: 9 条 Feeds
+[12:41:03.043] [NoteDetail] 创建 NoteDetailCollector
+[12:41:03.046] [NoteDetail] enrich_all 开始，共 9 条
+[12:41:03.121] [NoteDetail] 处理笔记 1/9: 69f8da5d000000003601d214
+[Detail] [1/9] /search_result/69f8da5d000000003601d214?xsec_token=ABBTEPmcOLTospRbT0TcQRbkJNqmyeb-MBnnzp8h5FDok=&xsec_source=
+[12:41:03.121] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f8da5d000000003601d214?xsec_token=ABBTEPmcOLTospRbT0TcQRbkJNqmyeb-MBnnzp8h5FDok=&xsec_source=
+[12:41:21.048] [NoteDetail]   page.goto 完成
+[12:41:25.093] [NoteDetail]   wait_for_selector 完成
+[12:41:25.107] [NoteDetail]   开始提取详情
+[12:41:25.123] [NoteDetail]   提取完成 content_len=89
+[Detail] OK: 和朋友们去汕尾耍了两天 除了吃还是吃 以为会下雨结果看到了日...
+[12:41:29.927] [NoteDetail]   Page 已关闭
+[12:41:30.001] [NoteDetail] 处理笔记 2/9: 69f8c4cb0000000022026e2b
+[Detail] [2/9] /search_result/69f8c4cb0000000022026e2b?xsec_token=ABBTEPmcOLTospRbT0TcQRbmEN7PtCoBKBQpTh3qIukW4=&xsec_source=
+[12:41:30.002] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f8c4cb0000000022026e2b?xsec_token=ABBTEPmcOLTospRbT0TcQRbmEN7PtCoBKBQpTh3qIukW4=&xsec_source=
+[12:41:35.953] [NoteDetail]   page.goto 完成
+[Detail] FAIL 1/3: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+waiting for locator("#detail-desc") to be visible
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+
+[12:42:14.986] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f8c4cb0000000022026e2b?xsec_token=ABBTEPmcOLTospRbT0TcQRbmEN7PtCoBKBQpTh3qIukW4=&xsec_source=
+[12:42:20.669] [NoteDetail]   page.goto 完成
+[Detail] FAIL 2/3: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+waiting for locator("#detail-desc") to be visible
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+
+[12:42:59.712] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f8c4cb0000000022026e2b?xsec_token=ABBTEPmcOLTospRbT0TcQRbmEN7PtCoBKBQpTh3qIukW4=&xsec_source=
+[12:43:02.182] [NoteDetail]   page.goto 完成
+[Detail] FAIL 3/3: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+waiting for locator("#detail-desc") to be visible
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+
+[Detail] WARN: enrichment 全部失败，降级: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+waiting for locator("#detail-desc") to be visible
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+  -   locator resolved to hidden <div class="desc" id="detail-desc" data-v-772fa76f="">…</div>
+
+[12:43:31.099] [NoteDetail]   Page 已关闭
+[12:43:31.185] [NoteDetail] 处理笔记 3/9: 69feb9dc000000003601afd5
+[Detail] [3/9] /search_result/69feb9dc000000003601afd5?xsec_token=ABuNVOxdbySnNmflirEa6_hVVzEw-414ud_Q5INtnw7S8=&xsec_source=
+[12:43:31.185] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69feb9dc000000003601afd5?xsec_token=ABuNVOxdbySnNmflirEa6_hVVzEw-414ud_Q5INtnw7S8=&xsec_source=
+[12:43:37.064] [NoteDetail]   page.goto 完成
+[12:43:41.108] [NoteDetail]   wait_for_selector 完成
+[12:43:41.123] [NoteDetail]   开始提取详情
+[12:43:41.142] [NoteDetail]   提取完成 content_len=456
+[Detail] OK: #母亲节
+周日母亲节
+同时周日还得带娃
+那就带娃去陪自己的妈...
+[12:43:46.131] [NoteDetail]   Page 已关闭
+[12:43:46.207] [NoteDetail] 处理笔记 4/9: 69feb3a40000000022028d32
+[Detail] [4/9] /search_result/69feb3a40000000022028d32?xsec_token=ABuNVOxdbySnNmflirEa6_hWRNJV0ZnB9A5yvdZZD_THw=&xsec_source=
+[12:43:46.207] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69feb3a40000000022028d32?xsec_token=ABuNVOxdbySnNmflirEa6_hWRNJV0ZnB9A5yvdZZD_THw=&xsec_source=
+[12:43:53.059] [NoteDetail]   page.goto 完成
+[12:43:57.096] [NoteDetail]   wait_for_selector 完成
+[12:43:57.109] [NoteDetail]   开始提取详情
+[12:43:57.126] [NoteDetail]   提取完成 content_len=47
+[Detail] OK: #汕尾包车 #海上古堡 #红海湾包车 #汕尾旅行 #红海湾 ...
+[12:44:00.810] [NoteDetail]   Page 已关闭
+[12:44:00.889] [NoteDetail] 处理笔记 5/9: 69feb13a00000000360184ec
+[Detail] [5/9] /search_result/69feb13a00000000360184ec?xsec_token=ABuNVOxdbySnNmflirEa6_hcP1yXjCclNtA1VRproOe_I=&xsec_source=
+[12:44:00.889] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69feb13a00000000360184ec?xsec_token=ABuNVOxdbySnNmflirEa6_hcP1yXjCclNtA1VRproOe_I=&xsec_source=
+[12:44:08.413] [NoteDetail]   page.goto 完成
+[12:44:12.447] [NoteDetail]   wait_for_selector 完成
+[12:44:12.461] [NoteDetail]   开始提取详情
+[12:44:12.479] [NoteDetail]   提取完成 content_len=975
+[Detail] OK: 📍佛山出发，高速费往返共💰468
+首先，我们没在节假日去，所...
+[Detail] 已采集 5 条，暂停 15s
+[12:44:31.005] [NoteDetail]   Page 已关闭
+[12:44:31.075] [NoteDetail] 处理笔记 6/9: 69feac19000000001f003786
+[Detail] [6/9] /search_result/69feac19000000001f003786?xsec_token=ABuNVOxdbySnNmflirEa6_hQUlz6EVmDn5q_CnFJFSZx0=&xsec_source=
+[12:44:31.075] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69feac19000000001f003786?xsec_token=ABuNVOxdbySnNmflirEa6_hQUlz6EVmDn5q_CnFJFSZx0=&xsec_source=
+[12:44:33.992] [NoteDetail]   page.goto 完成
+[12:44:38.027] [NoteDetail]   wait_for_selector 完成
+[12:44:38.041] [NoteDetail]   开始提取详情
+[12:44:38.057] [NoteDetail]   提取完成 content_len=281
+[Detail] OK: 随便记录一下✨纯个人流水账
+蛀牙拖了超级久，这周终于下定决心...
+[12:44:42.097] [NoteDetail]   Page 已关闭
+[12:44:42.161] [NoteDetail] 处理笔记 7/9: 69feab75000000003502e2e7
+[Detail] [7/9] /search_result/69feab75000000003502e2e7?xsec_token=ABuNVOxdbySnNmflirEa6_hdhKBYpndqvShJCl23rlsS0=&xsec_source=
+[12:44:42.162] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69feab75000000003502e2e7?xsec_token=ABuNVOxdbySnNmflirEa6_hdhKBYpndqvShJCl23rlsS0=&xsec_source=
+[12:44:48.144] [NoteDetail]   page.goto 完成
+[12:44:52.188] [NoteDetail]   wait_for_selector 完成
+[12:44:52.203] [NoteDetail]   开始提取详情
+[12:44:52.221] [NoteDetail]   提取完成 content_len=159
+[Detail] OK: 总要去一趟汕尾吧！吹金町湾的海风，逛凤山祖庙，漫步红海湾海边...
+[12:44:55.977] [NoteDetail]   Page 已关闭
+[12:44:56.052] [NoteDetail] 处理笔记 8/9: 69fea89f00000000220296e8
+[Detail] [8/9] /search_result/69fea89f00000000220296e8?xsec_token=ABuNVOxdbySnNmflirEa6_hT8zvwufI5BAP65JgTnu4cI=&xsec_source=
+[12:44:56.053] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea89f00000000220296e8?xsec_token=ABuNVOxdbySnNmflirEa6_hT8zvwufI5BAP65JgTnu4cI=&xsec_source=
+[12:45:02.109] [NoteDetail]   page.goto 完成
+[12:45:06.152] [NoteDetail]   wait_for_selector 完成
+[12:45:06.165] [NoteDetail]   开始提取详情
+[12:45:06.181] [NoteDetail]   提取完成 content_len=378
+[Detail] OK: 刷爆朋友圈的四天三晚潮汕行
+放弃了五一人气爆满南澳岛，来到潮...
+[12:45:10.310] [NoteDetail]   Page 已关闭
+[12:45:10.378] [NoteDetail] 处理笔记 9/9: 69fea803000000003601912d
+[Detail] [9/9] /search_result/69fea803000000003601912d?xsec_token=ABuNVOxdbySnNmflirEa6_hSHcHwkBH000VNEpN7TEaHU=&xsec_source=
+[12:45:10.378] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea803000000003601912d?xsec_token=ABuNVOxdbySnNmflirEa6_hSHcHwkBH000VNEpN7TEaHU=&xsec_source=
+[12:45:16.495] [NoteDetail]   page.goto 完成
+[12:45:20.537] [NoteDetail]   wait_for_selector 完成
+[12:45:20.552] [NoteDetail]   开始提取详情
+[12:45:20.569] [NoteDetail]   提取完成 content_len=210
+[Detail] OK: 看了很多攻略说想看海就去汕尾 想吃美食就去汕头
+	
+本来想美...
+[12:45:24.166] [NoteDetail]   Page 已关闭
+[12:45:24.197] [NoteDetail] enrich_all 完成，返回 9 条
+12:45 [汕尾去哪吃] [INFO] [run_batch] enrichment 完成: 9 条（丢弃 0 条不可见帖子）
+12:45 [汕尾去哪吃] [DEBUG] [Detail] PASS 69f8da5d000000003601d214 Detail (duration=294.2s)
+12:45 [汕尾去哪吃] [DEBUG] [Detail] FAIL 69f8c4cb0000000022026e2b Detail 内容为空 (duration=294.2s)
+12:45 [汕尾去哪吃] [DEBUG] [Detail] PASS 69feb9dc000000003601afd5 Detail (duration=294.2s)
+12:45 [汕尾去哪吃] [DEBUG] [Detail] PASS 69feb3a40000000022028d32 Detail (duration=294.2s)
+12:45 [汕尾去哪吃] [DEBUG] [Detail] PASS 69feb13a00000000360184ec Detail (duration=294.2s)
+12:45 [汕尾去哪吃] [DEBUG] [Detail] PASS 69feac19000000001f003786 Detail (duration=294.2s)
+12:45 [汕尾去哪吃] [DEBUG] [Detail] PASS 69feab75000000003502e2e7 Detail (duration=294.2s)
+12:45 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fea89f00000000220296e8 Detail (duration=294.2s)
+12:45 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fea803000000003601912d Detail (duration=294.3s)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69f8da5d000000003601d214 Filter 无明确需求 (duration=294.3s)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] PASS 69f8c4cb0000000022026e2b Filter (reasons=正文内容可能在图片中)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69feb9dc000000003601afd5 Filter 无明确需求 (duration=294.3s)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69feb3a40000000022028d32 Filter 找搭子/旅游同伴 (duration=294.3s)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69feb13a00000000360184ec Filter 跨城市蹭流量(汕头) (duration=294.3s)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69feac19000000001f003786 Filter 纯分享攻略贴 (duration=294.4s)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69feab75000000003502e2e7 Filter 纯分享攻略贴 (duration=294.4s)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] PASS 69fea89f00000000220296e8 Filter (reasons=ask)
+12:45 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fea803000000003601912d Filter 纯分享攻略贴 (duration=294.4s)
+12:45 [汕尾去哪吃] [INFO] [run_batch] 筛选完成: 2/9 条通过
+
+[review] === 复查阶段开始 (2 条待查) ===
+[review] === 复查完成: 2 条初审通过 → 2 条终审通过 (拒绝 0 条) ===
+[review] 已写入 E:\translate\claw\xhs-auto-traffic-v2\data\feishu\reviewed_for_feishu.jsonl (2 条)
+12:45 [汕尾去哪吃] [DEBUG] [Review] PASS 69f8c4cb0000000022026e2b Review
+12:45 [汕尾去哪吃] [DEBUG] [Review] PASS 69fea89f00000000220296e8 Review
+12:45 [汕尾去哪吃] [INFO] [run_batch] 复查完成: 2 条终审通过
+[FeishuOutput] 待写入 2 条
+[Feishu] 当前表格已有 11 条记录
+[Feishu] [69f8c4cb0000000022026e2b] 写入成功: 汕尾站附近好吃好喝的外卖求推荐
+[Feishu] [69fea89f00000000220296e8] 写入成功: 不是韩国🇰🇷是汕尾🌊
+[Feishu] 完成: 写入 2，跳过 0，失败 0
+[FeishuOutput] 写入完成: 写入 2，跳过 0，失败 0
+12:45 [汕尾去哪吃] [INFO] [run_batch] 飞书写入完成
+12:45 [汕尾去哪吃] [INFO] [run_batch] ✅ 完成，耗时 299.0s
+12:45 [汕尾去哪吃] [INFO] [run_batch] 休息 5s...
+12:45 [汕尾去哪住] [INFO] [run_batch] 开始采集 [2/3] [core] 汕尾去哪住
+[12:45:34.302] [SearchColl] goto: 小红书首页
+[12:45:39.903] [SearchColl] 搜索框已fill: 汕尾去哪住
+[12:45:40.905] [SearchColl] 按回车触发搜索
+[12:45:46.416] [SearchColl] 搜索结果页面加载完成
+[12:45:46.457] [SearchColl] 登录检测通过
+[12:45:51.475] [SearchColl] 笔记列表出现
+[12:45:51.477] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[12:45:57.375] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 滚动 4/8: 当前 18 条
+[ScrollHelper] 滚动 6/8: 当前 18 条
+[ScrollHelper] 滚动 8/8: 当前 18 条
+[12:46:05.605] [SearchColl] 滚动加载完成
+[12:46:07.107] [SearchColl] 提取Feeds
+[12:46:07.107] [SearchColl] 开始提取Feeds
+[12:46:07.124] [SearchColl] 提取完成，返回 16 条Feeds
+[SearchCollector] 采集完成: 7/16 条（时间+去重后）
+12:46 [汕尾去哪住] [INFO] [run_batch] 采集完成: 7 条 Feeds
+[12:46:07.147] [NoteDetail] 创建 NoteDetailCollector
+[12:46:07.149] [NoteDetail] enrich_all 开始，共 7 条
+[12:46:07.218] [NoteDetail] 处理笔记 1/7: 69fdc417000000002003a8e8
+[Detail] [1/7] /search_result/69fdc417000000002003a8e8?xsec_token=ABVlPBjG87I4OihtJkLCBdSiqZizapOj0YWjlOcV6oQ7w=&xsec_source=
+[12:46:07.219] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fdc417000000002003a8e8?xsec_token=ABVlPBjG87I4OihtJkLCBdSiqZizapOj0YWjlOcV6oQ7w=&xsec_source=
+[Detail] FAIL 1/3: Page.goto: Timeout 30000ms exceeded.
+Call log:
+navigating to "https://www.xiaohongshu.com/search_result/69fdc417000000002003a8e8?xsec_token=ABVlPBjG87I4OihtJkLCBdSiqZizapOj0YWjlOcV6oQ7w=&xsec_source=", waiting until "networkidle"
+
+[12:46:52.243] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fdc417000000002003a8e8?xsec_token=ABVlPBjG87I4OihtJkLCBdSiqZizapOj0YWjlOcV6oQ7w=&xsec_source=
+[12:46:55.039] [NoteDetail]   page.goto 完成
+[12:46:59.084] [NoteDetail]   wait_for_selector 完成
+[12:46:59.100] [NoteDetail]   开始提取详情
+[12:46:59.120] [NoteDetail]   提取完成 content_len=236
+[Detail] OK: 五一来汕尾玩，在二马路挖到这家宝藏海鲜大排档！人均几十吃到撑...
+[12:47:02.201] [NoteDetail]   Page 已关闭
+[12:47:02.281] [NoteDetail] 处理笔记 2/7: 69fdb3d2000000003701d8d5
+[Detail] [2/7] /search_result/69fdb3d2000000003701d8d5?xsec_token=ABVlPBjG87I4OihtJkLCBdSveInqnYKJEkRyo4TWZ91VA=&xsec_source=
+[12:47:02.282] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fdb3d2000000003701d8d5?xsec_token=ABVlPBjG87I4OihtJkLCBdSveInqnYKJEkRyo4TWZ91VA=&xsec_source=
+[12:47:08.118] [NoteDetail]   page.goto 完成
+[12:47:12.163] [NoteDetail]   wait_for_selector 完成
+[12:47:12.177] [NoteDetail]   开始提取详情
+[12:47:12.195] [NoteDetail]   提取完成 content_len=194
+[Detail] OK: 家人们，来汕尾金町湾住对房真的太重要了！
+这间高楼层的海景房...
+[12:47:15.927] [NoteDetail]   Page 已关闭
+[12:47:16.022] [NoteDetail] 处理笔记 3/7: 69fd8d2a00000000350317bb
+[Detail] [3/7] /search_result/69fd8d2a00000000350317bb?xsec_token=ABVlPBjG87I4OihtJkLCBdSim3N6jNa4g-DMa5HGRile0=&xsec_source=
+[12:47:16.022] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fd8d2a00000000350317bb?xsec_token=ABVlPBjG87I4OihtJkLCBdSim3N6jNa4g-DMa5HGRile0=&xsec_source=
+[12:47:19.154] [NoteDetail]   page.goto 完成
+[12:47:23.198] [NoteDetail]   wait_for_selector 完成
+[12:47:23.211] [NoteDetail]   开始提取详情
+[12:47:23.227] [NoteDetail]   提取完成 content_len=90
+[Detail] OK: 拜访客户，出差汕尾，深圳北高铁1小时到，入住亚朵酒店，体验还...
+[12:47:27.437] [NoteDetail]   Page 已关闭
+[12:47:27.505] [NoteDetail] 处理笔记 4/7: 69fd82e7000000001a02cf03
+[Detail] [4/7] /search_result/69fd82e7000000001a02cf03?xsec_token=ABVlPBjG87I4OihtJkLCBdShD4QiH12ufzWqzPqj9hrPI=&xsec_source=
+[12:47:27.506] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fd82e7000000001a02cf03?xsec_token=ABVlPBjG87I4OihtJkLCBdShD4QiH12ufzWqzPqj9hrPI=&xsec_source=
+[12:47:34.588] [NoteDetail]   page.goto 完成
+[12:47:38.629] [NoteDetail]   wait_for_selector 完成
+[12:47:38.644] [NoteDetail]   开始提取详情
+[12:47:38.663] [NoteDetail]   提取完成 content_len=83
+[Detail] OK: 骑去海边野炊🌊，这才是小时候向往的长大啊#汕尾#青村计划#骑...
+[12:47:41.812] [NoteDetail]   Page 已关闭
+[12:47:41.905] [NoteDetail] 处理笔记 5/7: 69fd7a63000000002301c05a
+[Detail] [5/7] /search_result/69fd7a63000000002301c05a?xsec_token=ABVlPBjG87I4OihtJkLCBdSqvZOjJMao7pNGIRlUC47kE=&xsec_source=
+[12:47:41.906] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fd7a63000000002301c05a?xsec_token=ABVlPBjG87I4OihtJkLCBdSqvZOjJMao7pNGIRlUC47kE=&xsec_source=
+[12:47:48.826] [NoteDetail]   page.goto 完成
+[12:47:52.863] [NoteDetail]   wait_for_selector 完成
+[12:47:52.878] [NoteDetail]   开始提取详情
+[12:47:52.895] [NoteDetail]   提取完成 content_len=275
+[Detail] OK: [棒R]，汕头汕尾小吃其实差不多，✨整理一些均自己个人体验
+...
+[Detail] 已采集 5 条，暂停 15s
+[12:48:12.098] [NoteDetail]   Page 已关闭
+[12:48:12.188] [NoteDetail] 处理笔记 6/7: 69fd5aa5000000003601d6db
+[Detail] [6/7] /search_result/69fd5aa5000000003601d6db?xsec_token=ABVlPBjG87I4OihtJkLCBdSlkm53tE6aGF3ZVz32dLx68=&xsec_source=
+[12:48:12.188] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fd5aa5000000003601d6db?xsec_token=ABVlPBjG87I4OihtJkLCBdSlkm53tE6aGF3ZVz32dLx68=&xsec_source=
+[12:48:19.145] [NoteDetail]   page.goto 完成
+[12:48:23.187] [NoteDetail]   wait_for_selector 完成
+[12:48:23.202] [NoteDetail]   开始提取详情
+[12:48:23.220] [NoteDetail]   提取完成 content_len=547
+[Detail] OK: #浪漫生活的记录者
+谁能拒绝🏝️ 步行10秒直达金町湾白沙滩...
+[12:48:27.366] [NoteDetail]   Page 已关闭
+[12:48:27.459] [NoteDetail] 处理笔记 7/7: 69fd54b00000000037036e8f
+[Detail] [7/7] /search_result/69fd54b00000000037036e8f?xsec_token=ABVlPBjG87I4OihtJkLCBdSrtn2MwHqUBaWi7RYYAjBHc=&xsec_source=
+[12:48:27.460] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fd54b00000000037036e8f?xsec_token=ABVlPBjG87I4OihtJkLCBdSrtn2MwHqUBaWi7RYYAjBHc=&xsec_source=
+[12:48:30.842] [NoteDetail]   page.goto 完成
+[12:48:34.883] [NoteDetail]   wait_for_selector 完成
+[12:48:34.898] [NoteDetail]   开始提取详情
+[12:48:34.915] [NoteDetail]   提取完成 content_len=595
+[Detail] OK: 深圳后花园名不虚传，真的太适合假期躺平了
+🚄出发1h到达
+避...
+[12:48:38.430] [NoteDetail]   Page 已关闭
+[12:48:38.434] [NoteDetail] enrich_all 完成，返回 7 条
+12:48 [汕尾去哪住] [INFO] [run_batch] enrichment 完成: 7 条（丢弃 0 条不可见帖子）
+12:48 [汕尾去哪住] [DEBUG] [Detail] PASS 69fdc417000000002003a8e8 Detail (duration=184.3s)
+12:48 [汕尾去哪住] [DEBUG] [Detail] PASS 69fdb3d2000000003701d8d5 Detail (duration=184.3s)
+12:48 [汕尾去哪住] [DEBUG] [Detail] PASS 69fd8d2a00000000350317bb Detail (duration=184.3s)
+12:48 [汕尾去哪住] [DEBUG] [Detail] PASS 69fd82e7000000001a02cf03 Detail (duration=184.3s)
+12:48 [汕尾去哪住] [DEBUG] [Detail] PASS 69fd7a63000000002301c05a Detail (duration=184.3s)
+12:48 [汕尾去哪住] [DEBUG] [Detail] PASS 69fd5aa5000000003601d6db Detail (duration=184.3s)
+12:48 [汕尾去哪住] [DEBUG] [Detail] PASS 69fd54b00000000037036e8f Detail (duration=184.3s)
+12:48 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fdc417000000002003a8e8 Filter 广告:真的绝了 (duration=184.4s)
+12:48 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fdb3d2000000003701d8d5 Filter 商家账号 (duration=184.4s)
+12:48 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fd8d2a00000000350317bb Filter 无明确需求 (duration=184.4s)
+12:48 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fd82e7000000001a02cf03 Filter 无明确需求 (duration=184.4s)
+12:48 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fd7a63000000002301c05a Filter 纯分享攻略贴 (duration=184.4s)
+12:48 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fd5aa5000000003601d6db Filter 纯分享攻略贴 (duration=184.4s)
+12:48 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fd54b00000000037036e8f Filter 纯分享攻略贴 (duration=184.5s)
+12:48 [汕尾去哪住] [INFO] [run_batch] 筛选完成: 0/7 条通过
+
+[review] === 复查阶段开始 (0 条待查) ===
+[review] === 复查完成: 0 条初审通过 → 0 条终审通过 (拒绝 0 条) ===
+[review] ⚠️ 复查后无通过记录，不写入飞书
+12:48 [汕尾去哪住] [INFO] [run_batch] 复查完成: 0 条终审通过
+12:48 [汕尾去哪住] [INFO] [run_batch] ✅ 完成，耗时 184.5s
+12:48 [汕尾去哪住] [INFO] [run_batch] 休息 5s...
+12:48 [汕尾旅游] [INFO] [run_batch] 开始采集 [3/3] [core] 汕尾旅游
+[12:48:43.910] [SearchColl] goto: 小红书首页
+[12:48:51.643] [SearchColl] 搜索框已fill: 汕尾旅游
+[12:48:52.645] [SearchColl] 按回车触发搜索
+[12:48:58.125] [SearchColl] 搜索结果页面加载完成
+[12:48:58.168] [SearchColl] 登录检测通过
+[12:49:03.189] [SearchColl] 笔记列表出现
+[12:49:03.189] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[12:49:09.090] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 滚动 4/8: 当前 18 条
+[ScrollHelper] 滚动 6/8: 当前 18 条
+[ScrollHelper] 滚动 8/8: 当前 18 条
+[12:49:17.303] [SearchColl] 滚动加载完成
+[12:49:18.804] [SearchColl] 提取Feeds
+[12:49:18.804] [SearchColl] 开始提取Feeds
+[12:49:18.821] [SearchColl] 提取完成，返回 16 条Feeds
+[SearchCollector] 采集完成: 1/16 条（时间+去重后）
+12:49 [汕尾旅游] [INFO] [run_batch] 采集完成: 1 条 Feeds
+[12:49:18.831] [NoteDetail] 创建 NoteDetailCollector
+[12:49:18.833] [NoteDetail] enrich_all 开始，共 1 条
+[12:49:18.904] [NoteDetail] 处理笔记 1/1: 69f842b3000000002003b558
+[Detail] [1/1] /search_result/69f842b3000000002003b558?xsec_token=ABBTEPmcOLTospRbT0TcQRbsd208xhPXZabaQkLGoGlKQ=&xsec_source=
+[12:49:18.904] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69f842b3000000002003b558?xsec_token=ABBTEPmcOLTospRbT0TcQRbsd208xhPXZabaQkLGoGlKQ=&xsec_source=
+[12:49:24.511] [NoteDetail]   page.goto 完成
+[12:49:28.549] [NoteDetail]   wait_for_selector 完成
+[12:49:28.564] [NoteDetail]   开始提取详情
+[12:49:28.581] [NoteDetail]   提取完成 content_len=24
+[Detail] OK: 汕尾红海湾旅拍的阿姐，拍不好也不让说，态度还不好...
+[12:49:32.422] [NoteDetail]   Page 已关闭
+[12:49:32.452] [NoteDetail] enrich_all 完成，返回 1 条
+12:49 [汕尾旅游] [INFO] [run_batch] enrichment 完成: 1 条（丢弃 0 条不可见帖子）
+12:49 [汕尾旅游] [DEBUG] [Detail] PASS 69f842b3000000002003b558 Detail (duration=48.7s)
+12:49 [汕尾旅游] [DEBUG] [Filter] FAIL 69f842b3000000002003b558 Filter 纯分享攻略贴 (duration=48.7s)
+12:49 [汕尾旅游] [INFO] [run_batch] 筛选完成: 0/1 条通过
+
+[review] === 复查阶段开始 (0 条待查) ===
+[review] === 复查完成: 0 条初审通过 → 0 条终审通过 (拒绝 0 条) ===
+[review] ⚠️ 复查后无通过记录，不写入飞书
+12:49 [汕尾旅游] [INFO] [run_batch] 复查完成: 0 条终审通过
+12:49 [汕尾旅游] [INFO] [run_batch] ✅ 完成，耗时 48.8s
+执行完毕
+关键词: 3 个，成功: 3，共通过: 2 条
+  ✅ [汕尾去哪吃] 通过=2 Feeds=9 299.0s
+  ✅ [汕尾去哪住] 通过=0 Feeds=7 184.5s
+  ✅ [汕尾旅游] 通过=0 Feeds=1 48.8s

@@ -1,0 +1,40 @@
+19:18 [深圳到汕尾自驾住哪] [INFO] [run_batch] 开始采集 [2/10] [longtail] 深圳到汕尾自驾住哪
+19:19 [深圳到汕尾自驾住哪] [INFO] [run_batch] 采集完成: 15 条 Feeds
+19:23 [深圳到汕尾自驾住哪] [INFO] [run_batch] enrichment 完成: 15 条（丢弃 0 条不可见帖子）
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9cf430000000035024654 Detail (duration=294.2s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9ce8c0000000036031d20 Detail (duration=294.2s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9ce6600000000360002fa Detail (duration=294.2s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9cdfd0000000035031004 Detail (duration=294.2s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c93a0000000023015b60 Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c935000000003502246a Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c66b00000000220285d7 Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c636000000003700e62e Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c4b4000000003501cab9 Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c4360000000037036aec Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c2d1000000003501ffa2 Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c28a000000001a02c67e Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9c0ff0000000023016f1a Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9bffe00000000220276a2 Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9bb750000000035021174 Detail (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9cf430000000035024654 Filter 纯分享攻略贴 (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9ce8c0000000036031d20 Filter 无明确需求 (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] PASS 69f9ce6600000000360002fa Filter (reasons=urgent)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9cdfd0000000035031004 Filter 无明确需求 (duration=294.3s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9c93a0000000023015b60 Filter 无明确需求 (duration=294.4s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9c935000000003502246a Filter 纯分享攻略贴 (duration=294.4s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9c66b00000000220285d7 Filter 纯分享攻略贴 (duration=294.4s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9c636000000003700e62e Filter 非目标地域 (duration=294.4s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9c4b4000000003501cab9 Filter 纯分享攻略贴 (duration=294.4s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] PASS 69f9c4360000000037036aec Filter (reasons=ask,urgent)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9c2d1000000003501ffa2 Filter 无明确需求 (duration=294.4s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9c28a000000001a02c67e Filter 无明确需求 (duration=294.4s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9c0ff0000000023016f1a Filter 广告:限时 (duration=294.5s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9bffe00000000220276a2 Filter 广告:限时 (duration=294.5s)
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9bb750000000035021174 Filter 无明确需求 (duration=294.5s)
+19:23 [深圳到汕尾自驾住哪] [INFO] [run_batch] 筛选完成: 2/15 条通过
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Review] PASS 69f9ce6600000000360002fa Review
+19:23 [深圳到汕尾自驾住哪] [DEBUG] [Review] FAIL 69f9c4360000000037036aec Review (reasons=ask,urgent) (duration=294.5s)
+19:23 [深圳到汕尾自驾住哪] [INFO] [run_batch] 复查完成: 1 条终审通过
+19:23 [深圳到汕尾自驾住哪] [INFO] [run_batch] 飞书写入完成
+19:23 [深圳到汕尾自驾住哪] [INFO] [run_batch] ✅ 完成，耗时 297.2s
+19:23 [深圳到汕尾自驾住哪] [INFO] [run_batch] 休息 5s...

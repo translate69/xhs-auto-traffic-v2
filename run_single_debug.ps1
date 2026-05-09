@@ -1,1 +1,0 @@
-python "E:\translate\claw\xhs-auto-traffic-v2\run_all.py" --keyword 汕尾美食 --debug 2>&1

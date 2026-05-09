@@ -1,0 +1,28 @@
+02:20 [汕尾周末去哪玩] [INFO] [run_batch] 启动 Playwright Browser
+02:20 [汕尾周末去哪玩] [INFO] [run_batch] Browser 启动成功，开始采集
+02:20 [汕尾周末去哪玩] [INFO] [run_batch] 开始采集 [1/2] [longtail] 汕尾周末去哪玩
+02:20 [汕尾周末去哪玩] [INFO] [run_batch] 采集完成: 5 条 Feeds
+02:22 [汕尾周末去哪玩] [INFO] [run_batch] enrichment 完成: 5 条（丢弃 0 条不可见帖子）
+02:22 [汕尾周末去哪玩] [DEBUG] [Detail] PASS 69f741e50000000023016595 Detail (duration=118.0s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Detail] PASS 69fca02d000000001f0010a3 Detail (duration=118.0s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Detail] PASS 69f8c2960000000022029277 Detail (duration=118.0s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Detail] PASS 69fe1552000000001a036c94 Detail (duration=118.0s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Detail] PASS 69fe0b5c00000000220254ef Detail (duration=118.0s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Filter] FAIL 69f741e50000000023016595 Filter 无明确需求 (duration=118.0s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Filter] FAIL 69fca02d000000001f0010a3 Filter 无明确需求 (duration=118.1s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Filter] FAIL 69f8c2960000000022029277 Filter 无明确需求 (duration=118.1s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Filter] FAIL 69fe1552000000001a036c94 Filter 非目标地域 (duration=118.1s)
+02:22 [汕尾周末去哪玩] [DEBUG] [Filter] FAIL 69fe0b5c00000000220254ef Filter 非目标地域 (duration=118.1s)
+02:22 [汕尾周末去哪玩] [INFO] [run_batch] 筛选完成: 0/5 条通过
+02:22 [汕尾周末去哪玩] [INFO] [run_batch] 复查完成: 0 条终审通过
+02:22 [汕尾周末去哪玩] [INFO] [run_batch] ✅ 完成，耗时 118.1s
+02:22 [汕尾周末去哪玩] [INFO] [run_batch] 休息 5s...
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] 启动 Playwright Browser
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] Browser 启动成功，开始采集
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] 开始采集 [1/2] [longtail] 汕尾周末去哪玩
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] 采集完成: 0 条 Feeds
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] enrichment 完成: 0 条（丢弃 0 条不可见帖子）
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] 筛选完成: 0/0 条通过
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] 复查完成: 0 条终审通过
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] ✅ 完成，耗时 32.4s
+02:23 [汕尾周末去哪玩] [INFO] [run_batch] 休息 5s...

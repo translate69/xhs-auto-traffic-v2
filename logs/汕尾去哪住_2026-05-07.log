@@ -1,0 +1,31 @@
+23:27 [汕尾去哪住] [INFO] [run_batch] 开始采集 [2/3] [core] 汕尾去哪住
+23:28 [汕尾去哪住] [INFO] [run_batch] 采集完成: 12 条 Feeds
+23:31 [汕尾去哪住] [INFO] [run_batch] enrichment 完成: 12 条（丢弃 0 条不可见帖子）
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fcb75e000000001a02f018 Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fcb5e20000000036019c3f Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fcb57e000000001f002b50 Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fca25900000000370358d5 Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fc9e740000000035027de6 Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fc9105000000001f007352 Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fc8aed0000000022025e97 Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fc88ae000000001b023302 Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fc85bc0000000036032882 Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fc845500000000230068ac Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fc7d11000000001f00489f Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Detail] PASS 69fc78670000000023016c8c Detail (duration=241.2s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fcb75e000000001a02f018 Filter 无明确需求 (duration=241.3s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fcb5e20000000036019c3f Filter 无明确需求 (duration=241.3s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fcb57e000000001f002b50 Filter 无明确需求 (duration=241.4s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fca25900000000370358d5 Filter 纯分享攻略贴 (duration=241.4s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fc9e740000000035027de6 Filter 纯分享攻略贴 (duration=241.4s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fc9105000000001f007352 Filter 无明确需求 (duration=241.4s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fc8aed0000000022025e97 Filter 纯分享攻略贴 (duration=241.4s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fc88ae000000001b023302 Filter 纯分享攻略贴 (duration=241.5s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fc85bc0000000036032882 Filter 纯分享攻略贴 (duration=241.5s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fc845500000000230068ac Filter 无明确需求 (duration=241.5s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fc7d11000000001f00489f Filter 商家账号 (duration=241.5s)
+23:31 [汕尾去哪住] [DEBUG] [Filter] FAIL 69fc78670000000023016c8c Filter 找搭子/旅游同伴 (duration=241.5s)
+23:31 [汕尾去哪住] [INFO] [run_batch] 筛选完成: 0/12 条通过
+23:31 [汕尾去哪住] [INFO] [run_batch] 复查完成: 0 条终审通过
+23:31 [汕尾去哪住] [INFO] [run_batch] ✅ 完成，耗时 241.5s
+23:31 [汕尾去哪住] [INFO] [run_batch] 休息 5s...

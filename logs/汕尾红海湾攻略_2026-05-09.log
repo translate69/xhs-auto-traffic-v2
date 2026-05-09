@@ -1,0 +1,34 @@
+01:42 [汕尾红海湾攻略] [INFO] [run_batch] 开始采集 [2/3] [longtail] 汕尾红海湾攻略
+01:43 [汕尾红海湾攻略] [INFO] [run_batch] 采集完成: 2 条 Feeds
+01:43 [汕尾红海湾攻略] [INFO] [run_batch] enrichment 完成: 2 条（丢弃 0 条不可见帖子）
+01:43 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f810d60000000038036fbb Detail (duration=64.5s)
+01:43 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f73d96000000003802161a Detail (duration=64.5s)
+01:43 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f810d60000000038036fbb Filter 无明确需求 (duration=64.5s)
+01:43 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f73d96000000003802161a Filter 无明确需求 (duration=64.6s)
+01:43 [汕尾红海湾攻略] [INFO] [run_batch] 筛选完成: 0/2 条通过
+01:43 [汕尾红海湾攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+01:43 [汕尾红海湾攻略] [INFO] [run_batch] ✅ 完成，耗时 64.6s
+01:43 [汕尾红海湾攻略] [INFO] [run_batch] 休息 5s...
+13:23 [汕尾红海湾攻略] [INFO] [run_batch] 开始采集 [2/3] [longtail] 汕尾红海湾攻略
+13:23 [汕尾红海湾攻略] [INFO] [run_batch] 采集完成: 8 条 Feeds
+13:25 [汕尾红海湾攻略] [INFO] [run_batch] enrichment 完成: 8 条（丢弃 0 条不可见帖子）
+13:25 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f6e88e0000000035031ccd Detail (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fea8040000000023005707 Detail (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fe9f9b0000000035028e2c Detail (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fe1822000000003502320f Detail (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fe025c0000000035026814 Detail (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fdf0570000000036032ccb Detail (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fde907000000001a02f8bd Detail (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fdd54f000000001a02ccb8 Detail (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f6e88e0000000035031ccd Filter 无明确需求 (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fea8040000000023005707 Filter 找搭子/旅游同伴 (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fe9f9b0000000035028e2c Filter 广告:太宝藏了 (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fe1822000000003502320f Filter 纯分享攻略贴 (duration=163.3s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fe025c0000000035026814 Filter 无明确需求 (duration=163.4s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fdf0570000000036032ccb Filter 无明确需求 (duration=163.4s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fde907000000001a02f8bd Filter 无明确需求 (duration=163.4s)
+13:25 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fdd54f000000001a02ccb8 Filter 找搭子/旅游同伴 (duration=163.4s)
+13:25 [汕尾红海湾攻略] [INFO] [run_batch] 筛选完成: 0/8 条通过
+13:25 [汕尾红海湾攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+13:25 [汕尾红海湾攻略] [INFO] [run_batch] ✅ 完成，耗时 163.4s
+13:25 [汕尾红海湾攻略] [INFO] [run_batch] 休息 5s...

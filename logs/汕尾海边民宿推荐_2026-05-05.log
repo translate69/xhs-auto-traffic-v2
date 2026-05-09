@@ -1,0 +1,37 @@
+19:46 [汕尾海边民宿推荐] [INFO] [run_batch] 开始采集 [8/10] [longtail] 汕尾海边民宿推荐
+19:47 [汕尾海边民宿推荐] [INFO] [run_batch] 采集完成: 15 条 Feeds
+19:51 [汕尾海边民宿推荐] [INFO] [run_batch] enrichment 完成: 15 条（丢弃 0 条不可见帖子）
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f9a25e000000003700c620 Detail (duration=302.3s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f9a19b00000000350235c5 Detail (duration=302.3s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f93d20000000001a02f7be Detail (duration=302.3s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f999f3000000003502919a Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f9985d000000002301fa11 Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f93812000000001f00680d Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f98fec00000000360196a2 Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f93f7a000000003502bff3 Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f989a7000000001f00154b Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f9895b0000000036002a71 Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f986f10000000036001ca5 Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f985b5000000003701f97a Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f96c33000000003700d074 Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f97d2000000000350395e7 Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Detail] PASS 69f97ccc000000003603320b Detail (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f9a25e000000003700c620 Filter 非目标地域 (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f9a19b00000000350235c5 Filter 商家账号 (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f93d20000000001a02f7be Filter 无明确需求 (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f999f3000000003502919a Filter 非目标地域 (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f9985d000000002301fa11 Filter 非目标地域 (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f93812000000001f00680d Filter 非目标地域 (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f98fec00000000360196a2 Filter 纯分享攻略贴 (duration=302.4s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f93f7a000000003502bff3 Filter 无明确需求 (duration=302.5s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f989a7000000001f00154b Filter 非目标地域 (duration=302.5s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f9895b0000000036002a71 Filter 非目标地域 (duration=302.5s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f986f10000000036001ca5 Filter 非目标地域 (duration=302.5s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f985b5000000003701f97a Filter 纯分享攻略贴 (duration=302.5s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f96c33000000003700d074 Filter 非目标地域 (duration=302.5s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f97d2000000000350395e7 Filter 无明确需求 (duration=302.5s)
+19:51 [汕尾海边民宿推荐] [DEBUG] [Filter] FAIL 69f97ccc000000003603320b Filter 非目标地域 (duration=302.5s)
+19:51 [汕尾海边民宿推荐] [INFO] [run_batch] 筛选完成: 0/15 条通过
+19:51 [汕尾海边民宿推荐] [INFO] [run_batch] 复查完成: 0 条终审通过
+19:51 [汕尾海边民宿推荐] [INFO] [run_batch] ✅ 完成，耗时 302.5s
+19:51 [汕尾海边民宿推荐] [INFO] [run_batch] 休息 5s...

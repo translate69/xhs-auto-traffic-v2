@@ -1,0 +1,41 @@
+19:13 [广州到汕尾自驾住哪] [INFO] [run_batch] 启动 Playwright Browser
+19:13 [广州到汕尾自驾住哪] [INFO] [run_batch] Browser 启动成功，开始采集
+19:13 [广州到汕尾自驾住哪] [INFO] [run_batch] 开始采集 [1/10] [longtail] 广州到汕尾自驾住哪
+19:13 [广州到汕尾自驾住哪] [INFO] [run_batch] 采集完成: 16 条 Feeds
+19:18 [广州到汕尾自驾住哪] [INFO] [run_batch] enrichment 完成: 16 条（丢弃 0 条不可见帖子）
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9ab15000000001e00c163 Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9a4fd0000000035024abf Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9a3d50000000023014e04 Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f9a2da000000003502cd1e Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f99e370000000022027d53 Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f99abf000000001a02ec22 Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f97c4e000000003501e2f5 Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f997f60000000036030e57 Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f996a9000000001f001887 Detail (duration=315.9s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f99309000000001f007b30 Detail (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f95e5f00000000350312ed Detail (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f98dbb00000000380341c5 Detail (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f98c210000000035023af0 Detail (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f98596000000001a03402b Detail (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f97d2c000000003502295c Detail (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Detail] PASS 69f979c20000000038035140 Detail (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9ab15000000001e00c163 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9a4fd0000000035024abf Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9a3d50000000023014e04 Filter 找搭子/旅游同伴 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f9a2da000000003502cd1e Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f99e370000000022027d53 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f99abf000000001a02ec22 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f97c4e000000003501e2f5 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f997f60000000036030e57 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f996a9000000001f001887 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f99309000000001f007b30 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f95e5f00000000350312ed Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f98dbb00000000380341c5 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f98c210000000035023af0 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f98596000000001a03402b Filter 无明确需求 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f97d2c000000003502295c Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [DEBUG] [Filter] FAIL 69f979c20000000038035140 Filter 非目标地域 (duration=316.0s)
+19:18 [广州到汕尾自驾住哪] [INFO] [run_batch] 筛选完成: 0/16 条通过
+19:18 [广州到汕尾自驾住哪] [INFO] [run_batch] 复查完成: 0 条终审通过
+19:18 [广州到汕尾自驾住哪] [INFO] [run_batch] ✅ 完成，耗时 316.1s
+19:18 [广州到汕尾自驾住哪] [INFO] [run_batch] 休息 5s...

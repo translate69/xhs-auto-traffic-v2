@@ -1,0 +1,39 @@
+19:35 [汕尾2天1晚行程] [INFO] [run_batch] 开始采集 [6/10] [longtail] 汕尾2天1晚行程
+19:36 [汕尾2天1晚行程] [INFO] [run_batch] 采集完成: 16 条 Feeds
+19:41 [汕尾2天1晚行程] [INFO] [run_batch] enrichment 完成: 16 条（丢弃 0 条不可见帖子）
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9d3530000000036001eb0 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f95c41000000001e00f046 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9d27700000000360333d4 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9d22b000000001e00d665 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9b8fe000000003503b2c3 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9d1c2000000001b023a5f Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9d1870000000022025380 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9cfaa000000003700dd5a Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9cfa10000000023017b6b Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9ccd400000000350238d5 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9cbb80000000035027296 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9a7320000000022029969 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9c0de0000000037035674 Detail (duration=322.9s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9c6490000000035029b50 Detail (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9c6220000000035029a81 Detail (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69f9c5a80000000035029781 Detail (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9d3530000000036001eb0 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f95c41000000001e00f046 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9d27700000000360333d4 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9d22b000000001e00d665 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9b8fe000000003503b2c3 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9d1c2000000001b023a5f Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9d1870000000022025380 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9cfaa000000003700dd5a Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9cfa10000000023017b6b Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9ccd400000000350238d5 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9cbb80000000035027296 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9a7320000000022029969 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9c0de0000000037035674 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9c6490000000035029b50 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9c6220000000035029a81 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69f9c5a80000000035029781 Filter 非目标地域 (duration=323.0s)
+19:41 [汕尾2天1晚行程] [INFO] [run_batch] 筛选完成: 0/16 条通过
+19:41 [汕尾2天1晚行程] [INFO] [run_batch] 复查完成: 0 条终审通过
+19:41 [汕尾2天1晚行程] [INFO] [run_batch] ✅ 完成，耗时 323.0s
+19:41 [汕尾2天1晚行程] [INFO] [run_batch] 休息 5s...

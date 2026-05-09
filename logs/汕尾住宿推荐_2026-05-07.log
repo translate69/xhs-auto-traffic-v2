@@ -1,0 +1,172 @@
+09:40 [汕尾住宿推荐] [INFO] [run_batch] 开始采集 [2/7] [core] 汕尾住宿推荐
+09:40 [汕尾住宿推荐] [INFO] [run_batch] 采集完成: 13 条 Feeds
+09:46 [汕尾住宿推荐] [INFO] [run_batch] enrichment 完成: 13 条（丢弃 0 条不可见帖子）
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f9b1ef000000003601f329 Detail (duration=360.8s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f9999400000000230157d7 Detail (duration=360.8s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8b6bc000000003502e65c Detail (duration=360.8s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8c1b2000000003502941f Detail (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8bcb80000000023017ec9 Detail (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8b681000000003501d4ac Detail (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8b5f4000000002003a159 Detail (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8af49000000002202b98a Detail (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] FAIL 69f8aefd000000002202b7f7 Detail 内容为空 (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8ac47000000003701e8b2 Detail (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f89715000000002301de87 Detail (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8a84900000000380210a7 Detail (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Detail] FAIL 69f8a540000000001f001477 Detail 内容为空 (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] PASS 69f9b1ef000000003601f329 Filter (reasons=ask)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f9999400000000230157d7 Filter 无明确需求 (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8b6bc000000003502e65c Filter 纯分享攻略贴 (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8c1b2000000003502941f Filter 非目标地域 (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8bcb80000000023017ec9 Filter 非目标地域 (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8b681000000003501d4ac Filter 无明确需求 (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8b5f4000000002003a159 Filter 非目标地域 (duration=360.9s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8af49000000002202b98a Filter 无明确需求 (duration=361.0s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8aefd000000002202b7f7 Filter 非目标地域 (duration=361.0s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8ac47000000003701e8b2 Filter 纯分享攻略贴 (duration=361.0s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f89715000000002301de87 Filter 无明确需求 (duration=361.0s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8a84900000000380210a7 Filter 无明确需求 (duration=361.0s)
+09:46 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8a540000000001f001477 Filter 非目标地域 (duration=361.0s)
+09:46 [汕尾住宿推荐] [INFO] [run_batch] 筛选完成: 1/13 条通过
+09:46 [汕尾住宿推荐] [DEBUG] [Review] PASS 69f9b1ef000000003601f329 Review
+09:46 [汕尾住宿推荐] [INFO] [run_batch] 复查完成: 1 条终审通过
+09:46 [汕尾住宿推荐] [INFO] [run_batch] 飞书写入完成
+09:46 [汕尾住宿推荐] [INFO] [run_batch] ✅ 完成，耗时 365.5s
+09:46 [汕尾住宿推荐] [INFO] [run_batch] 休息 5s...
+09:39 [汕尾住宿推荐] [INFO] [run_batch] 开始采集 [2/7] [core] 汕尾住宿推荐
+09:40 [汕尾住宿推荐] [INFO] [run_batch] 采集完成: 16 条 Feeds
+09:44 [汕尾住宿推荐] [INFO] [run_batch] enrichment 完成: 16 条（丢弃 0 条不可见帖子）
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8592e000000003601ddad Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f859fc000000003700d790 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f859dd0000000038035021 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8599c000000001b021a25 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8595d000000003701f182 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f857e6000000002301cb17 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f858110000000022027396 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f857e8000000003700cb0f Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f857800000000036001eea Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f856880000000020039bd7 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f855d5000000003501d766 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f85444000000003601ad7b Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f85437000000001f005575 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8538b0000000020038c38 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f85389000000001f0051f6 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f851860000000036032c77 Detail (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8592e000000003601ddad Filter 纯分享攻略贴 (duration=282.8s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f859fc000000003700d790 Filter 无明确需求 (duration=282.9s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f859dd0000000038035021 Filter 纯分享攻略贴 (duration=282.9s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8599c000000001b021a25 Filter 纯分享攻略贴 (duration=282.9s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8595d000000003701f182 Filter 无明确需求 (duration=282.9s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f857e6000000002301cb17 Filter 纯分享攻略贴 (duration=282.9s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f858110000000022027396 Filter 非目标地域 (duration=282.9s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f857e8000000003700cb0f Filter 无明确需求 (duration=282.9s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f857800000000036001eea Filter 非目标地域 (duration=282.9s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f856880000000020039bd7 Filter 无明确需求 (duration=283.0s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f855d5000000003501d766 Filter 非目标地域 (duration=283.0s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f85444000000003601ad7b Filter 无明确需求 (duration=283.0s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f85437000000001f005575 Filter 纯分享攻略贴 (duration=283.0s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8538b0000000020038c38 Filter 纯分享攻略贴 (duration=283.0s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f85389000000001f0051f6 Filter 纯分享攻略贴 (duration=283.0s)
+09:44 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f851860000000036032c77 Filter 无明确需求 (duration=283.0s)
+09:44 [汕尾住宿推荐] [INFO] [run_batch] 筛选完成: 0/16 条通过
+09:44 [汕尾住宿推荐] [INFO] [run_batch] 复查完成: 0 条终审通过
+09:44 [汕尾住宿推荐] [INFO] [run_batch] ✅ 完成，耗时 283.1s
+09:44 [汕尾住宿推荐] [INFO] [run_batch] 休息 5s...
+10:31 [汕尾住宿推荐] [INFO] [run_batch] 开始采集 [2/7] [core] 汕尾住宿推荐
+10:31 [汕尾住宿推荐] [INFO] [run_batch] 采集完成: 14 条 Feeds
+09:38 [汕尾住宿推荐] [INFO] [run_batch] enrichment 完成: 14 条（丢弃 0 条不可见帖子）
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f86731000000003601f3e4 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] FAIL 69f866540000000037036fe2 Detail 内容为空 (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8663e00000000350239f7 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f86477000000003502fd94 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f86427000000003501eb67 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f863e20000000023005648 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f862d60000000035026482 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f86262000000003601d5b1 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f861f1000000001b0206e2 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f860dc000000002301fa30 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8605f000000001b023e33 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f85fb9000000003502e0ec Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8530600000000230149ad Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f85d48000000003503ac96 Detail (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f86731000000003601f3e4 Filter 纯分享攻略贴 (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f866540000000037036fe2 Filter 无明确需求 (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8663e00000000350239f7 Filter 无明确需求 (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f86477000000003502fd94 Filter 找搭子/旅游同伴 (duration=-3150.0s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f86427000000003501eb67 Filter 无明确需求 (duration=-3149.9s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f863e20000000023005648 Filter 非目标地域 (duration=-3149.9s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f862d60000000035026482 Filter 无明确需求 (duration=-3149.9s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f86262000000003601d5b1 Filter 无明确需求 (duration=-3149.9s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f861f1000000001b0206e2 Filter 非目标地域 (duration=-3149.9s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f860dc000000002301fa30 Filter 无明确需求 (duration=-3149.9s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8605f000000001b023e33 Filter 商家账号 (duration=-3149.8s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f85fb9000000003502e0ec Filter 无明确需求 (duration=-3149.8s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8530600000000230149ad Filter 非目标地域 (duration=-3149.8s)
+09:38 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f85d48000000003503ac96 Filter 纯交通问题 (duration=-3149.8s)
+09:38 [汕尾住宿推荐] [INFO] [run_batch] 筛选完成: 0/14 条通过
+09:38 [汕尾住宿推荐] [INFO] [run_batch] 复查完成: 0 条终审通过
+09:38 [汕尾住宿推荐] [INFO] [run_batch] ✅ 完成，耗时 -3149.8s
+09:38 [汕尾住宿推荐] [INFO] [run_batch] 休息 5s...
+10:09 [汕尾住宿推荐] [INFO] [run_batch] 开始采集 [2/7] [core] 汕尾住宿推荐
+10:09 [汕尾住宿推荐] [INFO] [run_batch] 采集完成: 7 条 Feeds
+10:11 [汕尾住宿推荐] [INFO] [run_batch] enrichment 完成: 7 条（丢弃 0 条不可见帖子）
+10:11 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fafee9000000003701c6d5 Detail (duration=144.2s)
+10:11 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fae89d000000003503a414 Detail (duration=144.2s)
+10:11 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fa1a1a00000000350253e9 Detail (duration=144.2s)
+10:11 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fa04470000000038034ab1 Detail (duration=144.2s)
+10:11 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f3007d0000000036018a7b Detail (duration=144.3s)
+10:11 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8b93600000000360023a7 Detail (duration=144.3s)
+10:11 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8b05b000000001e00d054 Detail (duration=144.3s)
+10:11 [汕尾住宿推荐] [DEBUG] [Filter] PASS 69fafee9000000003701c6d5 Filter (reasons=正文内容可能在图片中)
+10:11 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69fae89d000000003503a414 Filter 无明确需求 (duration=144.3s)
+10:11 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69fa1a1a00000000350253e9 Filter 纯分享攻略贴 (duration=144.4s)
+10:11 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69fa04470000000038034ab1 Filter 无明确需求 (duration=144.4s)
+10:11 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f3007d0000000036018a7b Filter 非目标地域 (duration=144.4s)
+10:11 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8b93600000000360023a7 Filter 非目标地域 (duration=144.4s)
+10:11 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8b05b000000001e00d054 Filter 无明确需求 (duration=144.4s)
+10:11 [汕尾住宿推荐] [INFO] [run_batch] 筛选完成: 1/7 条通过
+10:11 [汕尾住宿推荐] [DEBUG] [Review] PASS 69fafee9000000003701c6d5 Review
+10:11 [汕尾住宿推荐] [INFO] [run_batch] 复查完成: 1 条终审通过
+10:11 [汕尾住宿推荐] [INFO] [run_batch] 飞书写入完成
+10:11 [汕尾住宿推荐] [INFO] [run_batch] ✅ 完成，耗时 147.3s
+10:11 [汕尾住宿推荐] [INFO] [run_batch] 休息 5s...
+11:06 [汕尾住宿推荐] [INFO] [run_batch] 开始采集 [2/3] [core] 汕尾住宿推荐
+11:07 [汕尾住宿推荐] [INFO] [run_batch] 采集完成: 7 条 Feeds
+11:08 [汕尾住宿推荐] [INFO] [run_batch] enrichment 完成: 7 条（丢弃 0 条不可见帖子）
+11:08 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fab150000000001a02e864 Detail (duration=144.9s)
+11:08 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69faac9d000000003701d29a Detail (duration=144.9s)
+11:08 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fc90d1000000003601f468 Detail (duration=144.9s)
+11:08 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fc555b0000000036001284 Detail (duration=144.9s)
+11:08 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f85ed4000000001e00d463 Detail (duration=144.9s)
+11:08 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fbf6da0000000023016479 Detail (duration=144.9s)
+11:08 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69fb61ae0000000023004219 Detail (duration=144.9s)
+11:08 [汕尾住宿推荐] [DEBUG] [Filter] PASS 69fab150000000001a02e864 Filter (reasons=ask)
+11:08 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69faac9d000000003701d29a Filter 纯分享攻略贴 (duration=145.0s)
+11:08 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69fc90d1000000003601f468 Filter 找搭子/旅游同伴 (duration=145.0s)
+11:08 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69fc555b0000000036001284 Filter 商家账号 (duration=145.0s)
+11:08 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f85ed4000000001e00d463 Filter 纯分享攻略贴 (duration=145.0s)
+11:08 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69fbf6da0000000023016479 Filter 无明确需求 (duration=145.0s)
+11:08 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69fb61ae0000000023004219 Filter 纯分享攻略贴 (duration=145.0s)
+11:08 [汕尾住宿推荐] [INFO] [run_batch] 筛选完成: 1/7 条通过
+11:08 [汕尾住宿推荐] [DEBUG] [Review] FAIL 69fab150000000001a02e864 Review (reasons=ask) (duration=145.0s)
+11:08 [汕尾住宿推荐] [INFO] [run_batch] 复查完成: 0 条终审通过
+11:08 [汕尾住宿推荐] [INFO] [run_batch] ✅ 完成，耗时 145.1s
+11:08 [汕尾住宿推荐] [INFO] [run_batch] 休息 5s...
+11:13 [汕尾住宿推荐] [INFO] [run_batch] 开始采集 [2/3] [core] 汕尾住宿推荐
+11:14 [汕尾住宿推荐] [INFO] [run_batch] 采集完成: 0 条 Feeds
+11:14 [汕尾住宿推荐] [INFO] [run_batch] enrichment 完成: 0 条（丢弃 0 条不可见帖子）
+11:14 [汕尾住宿推荐] [INFO] [run_batch] 筛选完成: 0/0 条通过
+11:14 [汕尾住宿推荐] [INFO] [run_batch] 复查完成: 0 条终审通过
+11:14 [汕尾住宿推荐] [INFO] [run_batch] ✅ 完成，耗时 34.9s
+11:14 [汕尾住宿推荐] [INFO] [run_batch] 休息 5s...
+11:35 [汕尾住宿推荐] [INFO] [run_batch] 开始采集 [2/3] [core] 汕尾住宿推荐
+11:36 [汕尾住宿推荐] [INFO] [run_batch] 采集完成: 2 条 Feeds
+11:36 [汕尾住宿推荐] [INFO] [run_batch] enrichment 完成: 2 条（丢弃 0 条不可见帖子）
+11:36 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8bbd6000000002202b71b Detail (duration=54.2s)
+11:36 [汕尾住宿推荐] [DEBUG] [Detail] PASS 69f8af230000000035033dc5 Detail (duration=54.2s)
+11:36 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8bbd6000000002202b71b Filter 纯分享攻略贴 (duration=54.2s)
+11:36 [汕尾住宿推荐] [DEBUG] [Filter] FAIL 69f8af230000000035033dc5 Filter 无明确需求 (duration=54.3s)
+11:36 [汕尾住宿推荐] [INFO] [run_batch] 筛选完成: 0/2 条通过
+11:36 [汕尾住宿推荐] [INFO] [run_batch] 复查完成: 0 条终审通过
+11:36 [汕尾住宿推荐] [INFO] [run_batch] ✅ 完成，耗时 54.3s
+11:36 [汕尾住宿推荐] [INFO] [run_batch] 休息 5s...

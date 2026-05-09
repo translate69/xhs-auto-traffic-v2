@@ -1,0 +1,31 @@
+20:24 [汕尾本地人推荐美食] [INFO] [run_batch] 开始采集 [2/3] [longtail] 汕尾本地人推荐美食
+20:24 [汕尾本地人推荐美食] [INFO] [run_batch] 采集完成: 12 条 Feeds
+20:27 [汕尾本地人推荐美食] [INFO] [run_batch] enrichment 完成: 12 条（丢弃 0 条不可见帖子）
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdd4ee0000000035026b85 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdd43e000000001a02c6ca Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fd7b79000000001f006126 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdce4f000000003701f57b Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdcab600000000360033d4 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdc8a80000000035033f44 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdc868000000001e00c862 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdc65b000000001f003cfe Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdbd640000000023007f86 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdb3a9000000001e00d981 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdab810000000035027431 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Detail] PASS 69fdaa10000000002301fb68 Detail (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdd4ee0000000035026b85 Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdd43e000000001a02c6ca Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fd7b79000000001f006126 Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdce4f000000003701f57b Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdcab600000000360033d4 Filter 纯分享攻略贴 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdc8a80000000035033f44 Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdc868000000001e00c862 Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdc65b000000001f003cfe Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdbd640000000023007f86 Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdb3a9000000001e00d981 Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdab810000000035027431 Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [DEBUG] [Filter] FAIL 69fdaa10000000002301fb68 Filter 非目标地域 (duration=228.4s)
+20:27 [汕尾本地人推荐美食] [INFO] [run_batch] 筛选完成: 0/12 条通过
+20:27 [汕尾本地人推荐美食] [INFO] [run_batch] 复查完成: 0 条终审通过
+20:27 [汕尾本地人推荐美食] [INFO] [run_batch] ✅ 完成，耗时 228.5s
+20:27 [汕尾本地人推荐美食] [INFO] [run_batch] 休息 5s...

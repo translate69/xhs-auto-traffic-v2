@@ -1,0 +1,6 @@
+02:07 [汕尾海边民宿推荐] [INFO] [run_batch] 开始采集 [3/3] [longtail] 汕尾海边民宿推荐
+02:08 [汕尾海边民宿推荐] [INFO] [run_batch] 采集完成: 11 条 Feeds
+13:45 [汕尾海边民宿推荐] [INFO] [run_batch] 开始采集 [3/3] [longtail] 汕尾海边民宿推荐
+13:46 [汕尾海边民宿推荐] [INFO] [run_batch] 采集完成: 16 条 Feeds
+13:49 [汕尾海边民宿推荐] [ERROR] [run_batch] ❌ 失败: BrowserContext.new_page: Target page, context or browser has been closed
+13:49 [汕尾海边民宿推荐] [ERROR] [run_batch] ❌ 完成，耗时 0.0s

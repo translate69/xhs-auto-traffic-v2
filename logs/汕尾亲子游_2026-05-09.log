@@ -1,0 +1,7 @@
+02:22 [汕尾亲子游] [INFO] [run_batch] 开始采集 [2/2] [longtail] 汕尾亲子游
+02:22 [汕尾亲子游] [INFO] [run_batch] 采集完成: 4 条 Feeds
+02:23 [汕尾亲子游] [ERROR] [run_batch] ❌ 失败: BrowserContext.new_page: Target page, context or browser has been closed
+02:23 [汕尾亲子游] [ERROR] [run_batch] ❌ 完成，耗时 0.0s
+02:23 [汕尾亲子游] [INFO] [run_batch] 开始采集 [2/2] [longtail] 汕尾亲子游
+02:23 [汕尾亲子游] [ERROR] [run_batch] ❌ 失败: Browser.new_context: Target page, context or browser has been closed
+02:23 [汕尾亲子游] [ERROR] [run_batch] ❌ 完成，耗时 0.0s

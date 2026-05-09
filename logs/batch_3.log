@@ -1,0 +1,384 @@
+待执行 3 个关键词，超时=600s，limit=20
+浏览器重启策略: 每 3 个关键词重启一次
+13:00 [汕尾美食] [INFO] [run_batch] 启动 Playwright Browser
+13:00 [汕尾美食] [INFO] [run_batch] Browser 启动成功，开始采集
+13:00 [汕尾美食] [INFO] [run_batch] 开始采集 [1/3] [core] 汕尾美食
+[13:00:45.823] [SearchColl] goto: 小红书首页
+[13:00:51.560] [SearchColl] 搜索框已fill: 汕尾美食
+[13:00:52.561] [SearchColl] 按回车触发搜索
+[13:00:57.932] [SearchColl] 搜索结果页面加载完成
+[13:00:57.981] [SearchColl] 登录检测通过
+[13:01:02.999] [SearchColl] 笔记列表出现
+[13:01:03.000] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[13:01:08.914] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 滚动 4/8: 当前 18 条
+[ScrollHelper] 滚动 6/8: 当前 18 条
+[ScrollHelper] 滚动 8/8: 当前 18 条
+[13:01:17.194] [SearchColl] 滚动加载完成
+[13:01:18.696] [SearchColl] 提取Feeds
+[13:01:18.696] [SearchColl] 开始提取Feeds
+[13:01:18.715] [SearchColl] 提取完成，返回 17 条Feeds
+[SearchCollector] 采集完成: 15/17 条（时间+去重后）
+13:01 [汕尾美食] [INFO] [run_batch] 采集完成: 15 条 Feeds
+[13:01:18.764] [NoteDetail] 创建 NoteDetailCollector
+[13:01:18.766] [NoteDetail] enrich_all 开始，共 15 条
+[13:01:18.866] [NoteDetail] 处理笔记 1/15: 69febf1600000000350269ca
+[Detail] [1/15] /search_result/69febf1600000000350269ca?xsec_token=ABuNVOxdbySnNmflirEa6_hWo9Rpx40s7oTKtZ857yd-E=&xsec_source=
+[13:01:18.866] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69febf1600000000350269ca?xsec_token=ABuNVOxdbySnNmflirEa6_hWo9Rpx40s7oTKtZ857yd-E=&xsec_source=
+[13:01:24.795] [NoteDetail]   page.goto 完成
+[13:01:28.832] [NoteDetail]   wait_for_selector 完成
+[13:01:28.848] [NoteDetail]   开始提取详情
+[13:01:28.866] [NoteDetail]   提取完成 content_len=256
+[Detail] OK: 五一开铂智 4X｜山海与美食皆不负✨
+五一快乐加载完毕🚗💨 ...
+[13:01:32.903] [NoteDetail]   Page 已关闭
+[13:01:32.993] [NoteDetail] 处理笔记 2/15: 69feb4e5000000003502d383
+[Detail] [2/15] /search_result/69feb4e5000000003502d383?xsec_token=ABuNVOxdbySnNmflirEa6_hf5oHNr3GpjVNbbkZoqZKUs=&xsec_source=
+[13:01:32.993] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69feb4e5000000003502d383?xsec_token=ABuNVOxdbySnNmflirEa6_hf5oHNr3GpjVNbbkZoqZKUs=&xsec_source=
+[13:01:38.932] [NoteDetail]   page.goto 完成
+[13:01:42.976] [NoteDetail]   wait_for_selector 完成
+[13:01:42.993] [NoteDetail]   开始提取详情
+[13:01:43.012] [NoteDetail]   提取完成 content_len=50
+[Detail] OK: #丰盛扬美食 #虾饺 #地道家乡小吃 #寻找家乡味小吃#烧卖...
+[13:01:46.557] [NoteDetail]   Page 已关闭
+[13:01:46.674] [NoteDetail] 处理笔记 3/15: 69feafd5000000001a035117
+[Detail] [3/15] /search_result/69feafd5000000001a035117?xsec_token=ABuNVOxdbySnNmflirEa6_haZ-mnSyIT22s3g31f9YTCM=&xsec_source=
+[13:01:46.674] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69feafd5000000001a035117?xsec_token=ABuNVOxdbySnNmflirEa6_haZ-mnSyIT22s3g31f9YTCM=&xsec_source=
+[13:01:52.442] [NoteDetail]   page.goto 完成
+[13:01:56.477] [NoteDetail]   wait_for_selector 完成
+[13:01:56.492] [NoteDetail]   开始提取详情
+[13:01:56.510] [NoteDetail]   提取完成 content_len=149
+[Detail] OK: 来汕尾玩别只吃海鲜啦！这家酒馆的精酿我能喝一百次😭
+✅「抹茶...
+[13:02:00.580] [NoteDetail]   Page 已关闭
+[13:02:00.670] [NoteDetail] 处理笔记 4/15: 69feada60000000023017788
+[Detail] [4/15] /search_result/69feada60000000023017788?xsec_token=ABuNVOxdbySnNmflirEa6_hVlX130gnhDcvlScJkxEjgs=&xsec_source=
+[13:02:00.671] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69feada60000000023017788?xsec_token=ABuNVOxdbySnNmflirEa6_hVlX130gnhDcvlScJkxEjgs=&xsec_source=
+[13:02:06.445] [NoteDetail]   page.goto 完成
+[13:02:10.487] [NoteDetail]   wait_for_selector 完成
+[13:02:10.500] [NoteDetail]   开始提取详情
+[13:02:10.518] [NoteDetail]   提取完成 content_len=16
+[Detail] OK: #汕尾美食 #杯杯鲜 #汕尾旅行...
+[13:02:15.552] [NoteDetail]   Page 已关闭
+[13:02:15.643] [NoteDetail] 处理笔记 5/15: 69fea711000000003701f5d7
+[Detail] [5/15] /search_result/69fea711000000003701f5d7?xsec_token=ABuNVOxdbySnNmflirEa6_hYCmvZoGbLEafx9vyqaoX6w=&xsec_source=
+[13:02:15.643] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea711000000003701f5d7?xsec_token=ABuNVOxdbySnNmflirEa6_hYCmvZoGbLEafx9vyqaoX6w=&xsec_source=
+[13:02:18.740] [NoteDetail]   page.goto 完成
+[13:02:22.785] [NoteDetail]   wait_for_selector 完成
+[13:02:22.798] [NoteDetail]   开始提取详情
+[13:02:22.817] [NoteDetail]   提取完成 content_len=422
+[Detail] OK: 🌊不在加州，在汕尾！古船咖啡美到犯规
+真不是加州海岸，是汕尾...
+[Detail] 已采集 5 条，暂停 15s
+[13:02:41.354] [NoteDetail]   Page 已关闭
+[13:02:41.453] [NoteDetail] 处理笔记 6/15: 69fea6c00000000022028d49
+[Detail] [6/15] /search_result/69fea6c00000000022028d49?xsec_token=ABuNVOxdbySnNmflirEa6_hdpbOmE8csttiZELk1eFYjs=&xsec_source=
+[13:02:41.454] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea6c00000000022028d49?xsec_token=ABuNVOxdbySnNmflirEa6_hdpbOmE8csttiZELk1eFYjs=&xsec_source=
+[13:02:48.573] [NoteDetail]   page.goto 完成
+[13:02:52.609] [NoteDetail]   wait_for_selector 完成
+[13:02:52.625] [NoteDetail]   开始提取详情
+[13:02:52.644] [NoteDetail]   提取完成 content_len=25
+[Detail] OK: #泰式咸法酪#汕尾二马路#汕尾美食推荐#汕尾#kt...
+[13:02:57.251] [NoteDetail]   Page 已关闭
+[13:02:57.340] [NoteDetail] 处理笔记 7/15: 69fe1153000000003802128f
+[Detail] [7/15] /search_result/69fe1153000000003802128f?xsec_token=ABuNVOxdbySnNmflirEa6_hcYqPYcDJruDbSYX7QSexRM=&xsec_source=
+[13:02:57.341] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe1153000000003802128f?xsec_token=ABuNVOxdbySnNmflirEa6_hcYqPYcDJruDbSYX7QSexRM=&xsec_source=
+[13:03:03.364] [NoteDetail]   page.goto 完成
+[13:03:07.402] [NoteDetail]   wait_for_selector 完成
+[13:03:07.417] [NoteDetail]   开始提取详情
+[13:03:07.435] [NoteDetail]   提取完成 content_len=17
+[Detail] OK: 看赛事 品美食……#汕尾 #粤BA...
+[13:03:12.296] [NoteDetail]   Page 已关闭
+[13:03:12.380] [NoteDetail] 处理笔记 8/15: 69fe857a000000001a02cf41
+[Detail] [8/15] /search_result/69fe857a000000001a02cf41?xsec_token=ABuNVOxdbySnNmflirEa6_hfn4Rh3eQdpXZtrTF5o6__w=&xsec_source=
+[13:03:12.380] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe857a000000001a02cf41?xsec_token=ABuNVOxdbySnNmflirEa6_hfn4Rh3eQdpXZtrTF5o6__w=&xsec_source=
+[13:03:18.400] [NoteDetail]   page.goto 完成
+[13:03:22.446] [NoteDetail]   wait_for_selector 完成
+[13:03:22.460] [NoteDetail]   开始提取详情
+[13:03:22.478] [NoteDetail]   提取完成 content_len=81
+[Detail] OK: 🍜
+海鲜捞面
+牛腩粿条
+牛肉丸粿条
+鸡蛋肠粉
+海鲜粥
+炒河粉...
+[13:03:25.987] [NoteDetail]   Page 已关闭
+[13:03:26.082] [NoteDetail] 处理笔记 9/15: 69fe73ab000000001a02ed54
+[Detail] [9/15] /search_result/69fe73ab000000001a02ed54?xsec_token=ABuNVOxdbySnNmflirEa6_haaO7T6a0Wv_nhsQCDzwVx8=&xsec_source=
+[13:03:26.083] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe73ab000000001a02ed54?xsec_token=ABuNVOxdbySnNmflirEa6_haaO7T6a0Wv_nhsQCDzwVx8=&xsec_source=
+[13:03:32.091] [NoteDetail]   page.goto 完成
+[13:03:36.130] [NoteDetail]   wait_for_selector 完成
+[13:03:36.145] [NoteDetail]   开始提取详情
+[13:03:36.163] [NoteDetail]   提取完成 content_len=853
+[Detail] OK: 没有赶五一人潮，7号从中山出发，历时2.5h到达汕尾。
+【酒...
+[13:03:40.093] [NoteDetail]   Page 已关闭
+[13:03:40.193] [NoteDetail] 处理笔记 10/15: 69fe3b08000000002301e77a
+[Detail] [10/15] /search_result/69fe3b08000000002301e77a?xsec_token=ABuNVOxdbySnNmflirEa6_hZK5beLDrTwMWQGiGEkk3v0=&xsec_source=
+[13:03:40.193] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe3b08000000002301e77a?xsec_token=ABuNVOxdbySnNmflirEa6_hZK5beLDrTwMWQGiGEkk3v0=&xsec_source=
+[13:03:45.916] [NoteDetail]   page.goto 完成
+[13:03:49.957] [NoteDetail]   wait_for_selector 完成
+[13:03:49.973] [NoteDetail]   开始提取详情
+[13:03:49.990] [NoteDetail]   提取完成 content_len=42
+[Detail] OK: 吃一下潮汕美食 感受一下潮汕文化 有搭子嗎？#到处趴趴走 #...
+[Detail] 已采集 10 条，暂停 15s
+[13:04:09.361] [NoteDetail]   Page 已关闭
+[13:04:09.475] [NoteDetail] 处理笔记 11/15: 69fe1f280000000035023d02
+[Detail] [11/15] /search_result/69fe1f280000000035023d02?xsec_token=ABuNVOxdbySnNmflirEa6_hST0gynMzGX2yDeCw2CJyYU=&xsec_source=
+[13:04:09.476] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe1f280000000035023d02?xsec_token=ABuNVOxdbySnNmflirEa6_hST0gynMzGX2yDeCw2CJyYU=&xsec_source=
+[13:04:12.700] [NoteDetail]   page.goto 完成
+[13:04:16.743] [NoteDetail]   wait_for_selector 完成
+[13:04:16.758] [NoteDetail]   开始提取详情
+[13:04:16.775] [NoteDetail]   提取完成 content_len=272
+[Detail] OK: 被朋友疯狂安利的宝藏牛腩牛肉店🐂
+老板两夫妻从二马路老区搬过...
+[13:04:21.497] [NoteDetail]   Page 已关闭
+[13:04:21.604] [NoteDetail] 处理笔记 12/15: 69fe285a000000003502d716
+[Detail] [12/15] /search_result/69fe285a000000003502d716?xsec_token=ABuNVOxdbySnNmflirEa6_hQXy3h058AzxGCw58Zf44jU=&xsec_source=
+[13:04:21.605] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe285a000000003502d716?xsec_token=ABuNVOxdbySnNmflirEa6_hQXy3h058AzxGCw58Zf44jU=&xsec_source=
+[13:04:29.495] [NoteDetail]   page.goto 完成
+[13:04:33.534] [NoteDetail]   wait_for_selector 完成
+[13:04:33.547] [NoteDetail]   开始提取详情
+[13:04:33.568] [NoteDetail]   提取完成 content_len=34
+[Detail] OK: 汕尾美食推荐#跟着本地人 #汕尾旅游 #寻找家乡味小吃 #道...
+[13:04:38.548] [NoteDetail]   Page 已关闭
+[13:04:38.644] [NoteDetail] 处理笔记 13/15: 69fe050a000000002003b0c8
+[Detail] [13/15] /search_result/69fe050a000000002003b0c8?xsec_token=ABuNVOxdbySnNmflirEa6_hWn4XmGE38UYkWLLC5GFFNg=&xsec_source=
+[13:04:38.644] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe050a000000002003b0c8?xsec_token=ABuNVOxdbySnNmflirEa6_hWn4XmGE38UYkWLLC5GFFNg=&xsec_source=
+[13:04:45.533] [NoteDetail]   page.goto 完成
+[13:04:49.569] [NoteDetail]   wait_for_selector 完成
+[13:04:49.585] [NoteDetail]   开始提取详情
+[13:04:49.603] [NoteDetail]   提取完成 content_len=111
+[Detail] OK: #好视频扶持计划
+有本地人推荐一下附近周边美食吗？
+做了一下...
+[13:04:54.346] [NoteDetail]   Page 已关闭
+[13:04:54.439] [NoteDetail] 处理笔记 14/15: 69fe005f0000000035025fa2
+[Detail] [14/15] /search_result/69fe005f0000000035025fa2?xsec_token=ABuNVOxdbySnNmflirEa6_hc08g_AQnnLb20br_lpjD0M=&xsec_source=
+[13:04:54.440] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe005f0000000035025fa2?xsec_token=ABuNVOxdbySnNmflirEa6_hc08g_AQnnLb20br_lpjD0M=&xsec_source=
+[13:05:00.286] [NoteDetail]   page.goto 完成
+[13:05:04.327] [NoteDetail]   wait_for_selector 完成
+[13:05:04.344] [NoteDetail]   开始提取详情
+[13:05:04.360] [NoteDetail]   提取完成 content_len=35
+[Detail] OK: #烧烤店#宵夜美食 #汕尾宵夜 #美味分享 #我的撸串天堂 ...
+[13:05:08.220] [NoteDetail]   Page 已关闭
+[13:05:08.321] [NoteDetail] 处理笔记 15/15: 69fdea43000000001a0342de
+[Detail] [15/15] /search_result/69fdea43000000001a0342de?xsec_token=ABVlPBjG87I4OihtJkLCBdSoLEgtLARjd3a1ir98a4VSA=&xsec_source=
+[13:05:08.322] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fdea43000000001a0342de?xsec_token=ABVlPBjG87I4OihtJkLCBdSoLEgtLARjd3a1ir98a4VSA=&xsec_source=
+[13:05:15.210] [NoteDetail]   page.goto 完成
+[13:05:19.256] [NoteDetail]   wait_for_selector 完成
+[13:05:19.270] [NoteDetail]   开始提取详情
+[13:05:19.287] [NoteDetail]   提取完成 content_len=246
+[Detail] OK: 汕尾这家烧烤真的太好次了，吃完回到家还是会回味无穷的那种🤤
+...
+[Detail] 已采集 15 条，暂停 15s
+[13:05:39.098] [NoteDetail]   Page 已关闭
+[13:05:39.111] [NoteDetail] enrich_all 完成，返回 15 条
+13:05 [汕尾美食] [INFO] [run_batch] enrichment 完成: 15 条（丢弃 0 条不可见帖子）
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69febf1600000000350269ca Detail (duration=293.5s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69feb4e5000000003502d383 Detail (duration=293.5s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69feafd5000000001a035117 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69feada60000000023017788 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fea711000000003701f5d7 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fea6c00000000022028d49 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe1153000000003802128f Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe857a000000001a02cf41 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe73ab000000001a02ed54 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe3b08000000002301e77a Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe1f280000000035023d02 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe285a000000003502d716 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe050a000000002003b0c8 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe005f0000000035025fa2 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fdea43000000001a0342de Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69febf1600000000350269ca Filter 无明确需求 (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69feb4e5000000003502d383 Filter 无明确需求 (duration=293.7s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69feafd5000000001a035117 Filter 无明确需求 (duration=293.7s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69feada60000000023017788 Filter 无明确需求 (duration=293.7s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fea711000000003701f5d7 Filter 无明确需求 (duration=293.8s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fea6c00000000022028d49 Filter 无明确需求 (duration=293.8s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe1153000000003802128f Filter 无明确需求 (duration=293.8s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe857a000000001a02cf41 Filter 无明确需求 (duration=293.8s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe73ab000000001a02ed54 Filter 无明确需求 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe3b08000000002301e77a Filter 无明确需求 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe1f280000000035023d02 Filter 纯分享攻略贴 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe285a000000003502d716 Filter 纯分享攻略贴 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe050a000000002003b0c8 Filter 纯分享攻略贴 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe005f0000000035025fa2 Filter 无明确需求 (duration=294.0s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fdea43000000001a0342de Filter 纯分享攻略贴 (duration=294.0s)
+13:05 [汕尾美食] [INFO] [run_batch] 筛选完成: 0/15 条通过
+
+[review] === 复查阶段开始 (0 条待查) ===
+[review] === 复查完成: 0 条初审通过 → 0 条终审通过 (拒绝 0 条) ===
+[review] ⚠️ 复查后无通过记录，不写入飞书
+13:05 [汕尾美食] [INFO] [run_batch] 复查完成: 0 条终审通过
+13:05 [汕尾美食] [INFO] [run_batch] ✅ 完成，耗时 294.0s
+13:05 [汕尾美食] [INFO] [run_batch] 休息 5s...
+13:05 [广州到汕尾自驾住哪] [INFO] [run_batch] 开始采集 [2/3] [longtail] 广州到汕尾自驾住哪
+[13:05:44.872] [SearchColl] goto: 小红书首页
+[13:05:50.207] [SearchColl] 搜索框已fill: 广州到汕尾自驾住哪
+[13:05:51.209] [SearchColl] 按回车触发搜索
+[13:05:56.623] [SearchColl] 搜索结果页面加载完成
+[13:05:56.665] [SearchColl] 登录检测通过
+[13:06:01.685] [SearchColl] 笔记列表出现
+[13:06:01.686] [SearchColl] 点击筛选: 最新 + 一周内
+[SearchCollector] 筛选完成: 最新 + 一周内
+[13:06:07.590] [SearchColl] 开始滚动加载
+[ScrollHelper] 滚动 2/8: 当前 18 条
+[ScrollHelper] 滚动 4/8: 当前 18 条
+[ScrollHelper] 滚动 6/8: 当前 18 条
+[ScrollHelper] 滚动 8/8: 当前 18 条
+[13:06:15.812] [SearchColl] 滚动加载完成
+[13:06:17.314] [SearchColl] 提取Feeds
+[13:06:17.314] [SearchColl] 开始提取Feeds
+[13:06:17.332] [SearchColl] 提取完成，返回 16 条Feeds
+[SearchCollector] 采集完成: 16/16 条（时间+去重后）
+13:06 [广州到汕尾自驾住哪] [INFO] [run_batch] 采集完成: 16 条 Feeds
+[13:06:17.362] [NoteDetail] 创建 NoteDetailCollector
+[13:06:17.364] [NoteDetail] enrich_all 开始，共 16 条
+[13:06:17.443] [NoteDetail] 处理笔记 1/16: 69fea7c1000000001a03688b
+[Detail] [1/16] /search_result/69fea7c1000000001a03688b?xsec_token=ABuNVOxdbySnNmflirEa6_hRi5m-8ZJuyibUnnzBGm6eg=&xsec_source=
+[13:06:17.445] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea7c1000000001a03688b?xsec_token=ABuNVOxdbySnNmflirEa6_hRi5m-8ZJuyibUnnzBGm6eg=&xsec_source=
+[13:06:23.478] [NoteDetail]   page.goto 完成
+[13:06:27.519] [NoteDetail]   wait_for_selector 完成
+[13:06:27.534] [NoteDetail]   开始提取详情
+[13:06:27.551] [NoteDetail]   提取完成 content_len=424
+[Detail] OK: 广深自驾1.5h直达🌿藏在茶园里的神仙避世秘境，山林⛰️木屋...
+[13:06:32.235] [NoteDetail]   Page 已关闭
+[13:06:32.329] [NoteDetail] 处理笔记 2/16: 69fea5e5000000003601e624
+[Detail] [2/16] /search_result/69fea5e5000000003601e624?xsec_token=ABuNVOxdbySnNmflirEa6_hbDMh9PLmy7HLtMoMCFjsOM=&xsec_source=
+[13:06:32.329] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea5e5000000003601e624?xsec_token=ABuNVOxdbySnNmflirEa6_hbDMh9PLmy7HLtMoMCFjsOM=&xsec_source=
+[13:06:38.104] [NoteDetail]   page.goto 完成
+[13:06:42.147] [NoteDetail]   wait_for_selector 完成
+[13:06:42.162] [NoteDetail]   开始提取详情
+[13:06:42.181] [NoteDetail]   提取完成 content_len=719
+[Detail] OK: 最近实地去看了万科新里程一套93㎡的小高层三居室，整体感觉非...
+[13:06:46.167] [NoteDetail]   Page 已关闭
+[13:06:46.266] [NoteDetail] 处理笔记 3/16: 69fea4cf000000001f004cac
+[Detail] [3/16] /search_result/69fea4cf000000001f004cac?xsec_token=ABuNVOxdbySnNmflirEa6_hUqa8EuF10fSZDK4Uh8UfK8=&xsec_source=
+[13:06:46.266] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea4cf000000001f004cac?xsec_token=ABuNVOxdbySnNmflirEa6_hUqa8EuF10fSZDK4Uh8UfK8=&xsec_source=
+[13:06:52.328] [NoteDetail]   page.goto 完成
+[13:06:56.372] [NoteDetail]   wait_for_selector 完成
+[13:06:56.386] [NoteDetail]   开始提取详情
+[13:06:56.403] [NoteDetail]   提取完成 content_len=756
+[Detail] OK: 带娃终于能躺平了！1h直达从化溪边亲子民宿，娃玩疯了不肯走🏠...
+[13:07:00.887] [NoteDetail]   Page 已关闭
+[13:07:00.964] [NoteDetail] 处理笔记 4/16: 69fea3b9000000001a02cfa4
+[Detail] [4/16] /search_result/69fea3b9000000001a02cfa4?xsec_token=ABuNVOxdbySnNmflirEa6_hZD984rOTn4MkIlITuQrX48=&xsec_source=
+[13:07:00.965] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea3b9000000001a02cfa4?xsec_token=ABuNVOxdbySnNmflirEa6_hZD984rOTn4MkIlITuQrX48=&xsec_source=
+[13:07:07.499] [NoteDetail]   page.goto 完成
+[13:07:11.533] [NoteDetail]   wait_for_selector 完成
+[13:07:11.549] [NoteDetail]   开始提取详情
+[13:07:11.567] [NoteDetail]   提取完成 content_len=925
+[Detail] OK: 真的累了 就躲进山里吧
+不用赶时间 不用看消息 不用想工作
+...
+[13:07:15.156] [NoteDetail]   Page 已关闭
+[13:07:15.241] [NoteDetail] 处理笔记 5/16: 69fea397000000003601d8c7
+[Detail] [5/16] /search_result/69fea397000000003601d8c7?xsec_token=ABuNVOxdbySnNmflirEa6_hU2i1LP_3rZ0TjJUXDE9-xs=&xsec_source=
+[13:07:15.241] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea397000000003601d8c7?xsec_token=ABuNVOxdbySnNmflirEa6_hU2i1LP_3rZ0TjJUXDE9-xs=&xsec_source=
+[13:07:21.180] [NoteDetail]   page.goto 完成
+[13:07:25.227] [NoteDetail]   wait_for_selector 完成
+[13:07:25.241] [NoteDetail]   开始提取详情
+[13:07:25.258] [NoteDetail]   提取完成 content_len=344
+[Detail] OK: 五一出逃计划，开着深蓝SL03，奔赴汕尾的山海之约！暂别城市...
+[Detail] 已采集 5 条，暂停 15s
+[13:07:44.369] [NoteDetail]   Page 已关闭
+[13:07:44.438] [NoteDetail] 处理笔记 6/16: 69fe9b35000000001a036906
+[Detail] [6/16] /search_result/69fe9b35000000001a036906?xsec_token=ABuNVOxdbySnNmflirEa6_hbiW0tnfC2NgGS0ndUWt_FM=&xsec_source=
+[13:07:44.439] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe9b35000000001a036906?xsec_token=ABuNVOxdbySnNmflirEa6_hbiW0tnfC2NgGS0ndUWt_FM=&xsec_source=
+[13:07:50.455] [NoteDetail]   page.goto 完成
+[13:07:54.488] [NoteDetail]   wait_for_selector 完成
+[13:07:54.502] [NoteDetail]   开始提取详情
+[13:07:54.520] [NoteDetail]   提取完成 content_len=611
+[Detail] OK: 过去的5.1小长假，在开发商推出的优惠专场和「穗八条」新政之...
+[13:07:59.455] [NoteDetail]   Page 已关闭
+[13:07:59.530] [NoteDetail] 处理笔记 7/16: 69fea1b7000000002003bb73
+[Detail] [7/16] /search_result/69fea1b7000000002003bb73?xsec_token=ABuNVOxdbySnNmflirEa6_hSoVTpOL5fExmKOLG1VGwaE=&xsec_source=
+[13:07:59.531] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea1b7000000002003bb73?xsec_token=ABuNVOxdbySnNmflirEa6_hSoVTpOL5fExmKOLG1VGwaE=&xsec_source=
+[13:08:05.271] [NoteDetail]   page.goto 完成
+[13:08:09.315] [NoteDetail]   wait_for_selector 完成
+[13:08:09.330] [NoteDetail]   开始提取详情
+[13:08:09.375] [NoteDetail]   提取完成 content_len=726
+[Detail] OK: ✨不是三亚❌不是巴厘岛❌
+藏在金町湾的宝藏海景！平价封神谁懂...
+[13:08:13.718] [NoteDetail]   Page 已关闭
+[13:08:13.800] [NoteDetail] 处理笔记 8/16: 69fea0320000000035029158
+[Detail] [8/16] /search_result/69fea0320000000035029158?xsec_token=ABuNVOxdbySnNmflirEa6_hWTvVYzhZg39IGM5q7KV7v0=&xsec_source=
+[13:08:13.801] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fea0320000000035029158?xsec_token=ABuNVOxdbySnNmflirEa6_hWTvVYzhZg39IGM5q7KV7v0=&xsec_source=
+[13:08:19.832] [NoteDetail]   page.goto 完成
+[13:08:23.882] [NoteDetail]   wait_for_selector 完成
+[13:08:23.899] [NoteDetail]   开始提取详情
+[13:08:23.915] [NoteDetail]   提取完成 content_len=235
+[Detail] OK: ✨清远宝藏民宿｜逃离城市喧嚣的治愈小院
+从广州/市区自驾1h...
+[13:08:27.905] [NoteDetail]   Page 已关闭
+[13:08:28.002] [NoteDetail] 处理笔记 9/16: 69fe9f3e000000003501ce5c
+[Detail] [9/16] /search_result/69fe9f3e000000003501ce5c?xsec_token=ABuNVOxdbySnNmflirEa6_hcNU6jCSHoKHFBOxBHtA7Gs=&xsec_source=
+[13:08:28.002] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe9f3e000000003501ce5c?xsec_token=ABuNVOxdbySnNmflirEa6_hcNU6jCSHoKHFBOxBHtA7Gs=&xsec_source=
+[13:08:35.778] [NoteDetail]   page.goto 完成
+[13:08:39.817] [NoteDetail]   wait_for_selector 完成
+[13:08:39.832] [NoteDetail]   开始提取详情
+[13:08:39.853] [NoteDetail]   提取完成 content_len=338
+[Detail] OK: 谁懂啊！白水寨+森林海+独栋别墅的快乐被我找到了🌊
+广州夏天...
+[13:08:43.642] [NoteDetail]   Page 已关闭
+[13:08:43.736] [NoteDetail] 处理笔记 10/16: 69fe9db40000000036032a8a
+[Detail] [10/16] /search_result/69fe9db40000000036032a8a?xsec_token=ABuNVOxdbySnNmflirEa6_hcfQB_BGjOpXrSEg0ZwHRLs=&xsec_source=
+[13:08:43.737] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe9db40000000036032a8a?xsec_token=ABuNVOxdbySnNmflirEa6_hcfQB_BGjOpXrSEg0ZwHRLs=&xsec_source=
+[13:08:49.784] [NoteDetail]   page.goto 完成
+[13:08:53.830] [NoteDetail]   wait_for_selector 完成
+[13:08:53.845] [NoteDetail]   开始提取详情
+[13:08:53.864] [NoteDetail]   提取完成 content_len=705
+[Detail] OK: 广州深圳包车首选！广东全城互通出行，省心又舒适✨
+广东全境正...
+[Detail] 已采集 10 条，暂停 15s
+[13:09:13.598] [NoteDetail]   Page 已关闭
+[13:09:13.690] [NoteDetail] 处理笔记 11/16: 69fe91f40000000023006b49
+[Detail] [11/16] /search_result/69fe91f40000000023006b49?xsec_token=ABuNVOxdbySnNmflirEa6_hVFXIPp28ob852cvCe5GUvI=&xsec_source=
+[13:09:13.691] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe91f40000000023006b49?xsec_token=ABuNVOxdbySnNmflirEa6_hVFXIPp28ob852cvCe5GUvI=&xsec_source=
+[13:09:17.931] [NoteDetail]   page.goto 完成
+[13:09:21.973] [NoteDetail]   wait_for_selector 完成
+[13:09:21.985] [NoteDetail]   开始提取详情
+[13:09:22.001] [NoteDetail]   提取完成 content_len=568
+[Detail] OK: #动物园 #逛动物园就是正经事 #去动物园散步才是正经事
+【...
+[13:09:26.395] [NoteDetail]   Page 已关闭
+[13:09:26.473] [NoteDetail] 处理笔记 12/16: 69fe9b2900000000360036f1
+[Detail] [12/16] /search_result/69fe9b2900000000360036f1?xsec_token=ABuNVOxdbySnNmflirEa6_hTSdV5t8_oBWRGO6l1R-b40=&xsec_source=
+[13:09:26.473] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe9b2900000000360036f1?xsec_token=ABuNVOxdbySnNmflirEa6_hTSdV5t8_oBWRGO6l1R-b40=&xsec_source=
+[13:09:33.414] [NoteDetail]   page.goto 完成
+[13:09:37.460] [NoteDetail]   wait_for_selector 完成
+[13:09:37.473] [NoteDetail]   开始提取详情
+[13:09:37.488] [NoteDetail]   提取完成 content_len=553
+[Detail] OK: 就在惠州很好住的独栋小院出门就是沙滩
+度假 🏖️氛围拉满
+【...
+[13:09:40.863] [NoteDetail]   Page 已关闭
+[13:09:40.940] [NoteDetail] 处理笔记 13/16: 69fe9b1f00000000380348b0
+[Detail] [13/16] /search_result/69fe9b1f00000000380348b0?xsec_token=ABuNVOxdbySnNmflirEa6_hdVznSIoJCfnL-yx5XbSVwM=&xsec_source=
+[13:09:40.941] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe9b1f00000000380348b0?xsec_token=ABuNVOxdbySnNmflirEa6_hdVznSIoJCfnL-yx5XbSVwM=&xsec_source=
+[13:09:46.894] [NoteDetail]   page.goto 完成
+[13:09:50.939] [NoteDetail]   wait_for_selector 完成
+[13:09:50.953] [NoteDetail]   开始提取详情
+[13:09:50.969] [NoteDetail]   提取完成 content_len=846
+[Detail] OK: 在广佛奔波，我们都渴望一处能安放身心的居所——不必奢华，却能...
+[13:09:55.814] [NoteDetail]   Page 已关闭
+[13:09:55.909] [NoteDetail] 处理笔记 14/16: 69fe9a260000000038022b46
+[Detail] [14/16] /search_result/69fe9a260000000038022b46?xsec_token=ABuNVOxdbySnNmflirEa6_hfnKvG8m6VvUBgoHj_bYzC0=&xsec_source=
+[13:09:55.910] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe9a260000000038022b46?xsec_token=ABuNVOxdbySnNmflirEa6_hfnKvG8m6VvUBgoHj_bYzC0=&xsec_source=
+[13:10:02.975] [NoteDetail]   page.goto 完成
+[13:10:07.019] [NoteDetail]   wait_for_selector 完成
+[13:10:07.033] [NoteDetail]   开始提取详情
+[13:10:07.051] [NoteDetail]   提取完成 content_len=844
+[Detail] OK: 在广佛奔波，我们都渴望一处能安放身心的居所——不必奢华，却能...
+[13:10:11.407] [NoteDetail]   Page 已关闭
+[13:10:11.478] [NoteDetail] 处理笔记 15/16: 69fe9810000000003601b793
+[Detail] [15/16] /search_result/69fe9810000000003601b793?xsec_token=ABuNVOxdbySnNmflirEa6_hV9bdWsI_gUaQrpxL2g3t7M=&xsec_source=
+[13:10:11.478] [NoteDetail]   goto: https://www.xiaohongshu.com/search_result/69fe9810000000003601b793?xsec_token=ABuNVOxdbySnNmflirEa6_hV9bdWsI_gUaQrpxL2g3t7M=&xsec_source=
+[13:10:19.132] [NoteDetail]   page.goto 完成
+[13:10:23.178] [NoteDetail]   wait_for_selector 完成
+[13:10:23.192] [NoteDetail]   开始提取详情
+[13:10:23.210] [NoteDetail]   提取完成 content_len=596

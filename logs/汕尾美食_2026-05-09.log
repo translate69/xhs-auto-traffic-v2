@@ -1,0 +1,39 @@
+13:00 [汕尾美食] [INFO] [run_batch] 启动 Playwright Browser
+13:00 [汕尾美食] [INFO] [run_batch] Browser 启动成功，开始采集
+13:00 [汕尾美食] [INFO] [run_batch] 开始采集 [1/3] [core] 汕尾美食
+13:01 [汕尾美食] [INFO] [run_batch] 采集完成: 15 条 Feeds
+13:05 [汕尾美食] [INFO] [run_batch] enrichment 完成: 15 条（丢弃 0 条不可见帖子）
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69febf1600000000350269ca Detail (duration=293.5s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69feb4e5000000003502d383 Detail (duration=293.5s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69feafd5000000001a035117 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69feada60000000023017788 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fea711000000003701f5d7 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fea6c00000000022028d49 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe1153000000003802128f Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe857a000000001a02cf41 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe73ab000000001a02ed54 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe3b08000000002301e77a Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe1f280000000035023d02 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe285a000000003502d716 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe050a000000002003b0c8 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fe005f0000000035025fa2 Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Detail] PASS 69fdea43000000001a0342de Detail (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69febf1600000000350269ca Filter 无明确需求 (duration=293.6s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69feb4e5000000003502d383 Filter 无明确需求 (duration=293.7s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69feafd5000000001a035117 Filter 无明确需求 (duration=293.7s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69feada60000000023017788 Filter 无明确需求 (duration=293.7s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fea711000000003701f5d7 Filter 无明确需求 (duration=293.8s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fea6c00000000022028d49 Filter 无明确需求 (duration=293.8s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe1153000000003802128f Filter 无明确需求 (duration=293.8s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe857a000000001a02cf41 Filter 无明确需求 (duration=293.8s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe73ab000000001a02ed54 Filter 无明确需求 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe3b08000000002301e77a Filter 无明确需求 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe1f280000000035023d02 Filter 纯分享攻略贴 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe285a000000003502d716 Filter 纯分享攻略贴 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe050a000000002003b0c8 Filter 纯分享攻略贴 (duration=293.9s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fe005f0000000035025fa2 Filter 无明确需求 (duration=294.0s)
+13:05 [汕尾美食] [DEBUG] [Filter] FAIL 69fdea43000000001a0342de Filter 纯分享攻略贴 (duration=294.0s)
+13:05 [汕尾美食] [INFO] [run_batch] 筛选完成: 0/15 条通过
+13:05 [汕尾美食] [INFO] [run_batch] 复查完成: 0 条终审通过
+13:05 [汕尾美食] [INFO] [run_batch] ✅ 完成，耗时 294.0s
+13:05 [汕尾美食] [INFO] [run_batch] 休息 5s...

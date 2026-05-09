@@ -1,0 +1,151 @@
+09:35 [汕尾旅游攻略] [INFO] [run_batch] 开始采集 [1/7] [core] 汕尾旅游攻略
+09:36 [汕尾旅游攻略] [INFO] [run_batch] 采集完成: 16 条 Feeds
+09:40 [汕尾旅游攻略] [INFO] [run_batch] enrichment 完成: 16 条（丢弃 0 条不可见帖子）
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc449c0000000036031b4b Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc45ce000000003501f335 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc44c100000000380347a2 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc41ac0000000036001de4 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc41820000000036001ce6 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc3dee000000003700e5d4 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc35c00000000035032d85 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69f54987000000003502ec69 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc34ac0000000036033e4f Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc2711000000003601a75b Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc23e90000000023006fe4 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc1c7f000000003502eaaa Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc1bfe0000000036033fb6 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc1a600000000038020dee Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc0bde0000000035029040 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc06950000000035030386 Detail (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc449c0000000036031b4b Filter 找搭子/旅游同伴 (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc45ce000000003501f335 Filter 找搭子/旅游同伴 (duration=274.9s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc44c100000000380347a2 Filter 民宿商家推广 (duration=275.0s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc41ac0000000036001de4 Filter 无明确需求 (duration=275.0s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc41820000000036001ce6 Filter 找搭子/旅游同伴 (duration=275.0s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc3dee000000003700e5d4 Filter 找搭子/旅游同伴 (duration=275.0s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc35c00000000035032d85 Filter 找搭子/旅游同伴 (duration=275.0s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69f54987000000003502ec69 Filter 纯分享攻略贴 (duration=275.0s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc34ac0000000036033e4f Filter 找搭子/旅游同伴 (duration=275.0s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc2711000000003601a75b Filter 无明确需求 (duration=275.1s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc23e90000000023006fe4 Filter 找搭子/旅游同伴 (duration=275.1s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc1c7f000000003502eaaa Filter 找搭子/旅游同伴 (duration=275.1s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc1bfe0000000036033fb6 Filter 无明确需求 (duration=275.1s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc1a600000000038020dee Filter 找搭子/旅游同伴 (duration=275.1s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc0bde0000000035029040 Filter 纯分享攻略贴 (duration=275.1s)
+09:40 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc06950000000035030386 Filter 纯分享攻略贴 (duration=275.1s)
+09:40 [汕尾旅游攻略] [INFO] [run_batch] 筛选完成: 0/16 条通过
+09:40 [汕尾旅游攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+09:40 [汕尾旅游攻略] [INFO] [run_batch] ✅ 完成，耗时 275.1s
+09:40 [汕尾旅游攻略] [INFO] [run_batch] 休息 5s...
+09:38 [汕尾旅游攻略] [INFO] [run_batch] 启动 Playwright Browser
+09:38 [汕尾旅游攻略] [INFO] [run_batch] Browser 启动成功，开始采集
+09:38 [汕尾旅游攻略] [INFO] [run_batch] 开始采集 [1/7] [core] 汕尾旅游攻略
+09:38 [汕尾旅游攻略] [INFO] [run_batch] 采集完成: 4 条 Feeds
+09:39 [汕尾旅游攻略] [INFO] [run_batch] enrichment 完成: 4 条（丢弃 0 条不可见帖子）
+09:39 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc53620000000036033586 Detail (duration=89.3s)
+09:39 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc4b48000000001a02c51f Detail (duration=89.3s)
+09:39 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc414f000000002301ee6d Detail (duration=89.3s)
+09:39 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc3b4400000000230161cd Detail (duration=89.3s)
+09:39 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc53620000000036033586 Filter 找搭子/旅游同伴 (duration=89.3s)
+09:39 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc4b48000000001a02c51f Filter 纯分享攻略贴 (duration=89.3s)
+09:39 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc414f000000002301ee6d Filter 找搭子/旅游同伴 (duration=89.3s)
+09:39 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc3b4400000000230161cd Filter 找搭子/旅游同伴 (duration=89.3s)
+09:39 [汕尾旅游攻略] [INFO] [run_batch] 筛选完成: 0/4 条通过
+09:39 [汕尾旅游攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+09:39 [汕尾旅游攻略] [INFO] [run_batch] ✅ 完成，耗时 89.3s
+09:39 [汕尾旅游攻略] [INFO] [run_batch] 休息 5s...
+10:28 [汕尾旅游攻略] [INFO] [run_batch] 启动 Playwright Browser
+10:28 [汕尾旅游攻略] [INFO] [run_batch] Browser 启动成功，开始采集
+10:28 [汕尾旅游攻略] [INFO] [run_batch] 开始采集 [1/7] [core] 汕尾旅游攻略
+10:29 [汕尾旅游攻略] [INFO] [run_batch] 采集完成: 7 条 Feeds
+10:31 [汕尾旅游攻略] [INFO] [run_batch] enrichment 完成: 7 条（丢弃 0 条不可见帖子）
+10:31 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc0216000000003501d8c3 Detail (duration=147.6s)
+10:31 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc00760000000036019ff4 Detail (duration=147.6s)
+10:31 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fbfbd7000000003501f52b Detail (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fb66670000000037034e53 Detail (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fb3d520000000035025f22 Detail (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fb1f760000000035026e58 Detail (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fb1cfd000000001b021dce Detail (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc0216000000003501d8c3 Filter 找搭子/旅游同伴 (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Filter] PASS 69fc00760000000036019ff4 Filter (reasons=ask)
+10:31 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fbfbd7000000003501f52b Filter 无明确需求 (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fb66670000000037034e53 Filter 纯分享攻略贴 (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fb3d520000000035025f22 Filter 非目标地域 (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fb1f760000000035026e58 Filter 广告:太宝藏了 (duration=147.7s)
+10:31 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fb1cfd000000001b021dce Filter 纯分享攻略贴 (duration=147.8s)
+10:31 [汕尾旅游攻略] [INFO] [run_batch] 筛选完成: 1/7 条通过
+10:31 [汕尾旅游攻略] [DEBUG] [Review] PASS 69fc00760000000036019ff4 Review
+10:31 [汕尾旅游攻略] [INFO] [run_batch] 复查完成: 1 条终审通过
+10:31 [汕尾旅游攻略] [INFO] [run_batch] 飞书写入完成
+10:31 [汕尾旅游攻略] [INFO] [run_batch] ✅ 完成，耗时 150.8s
+10:31 [汕尾旅游攻略] [INFO] [run_batch] 休息 5s...
+10:07 [汕尾旅游攻略] [INFO] [run_batch] 启动 Playwright Browser
+10:07 [汕尾旅游攻略] [INFO] [run_batch] Browser 启动成功，开始采集
+10:07 [汕尾旅游攻略] [INFO] [run_batch] 开始采集 [1/7] [core] 汕尾旅游攻略
+10:08 [汕尾旅游攻略] [INFO] [run_batch] 采集完成: 3 条 Feeds
+10:08 [汕尾旅游攻略] [INFO] [run_batch] enrichment 完成: 3 条（丢弃 0 条不可见帖子）
+10:08 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc6130000000001f00033a Detail (duration=74.2s)
+10:08 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc6090000000002202acf5 Detail (duration=74.2s)
+10:08 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc57c4000000003501de2a Detail (duration=74.2s)
+10:08 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc6130000000001f00033a Filter 商家账号 (duration=74.2s)
+10:08 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc6090000000002202acf5 Filter 无明确需求 (duration=74.2s)
+10:08 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc57c4000000003501de2a Filter 找搭子/旅游同伴 (duration=74.2s)
+10:08 [汕尾旅游攻略] [INFO] [run_batch] 筛选完成: 0/3 条通过
+10:08 [汕尾旅游攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+10:08 [汕尾旅游攻略] [INFO] [run_batch] ✅ 完成，耗时 74.2s
+10:08 [汕尾旅游攻略] [INFO] [run_batch] 休息 5s...
+11:03 [汕尾旅游攻略] [INFO] [run_batch] 启动 Playwright Browser
+11:03 [汕尾旅游攻略] [INFO] [run_batch] Browser 启动成功，开始采集
+11:03 [汕尾旅游攻略] [INFO] [run_batch] 开始采集 [1/3] [core] 汕尾旅游攻略
+11:04 [汕尾旅游攻略] [INFO] [run_batch] 采集完成: 7 条 Feeds
+11:06 [汕尾旅游攻略] [INFO] [run_batch] enrichment 完成: 7 条（丢弃 0 条不可见帖子）
+11:06 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc9285000000003501f9c5 Detail (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc8fb60000000013020400 Detail (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc8bae00000000350214f0 Detail (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc8a5e000000001f004f6e Detail (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc7fe60000000037034ba6 Detail (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc70510000000035030877 Detail (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc6160000000001f00780b Detail (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc9285000000003501f9c5 Filter 找搭子/旅游同伴 (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc8fb60000000013020400 Filter 纯分享攻略贴 (duration=153.0s)
+11:06 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc8bae00000000350214f0 Filter 无明确需求 (duration=153.1s)
+11:06 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc8a5e000000001f004f6e Filter 无明确需求 (duration=153.1s)
+11:06 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc7fe60000000037034ba6 Filter 纯分享攻略贴 (duration=153.1s)
+11:06 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc70510000000035030877 Filter 无明确需求 (duration=153.2s)
+11:06 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc6160000000001f00780b Filter 无明确需求 (duration=153.2s)
+11:06 [汕尾旅游攻略] [INFO] [run_batch] 筛选完成: 0/7 条通过
+11:06 [汕尾旅游攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+11:06 [汕尾旅游攻略] [INFO] [run_batch] ✅ 完成，耗时 153.2s
+11:06 [汕尾旅游攻略] [INFO] [run_batch] 休息 5s...
+11:12 [汕尾旅游攻略] [INFO] [run_batch] 启动 Playwright Browser
+11:12 [汕尾旅游攻略] [INFO] [run_batch] Browser 启动成功，开始采集
+11:12 [汕尾旅游攻略] [INFO] [run_batch] 开始采集 [1/3] [core] 汕尾旅游攻略
+11:12 [汕尾旅游攻略] [INFO] [run_batch] 采集完成: 2 条 Feeds
+11:13 [汕尾旅游攻略] [INFO] [run_batch] enrichment 完成: 2 条（丢弃 0 条不可见帖子）
+11:13 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc9b1900000000380351f4 Detail (duration=65.8s)
+11:13 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69fc9aea000000001b021501 Detail (duration=65.8s)
+11:13 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc9b1900000000380351f4 Filter 纯分享攻略贴 (duration=65.9s)
+11:13 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69fc9aea000000001b021501 Filter 广告:车型[：:] (duration=65.9s)
+11:13 [汕尾旅游攻略] [INFO] [run_batch] 筛选完成: 0/2 条通过
+11:13 [汕尾旅游攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+11:13 [汕尾旅游攻略] [INFO] [run_batch] ✅ 完成，耗时 65.9s
+11:13 [汕尾旅游攻略] [INFO] [run_batch] 休息 5s...
+11:33 [汕尾旅游攻略] [INFO] [run_batch] 启动 Playwright Browser
+11:33 [汕尾旅游攻略] [INFO] [run_batch] Browser 启动成功，开始采集
+11:33 [汕尾旅游攻略] [INFO] [run_batch] 开始采集 [1/3] [core] 汕尾旅游攻略
+11:33 [汕尾旅游攻略] [INFO] [run_batch] 采集完成: 5 条 Feeds
+11:35 [汕尾旅游攻略] [INFO] [run_batch] enrichment 完成: 5 条（丢弃 0 条不可见帖子）
+11:35 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69f5b3760000000035028806 Detail (duration=119.5s)
+11:35 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69f8af2f000000003502fc3c Detail (duration=119.5s)
+11:35 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69f86b55000000001f001b8e Detail (duration=119.5s)
+11:35 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69f80bd5000000003703634c Detail (duration=119.5s)
+11:35 [汕尾旅游攻略] [DEBUG] [Detail] PASS 69f82ae5000000003503914d Detail (duration=119.5s)
+11:35 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69f5b3760000000035028806 Filter 无明确需求 (duration=119.6s)
+11:35 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69f8af2f000000003502fc3c Filter 纯分享攻略贴 (duration=119.6s)
+11:35 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69f86b55000000001f001b8e Filter 无明确需求 (duration=119.6s)
+11:35 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69f80bd5000000003703634c Filter 无明确需求 (duration=119.7s)
+11:35 [汕尾旅游攻略] [DEBUG] [Filter] FAIL 69f82ae5000000003503914d Filter 无明确需求 (duration=119.7s)
+11:35 [汕尾旅游攻略] [INFO] [run_batch] 筛选完成: 0/5 条通过
+11:35 [汕尾旅游攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+11:35 [汕尾旅游攻略] [INFO] [run_batch] ✅ 完成，耗时 119.7s
+11:35 [汕尾旅游攻略] [INFO] [run_batch] 休息 5s...

@@ -1,0 +1,37 @@
+23:23 [汕尾去哪吃] [INFO] [run_batch] 启动 Playwright Browser
+23:23 [汕尾去哪吃] [INFO] [run_batch] Browser 启动成功，开始采集
+23:23 [汕尾去哪吃] [INFO] [run_batch] 开始采集 [1/3] [core] 汕尾去哪吃
+23:23 [汕尾去哪吃] [INFO] [run_batch] 采集完成: 14 条 Feeds
+23:27 [汕尾去哪吃] [INFO] [run_batch] enrichment 完成: 14 条（丢弃 0 条不可见帖子）
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd80f1000000001e00c3e5 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd7c65000000003701cb45 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd7ca60000000036002ab1 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd7c9f000000003603389f Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd7b2700000000220297fd Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd71c20000000023017236 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd6d28000000001a02ed4b Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd6c2a0000000036001ac5 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd6bfd000000001b02091e Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd6b65000000001f005b89 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd6b460000000035029357 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd6927000000003700c955 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd6515000000002003bef9 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Detail] PASS 69fd5e270000000023015d18 Detail (duration=253.0s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd80f1000000001e00c3e5 Filter 跨城市蹭流量(汕头) (duration=253.1s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd7c65000000003701cb45 Filter 无明确需求 (duration=253.1s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd7ca60000000036002ab1 Filter 无明确需求 (duration=253.1s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd7c9f000000003603389f Filter 纯分享攻略贴 (duration=253.2s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd7b2700000000220297fd Filter 无明确需求 (duration=253.2s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd71c20000000023017236 Filter 纯分享攻略贴 (duration=253.2s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd6d28000000001a02ed4b Filter 纯分享攻略贴 (duration=253.2s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd6c2a0000000036001ac5 Filter 纯分享攻略贴 (duration=253.3s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd6bfd000000001b02091e Filter 找搭子/旅游同伴 (duration=253.3s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd6b65000000001f005b89 Filter 纯分享攻略贴 (duration=253.3s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd6b460000000035029357 Filter 纯分享攻略贴 (duration=253.3s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd6927000000003700c955 Filter 纯分享攻略贴 (duration=253.3s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd6515000000002003bef9 Filter 跨城市蹭流量(汕头) (duration=253.3s)
+23:27 [汕尾去哪吃] [DEBUG] [Filter] FAIL 69fd5e270000000023015d18 Filter 无明确需求 (duration=253.3s)
+23:27 [汕尾去哪吃] [INFO] [run_batch] 筛选完成: 0/14 条通过
+23:27 [汕尾去哪吃] [INFO] [run_batch] 复查完成: 0 条终审通过
+23:27 [汕尾去哪吃] [INFO] [run_batch] ✅ 完成，耗时 253.4s
+23:27 [汕尾去哪吃] [INFO] [run_batch] 休息 5s...

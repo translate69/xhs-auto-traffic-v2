@@ -1,0 +1,25 @@
+19:32 [汕尾3天2晚攻略] [INFO] [run_batch] 开始采集 [5/10] [longtail] 汕尾3天2晚攻略
+19:33 [汕尾3天2晚攻略] [INFO] [run_batch] 采集完成: 8 条 Feeds
+19:35 [汕尾3天2晚攻略] [INFO] [run_batch] enrichment 完成: 8 条（丢弃 0 条不可见帖子）
+19:35 [汕尾3天2晚攻略] [DEBUG] [Detail] PASS 69f35bfc000000002202aaa0 Detail (duration=166.2s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Detail] PASS 69f9d0db000000001b0235df Detail (duration=166.2s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Detail] PASS 69f9cc5e0000000036031051 Detail (duration=166.2s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Detail] PASS 69f8950a00000000380218c6 Detail (duration=166.2s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Detail] PASS 69f9b208000000003700e6c5 Detail (duration=166.2s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Detail] PASS 69f9b0450000000036019a57 Detail (duration=166.2s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Detail] PASS 69f9af220000000020038d20 Detail (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Detail] PASS 69f9aa920000000038036e59 Detail (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Filter] PASS 69f35bfc000000002202aaa0 Filter (reasons=ask)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Filter] FAIL 69f9d0db000000001b0235df Filter 非目标地域 (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Filter] FAIL 69f9cc5e0000000036031051 Filter 非目标地域 (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Filter] FAIL 69f8950a00000000380218c6 Filter 无明确需求 (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Filter] FAIL 69f9b208000000003700e6c5 Filter 非目标地域 (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Filter] FAIL 69f9b0450000000036019a57 Filter 非目标地域 (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Filter] FAIL 69f9af220000000020038d20 Filter 非目标地域 (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [DEBUG] [Filter] FAIL 69f9aa920000000038036e59 Filter 非目标地域 (duration=166.3s)
+19:35 [汕尾3天2晚攻略] [INFO] [run_batch] 筛选完成: 1/8 条通过
+19:35 [汕尾3天2晚攻略] [DEBUG] [Review] PASS 69f35bfc000000002202aaa0 Review
+19:35 [汕尾3天2晚攻略] [INFO] [run_batch] 复查完成: 1 条终审通过
+19:35 [汕尾3天2晚攻略] [INFO] [run_batch] 飞书写入完成
+19:35 [汕尾3天2晚攻略] [INFO] [run_batch] ✅ 完成，耗时 168.7s
+19:35 [汕尾3天2晚攻略] [INFO] [run_batch] 休息 5s...

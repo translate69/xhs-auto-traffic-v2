@@ -1,0 +1,54 @@
+02:00 [汕尾2天1晚行程] [INFO] [run_batch] 启动 Playwright Browser
+02:00 [汕尾2天1晚行程] [INFO] [run_batch] Browser 启动成功，开始采集
+02:00 [汕尾2天1晚行程] [INFO] [run_batch] 开始采集 [1/3] [longtail] 汕尾2天1晚行程
+02:00 [汕尾2天1晚行程] [INFO] [run_batch] 采集完成: 15 条 Feeds
+02:05 [汕尾2天1晚行程] [INFO] [run_batch] enrichment 完成: 15 条（丢弃 0 条不可见帖子）
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fe27c6000000001f003d51 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fe23e40000000036031d43 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fe189f000000003701e320 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fe15a30000000038021c4f Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fe137400000000380217b9 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fe0aab000000003603295d Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fe04ca00000000350271fe Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fdfa07000000001f000ba9 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fdf8d2000000001b02282e Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fdf7d8000000001a02c430 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fdf61c00000000360032ac Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fdf4f80000000035030308 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fdeef900000000230149cc Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fdeebe0000000023014891 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fde5fc0000000036032f16 Detail (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fe27c6000000001f003d51 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fe23e40000000036031d43 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fe189f000000003701e320 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fe15a30000000038021c4f Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fe137400000000380217b9 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fe0aab000000003603295d Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fe04ca00000000350271fe Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fdfa07000000001f000ba9 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fdf8d2000000001b02282e Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fdf7d8000000001a02c430 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fdf61c00000000360032ac Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fdf4f80000000035030308 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fdeef900000000230149cc Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fdeebe0000000023014891 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fde5fc0000000036032f16 Filter 非目标地域 (duration=282.6s)
+02:05 [汕尾2天1晚行程] [INFO] [run_batch] 筛选完成: 0/15 条通过
+02:05 [汕尾2天1晚行程] [INFO] [run_batch] 复查完成: 0 条终审通过
+02:05 [汕尾2天1晚行程] [INFO] [run_batch] ✅ 完成，耗时 282.6s
+02:05 [汕尾2天1晚行程] [INFO] [run_batch] 休息 5s...
+13:40 [汕尾2天1晚行程] [INFO] [run_batch] 启动 Playwright Browser
+13:40 [汕尾2天1晚行程] [INFO] [run_batch] Browser 启动成功，开始采集
+13:40 [汕尾2天1晚行程] [INFO] [run_batch] 开始采集 [1/3] [longtail] 汕尾2天1晚行程
+13:40 [汕尾2天1晚行程] [INFO] [run_batch] 采集完成: 3 条 Feeds
+13:41 [汕尾2天1晚行程] [INFO] [run_batch] enrichment 完成: 3 条（丢弃 0 条不可见帖子）
+13:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fec88b000000003703509a Detail (duration=76.3s)
+13:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fec75a000000001a03788b Detail (duration=76.3s)
+13:41 [汕尾2天1晚行程] [DEBUG] [Detail] PASS 69fec32b0000000022029143 Detail (duration=76.3s)
+13:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fec88b000000003703509a Filter 非目标地域 (duration=76.3s)
+13:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fec75a000000001a03788b Filter 非目标地域 (duration=76.4s)
+13:41 [汕尾2天1晚行程] [DEBUG] [Filter] FAIL 69fec32b0000000022029143 Filter 非目标地域 (duration=76.4s)
+13:41 [汕尾2天1晚行程] [INFO] [run_batch] 筛选完成: 0/3 条通过
+13:41 [汕尾2天1晚行程] [INFO] [run_batch] 复查完成: 0 条终审通过
+13:41 [汕尾2天1晚行程] [INFO] [run_batch] ✅ 完成，耗时 76.4s
+13:41 [汕尾2天1晚行程] [INFO] [run_batch] 休息 5s...

@@ -1,0 +1,55 @@
+09:52 [汕尾红海湾攻略] [INFO] [run_batch] 开始采集 [5/7] [longtail] 汕尾红海湾攻略
+09:53 [汕尾红海湾攻略] [INFO] [run_batch] 采集完成: 7 条 Feeds
+09:57 [汕尾红海湾攻略] [INFO] [run_batch] enrichment 完成: 7 条（丢弃 0 条不可见帖子）
+09:57 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f84e77000000002300642f Detail (duration=254.1s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f83add0000000035023eb9 Detail (duration=254.1s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Detail] FAIL 69f810ad0000000036033d11 Detail 内容为空 (duration=254.1s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f74c0f000000003501c7ed Detail (duration=254.1s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f5f8b8000000003601b846 Detail (duration=254.1s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f5bc8e000000001a02e935 Detail (duration=254.1s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f565bb000000003502155b Detail (duration=254.1s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f84e77000000002300642f Filter 无明确需求 (duration=254.2s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f83add0000000035023eb9 Filter 无明确需求 (duration=254.2s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f810ad0000000036033d11 Filter 无明确需求 (duration=254.2s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f74c0f000000003501c7ed Filter 无明确需求 (duration=254.2s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f5f8b8000000003601b846 Filter 纯分享攻略贴 (duration=254.2s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f5bc8e000000001a02e935 Filter 无明确需求 (duration=254.3s)
+09:57 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f565bb000000003502155b Filter 纯分享攻略贴 (duration=254.3s)
+09:57 [汕尾红海湾攻略] [INFO] [run_batch] 筛选完成: 0/7 条通过
+09:57 [汕尾红海湾攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+09:57 [汕尾红海湾攻略] [INFO] [run_batch] ✅ 完成，耗时 254.3s
+09:57 [汕尾红海湾攻略] [INFO] [run_batch] 休息 5s...
+09:45 [汕尾红海湾攻略] [INFO] [run_batch] 开始采集 [5/7] [longtail] 汕尾红海湾攻略
+09:46 [汕尾红海湾攻略] [INFO] [run_batch] 采集完成: 7 条 Feeds
+09:47 [汕尾红海湾攻略] [INFO] [run_batch] enrichment 完成: 7 条（丢弃 0 条不可见帖子）
+09:47 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f6cb2f0000000035030096 Detail (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f6af2e0000000037035aed Detail (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f87164000000002003ae88 Detail (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f86da5000000001b020814 Detail (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f868ae000000001a034d14 Detail (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f868ad0000000023017e78 Detail (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69f867e8000000001a02c7ba Detail (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f6cb2f0000000035030096 Filter 纯分享攻略贴 (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f6af2e0000000037035aed Filter 非目标地域 (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f87164000000002003ae88 Filter 非目标地域 (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f86da5000000001b020814 Filter 非目标地域 (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f868ae000000001a034d14 Filter 非目标地域 (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f868ad0000000023017e78 Filter 无明确需求 (duration=141.1s)
+09:47 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69f867e8000000001a02c7ba Filter 无明确需求 (duration=141.2s)
+09:47 [汕尾红海湾攻略] [INFO] [run_batch] 筛选完成: 0/7 条通过
+09:47 [汕尾红海湾攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+09:47 [汕尾红海湾攻略] [INFO] [run_batch] ✅ 完成，耗时 141.2s
+09:47 [汕尾红海湾攻略] [INFO] [run_batch] 休息 5s...
+10:16 [汕尾红海湾攻略] [INFO] [run_batch] 开始采集 [5/7] [longtail] 汕尾红海湾攻略
+10:17 [汕尾红海湾攻略] [INFO] [run_batch] 采集完成: 3 条 Feeds
+10:17 [汕尾红海湾攻略] [INFO] [run_batch] enrichment 完成: 3 条（丢弃 0 条不可见帖子）
+10:17 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fc60f0000000003502550a Detail (duration=73.7s)
+10:17 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fc62c50000000038022f1b Detail (duration=73.8s)
+10:17 [汕尾红海湾攻略] [DEBUG] [Detail] PASS 69fc4f2b000000001f005170 Detail (duration=73.8s)
+10:17 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fc60f0000000003502550a Filter 纯分享攻略贴 (duration=73.8s)
+10:17 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fc62c50000000038022f1b Filter 找搭子/旅游同伴 (duration=73.8s)
+10:17 [汕尾红海湾攻略] [DEBUG] [Filter] FAIL 69fc4f2b000000001f005170 Filter 找搭子/旅游同伴 (duration=73.8s)
+10:17 [汕尾红海湾攻略] [INFO] [run_batch] 筛选完成: 0/3 条通过
+10:17 [汕尾红海湾攻略] [INFO] [run_batch] 复查完成: 0 条终审通过
+10:17 [汕尾红海湾攻略] [INFO] [run_batch] ✅ 完成，耗时 73.8s
+10:17 [汕尾红海湾攻略] [INFO] [run_batch] 休息 5s...

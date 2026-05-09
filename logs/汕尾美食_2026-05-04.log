@@ -1,0 +1,28 @@
+21:55:54 [INFO] 采集完成: 12 条 Feeds
+21:55:54 [INFO] enrichment 完成: 12 条
+22:38:13 [INFO] 开始采集 [1/1] [core] 汕尾美食
+22:38:48 [INFO] 采集完成: 10 条 Feeds
+22:41:41 [INFO] enrichment 完成: 10 条
+22:41:41 [INFO] 筛选完成: 0/10 条通过
+22:41:41 [INFO] 复查完成: 0 条终审通过
+22:41:41 [INFO] ✅ 完成，耗时 207.8s
+22:39 [汕尾美食] [INFO] [run_batch] 开始采集 [1/1] [core] 汕尾美食
+22:39 [汕尾美食] [INFO] [run_batch] 采集完成: 3 条 Feeds
+22:40 [汕尾美食] [INFO] [run_batch] enrichment 完成: 3 条
+22:40 [汕尾美食] [DEBUG] [Detail] FAIL 69f703f3000000003601f334 Detail hashtag正文 (duration=70.9s)
+22:40 [汕尾美食] [DEBUG] [Detail] FAIL 69f6d7a0000000003803685b Detail hashtag正文 (duration=70.9s)
+22:40 [汕尾美食] [DEBUG] [Detail] PASS 69f622d2000000002202aee9 Detail (duration=70.9s)
+22:40 [汕尾美食] [DEBUG] [Filter] FAIL 69f703f3000000003601f334 Filter 非目标地域 (duration=70.9s)
+22:40 [汕尾美食] [DEBUG] [Filter] FAIL 69f6d7a0000000003803685b Filter 无明确需求 (duration=70.9s)
+22:40 [汕尾美食] [DEBUG] [Filter] FAIL 69f622d2000000002202aee9 Filter 无明确需求 (duration=70.9s)
+22:40 [汕尾美食] [INFO] [run_batch] 筛选完成: 0/3 条通过
+22:40 [汕尾美食] [INFO] [run_batch] 复查完成: 0 条终审通过
+22:40 [汕尾美食] [INFO] [run_batch] ✅ 完成，耗时 70.9s
+23:01 [汕尾美食] [INFO] [run_batch] 开始采集 [1/1] [core] 汕尾美食
+23:02 [汕尾美食] [INFO] [run_batch] 采集完成: 1 条 Feeds
+23:02 [汕尾美食] [INFO] [run_batch] enrichment 完成: 1 条（丢弃 0 条不可见帖子）
+23:02 [汕尾美食] [DEBUG] [Detail] PASS 69f5f544000000003601f6fb Detail (duration=44.5s)
+23:02 [汕尾美食] [DEBUG] [Filter] FAIL 69f5f544000000003601f6fb Filter 无明确需求 (duration=44.5s)
+23:02 [汕尾美食] [INFO] [run_batch] 筛选完成: 0/1 条通过
+23:02 [汕尾美食] [INFO] [run_batch] 复查完成: 0 条终审通过
+23:02 [汕尾美食] [INFO] [run_batch] ✅ 完成，耗时 44.5s
