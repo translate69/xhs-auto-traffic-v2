@@ -155,7 +155,7 @@ def main():
     child = subprocess.Popen(
         [sys.executable, "run_batch.py",
          "--keywords-file", str(batch_file),
-         "--limit", "20",
+         "--limit", os.environ.get("XHS_LIMIT", "30"),
          "--restart-browser-every", "3"],
         cwd=str(PROJECT_ROOT),
         stdout=open(log_out, "w", encoding="utf-8", buffering=1),
