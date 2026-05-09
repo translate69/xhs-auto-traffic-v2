@@ -314,18 +314,33 @@ class SearchCollector:
 
         time.sleep(2)
 
-        # 3. 滚动加载
-        _log_stage("开始滚动加载", flush=False)
-        self.scroll_helper.scroll_to_count(
-            target_count=limit,
-            max_scrolls=config.DEFAULT_SCROLL_COUNT,
-        )
-        _log_stage("滚动加载完成", flush=False)
+        # 3. 增量提取：滚动 + 提取交替进行
+        # 原因：XHS DOM 用新笔记替换旧笔记，一次性提取只能拿到最后一屏约 17 条，
+        #       中间被替换的笔记全部丢失。增量提取可多获取 187% 笔记，并达到 limit 提前停止。
+        _log_stage("开始增量提取", flush=False)
+        seen_ids: set[str] = set()
+        all_feeds: list[FeedNote] = []
 
-        # 4. 提取数据
-        _log_stage("开始提取Feeds", flush=False)
-        feeds = self._extract_feeds()
-        _log_stage(f"提取完成，返回 {len(feeds)} 条Feeds", flush=True)
+        for i in range(config.DEFAULT_SCROLL_COUNT):
+            if i > 0:
+                self.page.evaluate("window.scrollBy(0, 600)")
+                time.sleep(1.0)
+
+            new_feeds = self._extract_feeds()
+            for feed in new_feeds:
+                nid = feed.note_id
+                if nid and nid not in seen_ids:
+                    seen_ids.add(nid)
+                    all_feeds.append(feed)
+
+            current = len(seen_ids)
+            print(f"[SearchCollector] 滚动{i+1}/{config.DEFAULT_SCROLL_COUNT}: 累计唯一 {current} 条")
+            if current >= limit:
+                print(f"[SearchCollector] 已达目标 {limit} 条，提前结束")
+                break
+
+        _log_stage(f"增量提取完成，共 {len(all_feeds)} 条唯一笔记", flush=True)
+        feeds = all_feeds
 
         # 5. 采集层轻过滤
         filtered = self._apply_light_filter(feeds)
