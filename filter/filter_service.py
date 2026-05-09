@@ -82,7 +82,7 @@ ASK_SIGNALS = [
     "求助", "哪里好", "哪家好", "怎么玩", "住哪",
     "有没有推荐", "怎么选", "怎么安排", "求住", "想问", "问一下",
     "蹲蹲", "求指教",
-    "帮我", "帮帮我",
+    "帮帮我",
     "有什么", "哪家好", "哪里好",
     "去哪吃", "去哪儿吃", "想问下", "请问",
 ]
@@ -253,7 +253,7 @@ class FilterService:
         # 「推荐」已移出 content_has_ask：正文里的「好吃推荐/炒鸡推荐」是分享语气，不是求助信号
         # 求助信号中「推荐」的角色由 EXPERIENCE_SHARE_KEYWORDS 中的结构化推荐词覆盖
         content_has_ask = has_signal(content_no_tags, ASK_SIGNALS)
-        title_has_bang = "帮我" in title or "帮帮我" in title or "帮忙" in title
+        title_has_bang = "帮帮我" in title or "帮忙" in title
         has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
 
         # （无标题拦截已移除：无标题+有 ask 可能是正常求助（如 69ef89c2），
@@ -385,7 +385,7 @@ class FilterService:
         # 「推荐」已移出：正文里的「好吃推荐/炒鸡推荐」等是分享语气而非求助信号
         # 「有什么」保留：正文含「有什么xxx吗/呢」是问句，是真实求助信号
         content_has_ask = has_signal(content_no_tags, ASK_SIGNALS)
-        title_has_bang = "帮我" in title or "帮帮我" in title or "帮忙" in title
+        title_has_bang = "帮帮我" in title or "帮忙" in title
         has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
 
         if has_any_ask:
@@ -630,7 +630,16 @@ class FilterService:
                 # 正文有 ask 但含分享词 → 判断 ask 信号的强度
                 # strong_ask: 想问/求/求助/有什么/有没有（有明确需求意向词）
                 # 补充强信号：有具体推荐问句结构（「有啥好吃推荐/有没有XX推荐」）
-                strong_ask = has_signal(content_no_tags, ["想问", "求", "求助", "有什么", "有没有"])
+                # 反问语气检测：「还有什么烦恼」「有什么...不/没」→ 字面是问句，实际是满足/感叹语气，不算真求助
+                is_rhetorical_what = bool(re.search(
+                    r'还有什么[^\u4e00-\u9fa5]*?(烦恼|忧愁|不爽|难过)|有什么.?.?(不|没|么)\w',
+                    content_no_tags
+                ))
+                if is_rhetorical_what:
+                    # 反问语气：有 "有什么" 但上下文是「还有什么烦恼/不爽」→ 降级，不算 strong_ask
+                    strong_ask = False
+                else:
+                    strong_ask = has_signal(content_no_tags, ["想问", "求", "求助", "有什么", "有没有"])
                 has_recommend_ask = bool(re.search(r"有.{0,6}推荐", content_no_tags))
                 if not strong_ask and not has_recommend_ask:
                     if reasons and "ask" in reasons:

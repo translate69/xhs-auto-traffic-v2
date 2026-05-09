@@ -209,8 +209,22 @@ def main():
     # ---- 更新进度 ----
     next_idx = (current + 1) % len(BATCHES)
     _set_progress(next_idx)
+    # ---- 一轮跑完后清理旧数据 ----
     if next_idx == 0:
         _log("轮回完成，重置到第1批")
+        try:
+            from utils.storage import CollectedStorage, RecentStorage
+            # 清理 runs/ 和 manifest（7天前）
+            storage = CollectedStorage()
+            deleted = storage.clean_old(days=7)
+            if deleted:
+                _log(f"清理旧文件: {[d.name for d in deleted]}")
+            # 强制清理 collected_note_ids.jsonl（7天前记录）
+            recent = RecentStorage()
+            recent._cleanup(force=True)
+            _log("collected_note_ids.jsonl 清理完成")
+        except Exception as e:
+            _log(f"清理失败: {e}")
 
     # ---- 等够10分钟 ----
     elapsed = time.time() - start_time
