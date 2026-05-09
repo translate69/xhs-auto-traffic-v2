@@ -11,8 +11,10 @@ from __future__ import annotations
 
 import sys
 import time
+import json
 import random
 from dataclasses import dataclass, field
+from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -122,11 +124,28 @@ class NoteDetailCollector:
       3. 失败 → 降级保留搜索页数据
     """
 
+    # 每 N 条重启 context，释放主进程堆内存，防止 Windows 内存压缩发 SIGKILL
+    RESTART_EVERY = 10
+
     def __init__(self, browser, context):
         self.browser = browser
         self.context = context
         # 不在这里创建 page，enrich_all 里每个 note 单独建/关 page
         _log_stage("创建 NoteDetailCollector")
+
+
+    def _restart_context(self):
+        """关闭旧 context 并重建（cookie 重新写入）"""
+        old = self.context
+        self.context = self.browser.new_context()
+        old.close()
+        # 重建 cookie
+        from pathlib import Path
+        cookie_file = Path(__file__).parent.parent / "xhs_cookies.json"
+        with open(cookie_file, encoding="utf-8") as f:
+            cookies = json.load(f)
+        self.context.add_cookies(cookies)
+        _log_stage(f"  [Context 重启完成]")
 
     def enrich_all(self, feeds: list[FeedNote]) -> list[NoteDetail]:
         """
@@ -138,6 +157,11 @@ class NoteDetailCollector:
         _log_stage(f"enrich_all 开始，共 {len(feeds)} 条")
 
         for i, feed in enumerate(feeds):
+            # ── 每 RESTART_EVERY 条重启 context，释放堆内存 ──
+            if i > 0 and i % self.RESTART_EVERY == 0:
+                print(f"[Detail] 已处理 {i} 条，重启 context 释放内存...")
+                self._restart_context()
+
             # ── 每条笔记独立 page，用完即关 ──
             page = self.context.new_page()
             try:
