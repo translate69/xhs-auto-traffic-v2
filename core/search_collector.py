@@ -189,11 +189,9 @@ class SearchCollector:
             )
 
         # 2. JS 检测：body 是否有遮罩 modal（XHS 登录弹窗是全屏遮罩）
-        #    检查 body 的 class 和 modal 是否 visible
         is_blocked = self.page.evaluate("""() => {
-            // XHS 登录弹窗特征：.login-modal 或 .login-modal-cover
             const modals = document.querySelectorAll(
-                '[class*=\"login-modal\"], [class*=\"login-modal-open\"], [class*=\"qrcode\"][class*=\"modal\"]'
+                '[class*="login-modal"], [class*="login-modal-open"], [class*="qrcode"][class*="modal"]'
             );
             for (const m of modals) {
                 const style = window.getComputedStyle(m);
@@ -202,7 +200,6 @@ class SearchCollector:
                 const coversViewport = box.width > 300 && box.height > 300;
                 if (visible && coversViewport) return true;
             }
-            // 也可以检查 body 是否有弹窗 class
             const bodyClass = document.body.className || '';
             if (bodyClass.includes('login-modal-open') || bodyClass.includes('modal-open')) {
                 return true;
@@ -217,9 +214,7 @@ class SearchCollector:
             )
 
         # 3. 内容级检测：页头是否有「登录/注册」按钮（未登录特征）
-        #    用 JS 检查页头区域是否有"登录"文字（准确，弹窗里的"登录"文字不会在 header 里）
         has_login_btn = self.page.evaluate("""() => {
-            // XHS 未登录时，页头右侧有「登录/注册」文字
             const headerText = document.body.innerText;
             return headerText.includes('登录') && headerText.includes('注册');
         }""")
@@ -230,24 +225,20 @@ class SearchCollector:
                 "小红书登录态失效（页头有登录/注册按钮），请扫码登录后重试。"
             )
 
-        # 4. 检查登录后的关键元素是否存在（feed 流或个人中心入口）
-        #    未登录时这些元素不存在
+        # 4. 检查是否有 feed 流（登录后才有）
         has_feeds = self.page.evaluate("""() => {
-            // 小红书 feed 流容器 or 搜索结果容器
             return !!(document.querySelector('.feeds-page') ||
                      document.querySelector('.search-result') ||
-                     document.querySelector('[class*=\"feeds\"]') ||
+                     document.querySelector('[class*="feeds"]') ||
                      document.querySelector('.note-item'));
         }""")
 
         if not has_feeds:
-            # 没有 feed 流也没找到登录弹窗（边界情况），截图留证
             self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_login_required.png")
             raise LoginRequiredError(
                 "小红书登录态失效（无法确认页面状态），请扫码登录后重试。"
             )
 
-        # 登录态正常
         return
 
 
@@ -330,9 +321,6 @@ class SearchCollector:
             max_scrolls=config.DEFAULT_SCROLL_COUNT,
         )
         _log_stage("滚动加载完成", flush=False)
-        # 滚动后等 1-2 秒让页面稳定，再提取数据
-        time.sleep(1.5)
-        _log_stage("提取Feeds", flush=False)
 
         # 4. 提取数据
         _log_stage("开始提取Feeds", flush=False)
