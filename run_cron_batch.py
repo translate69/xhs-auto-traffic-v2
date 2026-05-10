@@ -36,7 +36,15 @@ BATCHES = [
     ["汕尾2天1晚行程", "汕尾本地人推荐美食", "汕尾海边民宿推荐"],
     ["汕尾周末去哪玩", "汕尾亲子游"],
 ]
-BATCH_DELAY_SECONDS = 10 * 60  # 10分钟间隔
+BATCHES = [
+    ["汕尾旅游攻略", "汕尾住宿推荐", "汕尾美食推荐"],
+    ["汕尾去哪吃", "汕尾去哪住", "汕尾旅游"],
+    ["汕尾美食", "广州到汕尾自驾住哪", "深圳到汕尾自驾住哪"],
+    ["汕尾红海湾民宿", "汕尾红海湾攻略", "汕尾3天2晚攻略"],
+    ["汕尾2天1晚行程", "汕尾本地人推荐美食", "汕尾海边民宿推荐"],
+    ["汕尾周末去哪玩", "汕尾亲子游"],
+]
+BATCH_TIMEOUT_SECONDS = 660  # 11分钟，单关键词允许更长
 
 
 def _get_progress() -> int:
@@ -86,13 +94,21 @@ def _is_process_alive(pid: int) -> bool:
 def _acquire_lock() -> bool:
     if LOCK_FILE.exists():
         try:
-            pid = int(LOCK_FILE.read_text().strip())
+            import json
+            info = json.loads(LOCK_FILE.read_text().strip())
+            pid = info["pid"]
+            started_at = info["started_at"]
             if _is_process_alive(pid):
-                _log(f"进程 {pid} 还在跑，跳过本次")
-                return False
+                age = time.time() - started_at
+                if age < BATCH_TIMEOUT_SECONDS:
+                    _log(f"进程 {pid} 还在跑（已运行 {age:.0f}s），跳过本次")
+                    return False
+                # 超时了，当作锁已失效，下次 acquire 会清理
+                _log(f"进程 {pid} 已超时（{age:.0f}s），清理陈旧锁")
         except Exception:
             pass
-    LOCK_FILE.write_text(str(os.getpid()))
+    import json
+    LOCK_FILE.write_text(json.dumps({"pid": os.getpid(), "started_at": time.time()}))
     return True
 
 
@@ -167,7 +183,7 @@ def main():
 
     # ---- 监控子进程，等它完成 ----
     try:
-        retcode = child.wait(timeout=600)
+        retcode = child.wait(timeout=BATCH_TIMEOUT_SECONDS)
         elapsed = time.time() - start_time
         if retcode == 0:
             _log(f"[OK] 完成，耗时 {elapsed:.0f}s")
@@ -192,7 +208,7 @@ def main():
                 if err_content:
                     _log(f"stderr: {err_content[-500:]}")
     except subprocess.TimeoutExpired:
-        _log(f"[WARN] 子进程超时（600s），强制终止")
+        _log(f"[WARN] 子进程超时（{BATCH_TIMEOUT_SECONDS}s），强制终止")
         child.kill()
         child.wait()
     finally:
@@ -226,13 +242,9 @@ def main():
         except Exception as e:
             _log(f"清理失败: {e}")
 
-    # ---- 等够10分钟 ----
-    elapsed = time.time() - start_time
-    if elapsed < BATCH_DELAY_SECONDS:
-        sleep = BATCH_DELAY_SECONDS - elapsed
-        _log(f"等 {sleep:.0f}s 到下一轮...")
-        time.sleep(sleep)
-
+    # ---- 等够10分钟？不，等待下一 cron 触发 ----
+    # 每次只跑一批，依赖 cron 下一次触发跑下一批
+    # 不再 sleep，也不守在原地等
     _log("本次完毕")
 
 
