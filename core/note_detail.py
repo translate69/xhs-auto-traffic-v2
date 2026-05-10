@@ -216,18 +216,21 @@ class NoteDetailCollector:
             return detail
 
         last_error = ""
-        use_explore_format = False  # 检测到 300013 后切 explore 格式
+        # 优先 explore 格式（更稳定），explore 触发 300013 再切 search_result
+        url_format = "explore"
 
         for attempt in range(1, max_retries + 1):
             try:
                 if not page:
                     raise RuntimeError("Page 未初始化")
 
-                # ── 切换为 explore URL（300013 时触发）────────────────────
-                if use_explore_format:
+                # ── 切换 URL 格式（explore 触发 300013 时切 search_result）────
+                if url_format == "search_result":
+                    detail_url = self._build_detail_url_search_result(feed)
+                    print(f"[Detail] explore 300013, retry with search_result URL: {detail_url}")
+                else:
                     detail_url = self._build_detail_url_fallback(feed)
                     print(f"[Detail] 300013 detected, retry with explore URL: {detail_url}")
-                    use_explore_format = False  # 只切换一次
 
                 _log_stage(f"  goto: {detail_url}", flush=False)
                 page.goto(detail_url, wait_until="networkidle")
@@ -301,12 +304,15 @@ class NoteDetailCollector:
                 last_error = str(e)
                 print(f"[Detail] FAIL {attempt}/3: {last_error}")
 
-                # 检测 300013 访问频繁，下次重试切换 explore URL 格式
+                # 检测 300013 访问频繁，切换 URL 格式重试
                 if "300013" in last_error or "error_code=300013" in last_error:
-                    use_explore_format = True
-                    print("[Detail] 300013 detected, will retry with explore URL format")
-                    # 不等 ENRICHMENT_RETRY_DELAY，立即重试
-                    continue
+                    if url_format == "explore":
+                        url_format = "search_result"  # explore 失败，切 search_result
+                        print("[Detail] 300013 detected, will retry with search_result URL format")
+                        continue
+                    # search_result 也 300013，彻底失效，退出重试循环
+                    print("[Detail] 300013 on both formats, giving up")
+                    break
 
                 if attempt < max_retries:
                     time.sleep(config.ENRICHMENT_RETRY_DELAY)
@@ -369,6 +375,24 @@ class NoteDetailCollector:
 
         # 兜底：直接返回原 URL（去掉 search_result 格式）
         return feed.url.replace("/search_result/", "/explore/") if "/search_result/" in feed.url else feed.url
+
+    def _build_detail_url_search_result(self, feed: FeedNote) -> str:
+        """降级 URL：当 explore 触发 300013 时，切为 search_result 格式"""
+        import re
+        m = re.search(r"search_result/([a-fA-F0-9]+)", feed.url, re.IGNORECASE)
+        if not m:
+            m = re.search(r"/explore/([a-fA-F0-9]+)", feed.url, re.IGNORECASE)
+        if not m and feed.url:
+            m = re.search(r"([a-fA-F0-9]){16}", feed.url)
+
+        if m:
+            note_id = m.group(1)
+            if feed.xsec_token:
+                return (f"https://www.xiaohongshu.com/search_result/{note_id}"
+                        f"?xsec_token={feed.xsec_token}&xsec_source=pc_search")
+            return f"https://www.xiaohongshu.com/search_result/{note_id}"
+
+        return feed.url.replace("/explore/", "/search_result/") if "/explore/" in feed.url else feed.url
 
     def _is_hashtag_only(self, content: str) -> bool:
         """
