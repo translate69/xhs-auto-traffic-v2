@@ -97,11 +97,18 @@ class NoteDetail:
         self.author = feed.author or self.author
         self.time_text = feed.time_text or self.time_text
         self.title = feed.title or self.title
+        self.note_id = feed.note_id or self.note_id
+
+    # note_id 专用 backing（避免与 @property 冲突）
+    _note_id: str = ""
 
     @property
     def note_id(self) -> str:
-        """从 url 提取 note_id"""
+        """从 url 提取 note_id（优先用实例 _note_id，其次从 url 解析）"""
         import re
+        # 优先返回显式设置的值（来自 feed.note_id）
+        if self._note_id:
+            return self._note_id
         m = re.search(r"search_result/([a-fA-F0-9]+)", self.url, re.IGNORECASE)
         if m:
             return m.group(1)
@@ -109,6 +116,11 @@ class NoteDetail:
         if m2:
             return m2.group(1)
         return ""
+
+    @note_id.setter
+    def note_id(self, value: str):
+        """允许外部赋值 instance attribute"""
+        self._note_id = value
 
 
 # ─── NoteDetailCollector ─────────────────────────────────
