@@ -242,7 +242,7 @@ class NoteDetailCollector:
                 # 检测是否跳转到了登录/安全限制页（URL 异常或页面内容异常）
                 final_url = page.url
                 if any(kw in final_url.lower() for kw in ["login", "/w/user/login", "/w/login", "error_code=", "website-login/error"]):
-                    self.page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_detail_login.png")
+                    page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_detail_login.png")
                     raise LoginRequiredError(
                         f"详情页 URL 异常（{final_url[:60]}），cookie 可能已失效"
                     )
