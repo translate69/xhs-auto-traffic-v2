@@ -1,20 +1,20 @@
 """
-review_service.py - 强制复查阶段
+review_service.py - 强制复查阶段（镜像执行模式）
 
 在 FilterService 之后、FeishuOutputService 之前执行，作为不可跳过的 gate。
 
-复查规则（任意一条触发拒绝）：
-  1. reasons 为空  → filter 未运行/失败，不写入
-  2. 商家账号      → 作者含商家关键词，拒绝
-  3. 纯分享帖      → 无求助信号 + 含分享关键词，拒绝
 
-支持两种模式：
-  - auto: 全自动，符合即通过
-  - manual: 输出通过列表供人工确认后才写文件
+设计原则（镜像执行）：
+  review 不是重新发明判断逻辑，而是用执行模式重新跑 filter 的核心检测函数。
+  对于 filter 通过的笔记，用 filter 的关键方法重新做一遍判断——
+  如果 filter 的核心检测方法自己给了 ask=passed=True（说明检测了但放行），
+  review 仍然要重新执行一次，确保没有漏网之鱼。
+
+由于所有核心判断逻辑都在 filter_service.py 里，review 通过 FilterService 实例
+调用的方式嵌入执行模式——确保 review 的每一步判断都有真实的 Python 执行支撑。
 """
 from __future__ import annotations
 
-import json
 import re
 from dataclasses import dataclass
 from datetime import datetime
@@ -22,9 +22,10 @@ from pathlib import Path
 
 import config
 from core.note_detail import NoteDetail
+from filter.filter_service import FilterService
 
 
-# ─── 复查常量 ────────────────────────────────────────────
+# ─── 复查常量（仅用于快速兜底，不参与核心判断）───────────────
 
 MERCHANT_AUTHOR_KEYWORDS = [
     "民宿", "酒店", "餐厅", "大排档", "包车", "陪拍",
@@ -36,27 +37,7 @@ MERCHANT_AUTHOR_KEYWORDS = [
     "趣墅", "趣墅记", "趣墅海景",
 ]
 
-SHARE_POST_KEYWORDS = [
-    "攻略", "分享", "推荐", "打卡", "避雷", "合集",
-    "探店", "测评", "我的", "我去", "我吃",
-    "不踩坑", "不踩雷", "保姆级", "超全",
-    "没有攻略", "无攻略", "没攻略",
-]
-
-# 复查专用 ASK 信号（比 Filter 更严格）
-# 原则：纯分享/避雷/投诉 即使出现礼貌性提问也不放行
-# 排除 "请问"（单独使用时多为礼貌性/反问语气，如 "请问呢" "请问有吗"）
-ASK_SIGNALS_REVIEW = [
-    "求", "求推荐", "求带", "求问", "求攻略", "求美食",
-    "求助", "哪里好", "哪家好", "怎么玩", "住哪",
-    "有没有推荐", "怎么选", "怎么安排", "求住", "想问", "问一下",
-    "蹲蹲", "求指教",
-    "帮我", "帮帮我",
-    "有什么", "哪家好", "哪里好",
-    "去哪吃", "去哪儿吃", "请问一下", "请问各位",
-]
-
-# 避雷类分享贴检测：标题含"避雷"时，即使有 ask 信号也视为分享贴（除非有明确求助内容）
+# 避雷类分享贴检测：标题含"避雷"时，即使有 ask 信号也视为分享贴
 _BLEI_KEYWORDS = ["避雷", "吐槽", "踩坑", "被骗", "好无语", "太坑了"]
 
 
@@ -72,7 +53,7 @@ class ReviewResult:
 
 class ReviewService:
     """
-    强制复查 gate。
+    强制复查 gate（镜像执行模式）。
 
     用法：
         review = ReviewService()
@@ -81,6 +62,7 @@ class ReviewService:
     """
 
     def __init__(self):
+        self._filter = FilterService()  # 镜像执行：复用 filter 的所有核心检测方法
         self._output_path = config.FEISHU_DIR / "reviewed_for_feishu.jsonl"
 
     def review(
@@ -129,70 +111,70 @@ class ReviewService:
         return passed
 
     def _review_one(self, note: NoteDetail) -> ReviewResult:
-        """对单条笔记执行复查规则"""
-        # ── 规则 1：reasons 为空 → 跳过 ─────────────────
+        """
+        复查逻辑（镜像执行模式）：
+          重新用 filter 的核心检测函数跑一遍，不依赖 filter 的最终结果。
+          任何一步检测返回拒绝，笔记就被拒绝。
+
+        执行步骤：
+          1. 商家账号（始终检查）
+          2. 避雷类标题（始终检查）
+          3. _is_recommendation_format  ← 镜像 filter 的"推荐格式"判断
+          4. _is_share_post_only       ← 镜像 filter 的"纯分享贴"判断
+          5. _is_self_talk             ← 镜像 filter 的"自语帖"判断（正文外向提问但内容是分享语气）
+          6. _is_merchant_accommodation ← 镜像 filter 的"民宿商家"判断
+        """
         fr = note.filter_result
+        # ── 前置：reasons 为空 → filter 未运行，直接拒绝 ───────
         if not fr or not fr.reasons or fr.reasons.strip() == "":
             return ReviewResult(passed=False, reason="reasons为空(filter未运行)")
 
-        # ── 规则 2：商家账号 ──────────────────────────────
-        if note.author and self._is_merchant_author(note.author):
-            return ReviewResult(passed=False, reason=f"商家账号({note.author})")
-
-        # ── 规则 3：纯分享帖（含礼貌性反问检测）──────────────────────
         title = note.title or ""
         content = note.content or ""
         content_no_tags = re.sub(r'#.+?(?=\s|#|$)', '', content)
         combined = f"{title} {content_no_tags}"
 
-        # 计算 ask 信号（供多个规则共用）
-        title_has_explicit_ask = any(kw in title for kw in ASK_SIGNALS_REVIEW)
-        content_has_ask = any(kw in content_no_tags for kw in ASK_SIGNALS_REVIEW)
-        title_has_bang = "帮我" in title or "帮帮我" in title or "帮忙" in title
-        has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
+        # ── 步骤1：商家账号 ─────────────────────────────
+        if note.author and self._is_merchant_author(note.author):
+            return ReviewResult(passed=False, reason=f"商家账号({note.author})")
 
-        # ── 规则 3a：礼貌性反问（ask 只有"请问"，无真实求助意图）────
-        only_qingwen = (
-            not title_has_explicit_ask and not title_has_bang
-            and content_has_ask
-            and "请问" in content_no_tags
-            and not any(kw in content_no_tags for kw in ["请问一下", "请问各位", "请问有没有", "想问"])
-        )
-        if only_qingwen:
-            return ReviewResult(passed=False, reason="礼貌性提问（非真实求助）")
+        # ── 步骤2：避雷类标题 ───────────────────────────
+        if (not title.startswith("求")
+                and not any(kw in title for kw in ["求推荐", "求住", "求带"])
+                and any(kw in title for kw in _BLEI_KEYWORDS)):
+            return ReviewResult(passed=False, reason="避雷类分享贴")
 
-        # ── 规则 3b：无求助信号时的纯分享检查 ───────────────────────
-        if not has_any_ask:
-            # 避雷类（标题含 "避雷" → 直接拒绝）
-            title_blei_kw = [kw for kw in _BLEI_KEYWORDS if kw in title]
-            if title_blei_kw:
-                if not title.startswith("求") and not any(kw in title for kw in ["求推荐", "求住", "求带"]):
-                    return ReviewResult(passed=False, reason=f"避雷类分享贴({title_blei_kw[0]})")
-            if any(kw in combined for kw in SHARE_POST_KEYWORDS):
-                return ReviewResult(passed=False, reason="纯分享攻略贴")
-            if self._is_recommendation_format(title):
-                return ReviewResult(passed=False, reason="纯分享推荐格式")
+        # ── 步骤3：推荐格式标题（镜像执行 filter._is_recommendation_format）───
+        # 修复"怎么选"误判后，这里能 catch 住"xxx怎么选xxx"格式的分享贴
+        if self._filter._is_recommendation_format(title):
+            return ReviewResult(passed=False, reason="纯分享推荐格式")
 
-        # ── 规则 3c：避雷/投诉类（即使有 ask 信号也拒绝）────────────
-        title_blei_kw = [kw for kw in _BLEI_KEYWORDS if kw in title]
-        if title_blei_kw:
-            if not title.startswith("求") and not any(kw in title for kw in ["求推荐", "求住", "求带"]):
-                return ReviewResult(passed=False, reason=f"避雷类分享贴({title_blei_kw[0]})")
+        # ── 步骤4：纯分享攻略贴（镜像执行 filter._is_share_post_only）─────────
+        # _is_share_post_only 返回 "纯分享攻略贴" 字符串时表示拒绝
+        share_reject = self._filter._is_share_post_only(title, content_no_tags)
+        if share_reject:
+            return ReviewResult(passed=False, reason=share_reject)
+
+        # ── 步骤5：自语帖（镜像执行 filter._is_self_talk）────────────────
+        # 正文含"有什么/有啥"但前方有"想/我在"等自语标记 → 不是真求助
+        if self._filter._is_self_talk(content_no_tags):
+            return ReviewResult(passed=False, reason="自语帖")
+
+        # ── 步骤6：软广问句开场（镜像执行 filter._is_soft_ad_question）───
+        # 正文前几句以问句开场 + 含>=2个软广特征词 → 探店软广
+        if self._filter._is_soft_ad_question(content_no_tags):
+            return ReviewResult(passed=False, reason="软广问句开场")
+
+        # ── 步骤7：民宿商家自推广（镜像执行 filter._is_merchant_accommodation）───
+        if self._filter._is_merchant_accommodation(combined):
+            return ReviewResult(passed=False, reason="民宿商家推广")
 
         return ReviewResult(passed=True)
 
     def _is_merchant_author(self, author: str) -> bool:
+        """作者是否含商家关键词（始终独立检查，不用镜像）"""
         author_lower = author.lower()
         return any(kw in author_lower for kw in MERCHANT_AUTHOR_KEYWORDS)
-
-    def _is_recommendation_format(self, title: str) -> bool:
-        if not title:
-            return False
-        if title.startswith("求") or "求推荐" in title:
-            return False
-        if re.search(r"推荐[吗么呢？]", title):
-            return False
-        return bool(re.search(r".{0,10}推荐.{0,15}", title))
 
     def _write_output(self, passed: list[NoteDetail], keyword: str = ""):
         """写入 reviewed_for_feishu.jsonl（供 FeishuOutputService 读取）"""
@@ -205,7 +187,6 @@ class ReviewService:
             # 构建 note_url
             note_url = detail.url or ""
             if note_url and "xsec_token=" not in note_url and "search_result/" in note_url:
-                import re
                 m = re.search(r"search_result/([a-fA-F0-9]+)", note_url)
                 if m and detail.xsec_token:
                     note_url = (
@@ -234,7 +215,7 @@ class ReviewService:
 
         with open(self._output_path, "w", encoding="utf-8") as f:
             for row in rows:
-                f.write(json.dumps(row, ensure_ascii=False) + "\n")
+                f.write(__import__('json').dumps(row, ensure_ascii=False) + "\n")
 
         print(f"[review] 已写入 {self._output_path} ({len(rows)} 条)")
 

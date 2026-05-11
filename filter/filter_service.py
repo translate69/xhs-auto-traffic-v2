@@ -111,6 +111,9 @@ REJECT_PATTERNS = [
     r"套内[0-9]+㎡", r"套内约[0-9]+㎡", r"建面[0-9]+㎡", r"建面约[0-9]+㎡",
     r"满五", r"红本在手", r"税费低", r"交易快",
     r"顶豪", r"豪宅", r"抄底价", r"底价可谈", r"手慢无",
+    # 食品/产品广告特有（产品功效/成分/选购指南类内容，非真实用户求助）
+    r"配料表", r"添加剂", r"增味剂", r"防腐剂", r"科技与狠活",
+    r"荣获", r"力荐", r"推荐产品", r"厂家", r"专业只生产", r"正规厂家",
 ]
 
 # 纯酒店/民宿夸赞广告淘汰关键词（无求助信号 → 淘汰）
@@ -284,8 +287,10 @@ class FilterService:
 
         # ── 8. 正文极短时放宽 ─────────────────────────
         # 正文<30字时，若标题有求助信号，说明内容可能在图片里，放行
+        # 注意：不要覆盖 passed_reasons 中的 "ask" 信号 —— review 要靠 "ask" 判断是否信任 filter
         if len(content_no_tags.strip()) < 30 and title_has_explicit_ask:
-            passed_reasons = ["正文内容可能在图片中"]
+            if "ask" not in passed_reasons:
+                passed_reasons.append("正文内容可能在图片中")
 
         if not passed_reasons:
             return FilterResult(passed=False, reasons="无明确需求")
@@ -363,47 +368,62 @@ class FilterService:
         # 优先级高于「推荐」检测，避免「美食推荐」被误判为推荐格式
         if re.search(r"求|求问|请问", title):
             return False
+        # 排除「有没有/有无/在线蹲/求推荐」等求助前缀 + 「推荐」的结构（真实求助，不是分享）
+        # 例如：「有没有本地人推荐一下」「在线蹲汕尾本地人推荐点私藏美食」
+        if re.search(r"有没有|有无|在线蹲", title):
+            return False
         # 匹配 "xxx推荐xxx" 格式（推荐前后都有内容）
         return bool(re.search(r".{0,10}推荐.{0,15}", title))
 
+    def _is_topic_description_format(self, title: str) -> bool:
+        """
+        检查标题是否为话题描述格式（topic-description）。
+        这种格式的特征是：以「xxx怎么选xxx」结构呈现一个话题，不是真求助。
+        例如：「广东沙滩怎么选」「汕尾民宿怎么选」
+
+        排除：后面有问号/吗/么（真问句），或以「求/请问」开头（求助格式）。
+        """
+        if not title:
+            return False
+        if title.startswith("求") or title.startswith("请问"):
+            return False
+        if re.search(r".{2,10}怎么选", title) and not re.search(r"怎么选[么吗?？]", title):
+            return True
+        return False
+
     def _is_share_post_only(self, title: str, content: str) -> str | None:
         """检查是否为纯分享/攻略贴。返回淘汰原因或 None"""
-        # 去掉标签，避免标签里的关键词干扰信号判断
         content_no_tags = re.sub(r'#.+?(?=\s|#|$)', '', content)
         combined = title + " " + content_no_tags
 
-        # 标题否定语气：没有攻略/无攻略/没攻略 → 纯分享，非求助
+        # 标题否定语气
         title_negation_patterns = ["没有攻略", "无攻略", "没攻略", "不用攻略", "不必攻略"]
         if any(title.startswith(p) for p in title_negation_patterns):
             return "纯分享攻略贴"
 
-        title_has_explicit_ask = has_signal(title, ASK_SIGNALS)
-        # 推荐格式（「xxx推荐xxx」）不算求助信号
+        # ── 格式拦截（在 has_any_ask 之前，防止 topic-description 逃逸）───
+        # _is_recommendation_format 处理「xxx推荐xxx」
         if self._is_recommendation_format(title):
-            title_has_explicit_ask = False
-        # 用去掉标签的内容检查，避免标签里的「推荐」等词误判
-        # 「推荐」已移出：正文里的「好吃推荐/炒鸡推荐」等是分享语气而非求助信号
-        # 「有什么」保留：正文含「有什么xxx吗/呢」是问句，是真实求助信号
+            return "纯分享攻略贴"
+        # _is_topic_description_format 处理「xxx怎么选xxx」
+        if self._is_topic_description_format(title):
+            return "纯分享攻略贴"
+
+        title_has_explicit_ask = has_signal(title, ASK_SIGNALS)
         content_has_ask = has_signal(content_no_tags, ASK_SIGNALS)
         title_has_bang = "帮帮我" in title or "帮忙" in title
         has_any_ask = title_has_explicit_ask or content_has_ask or title_has_bang
 
         if has_any_ask:
-            return None  # 有求助信号，不淘汰
+            return None
 
         if any(kw in combined for kw in HOTEL_PRAISE_KEYWORDS):
             return "纯酒店夸赞广告"
         if any(kw in combined for kw in TEAM_BUILD_KEYWORDS):
             return "纯团建广告"
-
-        # 「xxx推荐xxx」格式标题 → 纯分享推荐，不算求助
-        if self._is_recommendation_format(title):
-            return "纯分享攻略贴"
-
         if any(kw in combined for kw in SHARE_POST_KEYWORDS):
             return "纯分享攻略贴"
 
-        # 强化：纯分享风格（用去掉标签的内容）
         share_style = (
             content_no_tags.count("#") >= 2 or
             "打卡" in combined or
@@ -414,9 +434,7 @@ class FilterService:
         )
         if share_style and not has_any_ask:
             return "纯分享攻略贴"
-
         return None
-
     def _has_unnegated_intent(self, text: str) -> bool:
         """检测是否有未是否定修饰的意图词（想/计划/打算/准备/行程）
         注意：「想」后接 CJK 字符（想想/想要/想去）复合词不算独立意图"""
@@ -482,6 +500,44 @@ class FilterService:
             if marker in pre_window:
                 return True
 
+        return False
+
+    def _is_soft_ad_question(self, content: str) -> bool:
+        """
+        检测以问句开场的软广推广帖。
+
+        典型结构：正文前几句以「有什么/有啥/请问」等问句词开场，
+        紧跟宝藏店铺/品牌/特产推荐，是探店软广，不是真求助。
+
+        判断逻辑：
+          - 正文前几句含以问句词开头的句子
+          - 且后面内容含软广特征词（宝藏店铺/一站式搞定/超级方便等）>= 2 个
+          → 软广，拒绝
+          - 仅有问句开场但无软广词 → 可能是真求助，不拦截
+        """
+        if not content or len(content.strip()) < 10:
+            return False
+
+        # 先检查软广特征词（正文里）
+        ad_phrases = [
+            "宝藏店铺", "一站式搞定", "超级方便", "太全了",
+            "海味干货", "包装精美", "送礼都超有面儿",
+            "来一站式", "特产真的太全",
+            "精选", "天然", "品质", "专业只生产",
+            "厂家", "力荐", "推荐产品", "荣获",
+        ]
+        ad_count = sum(1 for phrase in ad_phrases if phrase in content)
+        if ad_count < 2:
+            return False
+
+        # 检查前几句是否有以问句词开头的句子
+        opening_patterns = ["有什么", "有啥", "请问", "想问", "问问", "求推荐", "求问"]
+        for line in content[:200].split("\n")[:4]:
+            for sep in ["。", "？", "！"]:
+                first_part = line.split(sep)[0].strip()
+                # 用 `in` 检查（有些句子前面有地名/主语前缀，如「汕尾有什么特产」）
+                if any(p in first_part[:15] for p in opening_patterns):
+                    return True
         return False
     def _is_transport_only(self, combined: str, note_types: list[str]) -> bool:
         if not any(kw in combined for kw in TRANSPORT_KEYWORDS):
@@ -601,10 +657,12 @@ class FilterService:
         title_has_ask = has_signal(title_clean, ASK_SIGNALS)
 
         if has_ask_signal:
-            # 自语帖：有「有什么」+ 前有「想/我在」等第一人称思考标记 → 不算外向求助
+            # 自语帖
             if self._is_self_talk(content_no_tags):
-                # 自语不append「ask」，但可能由后续 trip_question/urgent 放行
                 pass
+            # 软广问句开场：正文第一句含「有什么/有啥」+ 紧跟店铺/品牌/特产推荐
+            elif self._is_soft_ad_question(content_no_tags):
+                pass  # 软广，不append ask
             else:
                 reasons.append("ask")
 

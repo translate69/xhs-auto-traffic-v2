@@ -1,6 +1,6 @@
 """
 回归测试：每次改 filter 规则前跑一遍
-确保历史上误判的笔记仍然被正确拒绝
+确保历史上误判的笔记仍然被正确拒绝（filter + review 双层 gate）
 
 用法：
     python test/regression_test.py
@@ -8,12 +8,14 @@
 import sys
 import json
 from pathlib import Path
+from datetime import datetime, timezone, timedelta
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 sys.stdout.reconfigure(encoding="utf-8")
 
 from filter.filter_service import FilterService
+from filter.review_service import ReviewService
 from core.note_detail import NoteDetail
 
 
@@ -32,9 +34,14 @@ def run_regression():
         return True
 
     svc = FilterService()
+    rev = ReviewService()
     all_pass = True
 
-    print(f"回归测试：{len(notes)} 条问题笔记\n")
+    # 用测试时间：2天前来保证在5天窗口内（不受时间过滤影响）
+    test_date = datetime.now(timezone.utc) - timedelta(days=2)
+    test_date_str = test_date.strftime("%Y-%m-%d")
+
+    print(f"回归测试：{len(notes)} 条问题笔记（测试时间：{test_date_str}）\n")
 
     for item in notes:
         note = NoteDetail(
@@ -42,34 +49,35 @@ def run_regression():
             content=item["content"],
             url="https://www.xiaohongshu.com/explore/" + item["note_id"],
             xsec_token="",
-            # 用测试时间：5天内，专注测 signal 逻辑，不受时间过滤影响
-            published_at="2026-05-03",
+            published_at=test_date_str,
         )
+        note._note_id = item["note_id"]
         result = svc.filter_one(note)
-        # 优先检查时间过滤（published_at=5月3日，当前=5月5日=2天前，还在5天窗口内）
-        # 如果结果包含"时间过久"，说明这条笔记的时间被错误放行/拒绝，先排除
-        if "时间过久" in result.reasons:
-            # 时间问题，不是信号逻辑问题，这轮跳过
-            status = "⏭️ "
-            print(f"{status} [{item['note_id'][:8]}] 时间过滤生效，跳过信号逻辑验证")
-            print(f"   原因: {item['reason']}")
-            print(f"   结果: {result.reasons}\n")
-            continue
 
+        # 附上 filter_result 让 review 读取
+        note.filter_passed = result.passed
+        note.filter_reasons = result.reasons
+        note._filter_result = result
+
+        # review gate（镜像执行）
+        review_result = rev._review_one(note)
+
+        # 最终判定：filter AND review 都要通过才算 pass
+        final_pass = result.passed and review_result.passed
         expected = item.get("expected", False)
 
-        # 跳过「已记录未修复」的笔记（它们不在 expected 验证范围内）
-        if item.get("fixed_at") == "never" or not item.get("fixed_at"):
-            # 检查是否在 problem_notes 里标记为 fixed（fixed_at 有值说明已修复）
-            pass  # 继续验证
-
-        status = "✅" if result.passed == expected else "❌"
-        if result.passed != expected:
+        status = "✅" if final_pass == expected else "❌"
+        if final_pass != expected:
             all_pass = False
 
-        print(f"{status} [{item['note_id'][:8]}] expected={expected} got={result.passed}")
+        filter_status = "PASS" if result.passed else "REJECT"
+        review_status = "PASS" if review_result.passed else "REJECT"
+
+        print(f"{status} [{item['note_id'][:8]}] filter={filter_status} review={review_status} expected={expected}")
         print(f"   原因: {item['reason']}")
-        print(f"   结果: {result.reasons}\n")
+        print(f"   filter 结果: {result.reasons}")
+        print(f"   review 结果: {review_result.reason}")
+        print()
 
     if all_pass:
         print("✅ 回归测试全部通过")
