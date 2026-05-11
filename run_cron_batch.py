@@ -120,6 +120,7 @@ def _release_lock():
 
 
 def _cleanup_playwright_pids():
+    """Targeted kill: only kill PIDs that belong to Playwright, not user Chrome."""
     try:
         import json
         pids = json.loads(PID_FILE.read_text())
@@ -135,6 +136,37 @@ def _cleanup_playwright_pids():
                 pass
         if killed:
             _log(f"清理 Playwright PIDs: {killed}")
+    except Exception:
+        pass
+
+
+def _cleanup_orphaned_batch():
+    """启动新批次前，强制清理残留的旧 Playwright 进程，防止资源冲突。"""
+    try:
+        import json
+        if not PID_FILE.exists():
+            return
+        pids = json.loads(PID_FILE.read_text())
+        if not pids:
+            return
+        alive = []
+        for p in pids:
+            if _is_process_alive(p):
+                alive.append(p)
+        if alive:
+            _log(f"检测到残留 Playwright 进程 {alive}，强制清理后启动新批次")
+            killed = []
+            for p in alive:
+                try:
+                    subprocess.run(
+                        ["taskkill", "/F", "/PID", str(p)],
+                        capture_output=True, timeout=5
+                    )
+                    killed.append(p)
+                except Exception:
+                    pass
+            if killed:
+                _log(f"已 kill 残留 PIDs: {killed}")
     except Exception:
         pass
 
@@ -181,6 +213,9 @@ def main():
     )
     _log(f"子进程 PID={child.pid}，输出: {log_out.name}")
 
+    # ---- 启动前清理残留孤儿进程 ----
+    _cleanup_orphaned_batch()
+
     # ---- 监控子进程，等它完成 ----
     try:
         retcode = child.wait(timeout=BATCH_TIMEOUT_SECONDS)
@@ -200,17 +235,23 @@ def main():
                         _log(f"结果: {passed_lines[-1].strip()}")
             except Exception as e:
                 _log(f"读日志失败: {e}")
+
+            # ---- 成功时才推进批次进度 ----
+            next_idx = (current + 1) % len(BATCHES)
+            _set_progress(next_idx)
         else:
-            _log(f"[FAIL] 子进程退出码 {retcode}")
+            _log(f"[FAIL] 子进程退出码 {retcode}，批次保持不变")
             # 读错误日志
             if log_err.exists():
                 err_content = open(log_err, encoding="utf-8", errors="replace").read()
                 if err_content:
                     _log(f"stderr: {err_content[-500:]}")
+            # 进度不推进，下次重试同批次
     except subprocess.TimeoutExpired:
-        _log(f"[WARN] 子进程超时（{BATCH_TIMEOUT_SECONDS}s），强制终止")
+        _log(f"[WARN] 子进程超时（{BATCH_TIMEOUT_SECONDS}s），强制终止，批次保持不变")
         child.kill()
         child.wait()
+        # 进度不推进，下次重试同批次
     finally:
         # 清理 Playwright 残留进程
         _cleanup_playwright_pids()
@@ -221,12 +262,10 @@ def main():
             pass
         # 清理锁
         _release_lock()
-
-    # ---- 更新进度 ----
-    next_idx = (current + 1) % len(BATCHES)
-    _set_progress(next_idx)
-    # ---- 一轮跑完后清理旧数据 ----
-    if next_idx == 0:
+    # ---- 一轮跑完后清理旧数据（仅在成功推进时执行）----
+    # next_idx 只在 retcode==0 时推进；此处用 current 而非 next_idx
+    # 因为如果 retcode!=0，进度未推进，current 就是未完成的批次
+    if retcode == 0 and (current + 1) % len(BATCHES) == 0:
         _log("轮回完成，重置到第1批")
         try:
             from utils.storage import CollectedStorage, RecentStorage
