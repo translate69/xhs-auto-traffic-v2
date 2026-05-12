@@ -165,30 +165,45 @@ def run_one_keyword(
             try:
                 feishu = FeishuOutputService()
                 feishu.input_path = review_svc.output_path
-                feishu.write(reviewed, keyword=keyword)
-                _log(keyword, "INFO", "飞书写入完成")
+                written, skipped, failed = feishu.write(reviewed, keyword=keyword)
+                _log(keyword, "INFO", f"飞书写入完成: 写入={written} 跳过={skipped} 失败={failed}")
             except Exception as e:
                 _log(keyword, "ERROR", f"飞书写入失败: {e}")
 
         # 企业微信通知（采集结果推送给运营群）
-        # 仅对"已通知"未勾选且飞书写入成功的笔记发送微信，发送后仅标记真正发送成功的
-        if reviewed:
-            try:
-                feishu_svc = FeishuOutputService()
-                notified_ids = feishu_svc.get_notified_note_ids()
-                to_notify = [n for n in reviewed if n.note_id not in notified_ids]
-                if to_notify:
-                    from utils.notify_client import notify_notes as _send_notify
-                    sent_ids = _send_notify(to_notify, dry_run=False)
-                    if sent_ids:
-                        feishu_svc.mark_notified(sent_ids)
-                        _log(keyword, "INFO", f"微信通知发送完成 ({len(sent_ids)} 条)")
-                    else:
-                        _log(keyword, "INFO", "微信通知全部失败，未标记已通知")
+        # 从飞书表格直接查询所有"已通知"未勾选的笔记进行通知（覆盖孤儿笔记）
+        # 发送后仅标记真正发送成功的
+        try:
+            feishu_svc = FeishuOutputService()
+
+            # 从飞书表格捞所有未通知的笔记（含本次新建 + 历史孤儿）
+            unnotified_raw = feishu_svc.get_unnotified_records()
+
+            if not unnotified_raw:
+                _log(keyword, "INFO", "微信通知: 全部已通知，跳过")
+            else:
+                # 转换为 dict 格式供 notify_notes 使用
+                unnotified_notes = []
+                for r in unnotified_raw:
+                    f = r["fields"]
+                    url_field = f.get("链接", "")
+                    url = url_field.get("link", url_field) if isinstance(url_field, dict) else url_field
+                    unnotified_notes.append({
+                        "note_id": f.get("笔记ID", ""),
+                        "title": f.get("标题", ""),
+                        "note_url": url,
+                        "type": f.get("类型", ""),
+                    })
+
+                from utils.notify_client import notify_notes as _send_notify
+                sent_ids = _send_notify(unnotified_notes, dry_run=False)
+                if sent_ids:
+                    feishu_svc.mark_notified(sent_ids)
+                    _log(keyword, "INFO", f"微信通知发送完成 ({len(sent_ids)} 条)")
                 else:
-                    _log(keyword, "INFO", "微信通知: 全部已通知，跳过")
-            except Exception as e:
-                _log(keyword, "ERROR", f"微信通知失败: {e}")
+                    _log(keyword, "INFO", "微信通知全部失败，未标记已通知")
+        except Exception as e:
+            _log(keyword, "ERROR", f"微信通知失败: {e}")
 
         storage.save(run_id, keyword, notes)
         storage.append_manifest(run_id, keyword, len(passed_notes))
