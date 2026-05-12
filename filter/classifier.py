@@ -33,16 +33,17 @@ TYPE_SIGNALS_REGEX: dict[str, list[str]] = {
 TYPE_PRIORITY: list[str] = ["美食推荐", "住宿推荐", "行程规划", "景点推荐"]
 
 
-def classify_type(title: str, content: str) -> str:
+def classify_type(title: str, content: str, tags: list[str] | None = None) -> str:
     """单类型分类（兼容保留），返回第一个命中的类型"""
-    types = classify_types(title, content)
+    types = classify_types(title, content, tags=tags)
     return types[0] if types else "其他"
 
 
-def classify_types(title: str, content: str) -> list[str]:
+def classify_types(title: str, content: str, tags: list[str] | None = None) -> list[str]:
     """
     多类型分类。
     返回所有命中的需求类型列表，按 TYPE_PRIORITY 顺序。
+    当 content 为空时，额外从 tags 中提取类型信号。
     """
     text = (title + " " + content).lower()
     matched: list[str] = []
@@ -53,5 +54,16 @@ def classify_types(title: str, content: str) -> list[str]:
             if re.search(pattern, text):
                 matched.append(type_name)
                 break
+
+    # 内容为空时：用 tags 补充类型判断（tags 形如 ['#汕尾美食', '#景点推荐']）
+    if not content.strip() and tags:
+        tags_text = " ".join(tags).lower()
+        for type_name in TYPE_PRIORITY:
+            patterns = TYPE_SIGNALS_REGEX.get(type_name, [])
+            for pattern in patterns:
+                if re.search(pattern, tags_text):
+                    if type_name not in matched:
+                        matched.append(type_name)
+                    break
 
     return matched

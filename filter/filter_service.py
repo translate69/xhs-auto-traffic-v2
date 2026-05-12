@@ -270,7 +270,7 @@ class FilterService:
             return FilterResult(passed=False, reasons="纯分享攻略贴")
 
         # ── 6. 纯交通类 ───────────────────────────────
-        note_types = classify_types(title, content_no_tags)  # 分类时不依赖标签
+        note_types = classify_types(title, content_no_tags, tags=detail.tags)  # 分类时支持 tags 补充类型
         combined = f"{title} {content_no_tags}"
         if self._is_transport_only(combined, note_types):
             return FilterResult(passed=False, reasons="纯交通问题")
