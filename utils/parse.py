@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 
 # ─── 常量 ──────────────────────────────────────────────────
 
-_TIME_UNIT_PATTERN = r"天前|小时前|分钟前|秒前|天$|小时$|分钟$|秒$"
+_TIME_UNIT_PATTERN = r"天前|周前|小时前|分钟前|秒前|天$|周$|小时$|分钟$|秒$"
 _TIME_SUFFIX_PATTERN = re.compile(r"\d+\s*(?:" + _TIME_UNIT_PATTERN + r")")
 
 
@@ -68,6 +68,13 @@ def parse_published_at(time_text: str) -> datetime | None:
             return now.replace(year=year, month=month, day=yesterday_day, hour=0, minute=0, second=0, microsecond=0)
         except ValueError:
             return None
+
+    # 周前
+    m = re.match(r"(\d+)周前", time_text)
+    if m:
+        weeks = int(m.group(1))
+        past = now - timedelta(weeks=weeks)
+        return past.replace(hour=0, minute=0, second=0, microsecond=0)
 
     # 天前
     m = re.match(r"(\d+)天前", time_text)

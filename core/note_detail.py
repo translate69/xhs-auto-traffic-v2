@@ -46,6 +46,19 @@ import config
 from core.search_collector import FeedNote
 
 
+# ─── 登录失效异常 ───────────────────────────────
+
+
+class RateLimitError(Exception):
+    """enrichment 检测到 300013 访问频繁时抛出，触发 URL 格式切换"""
+    pass
+
+
+class LoginRequiredError(Exception):
+    """enrichment 检测到登录弹窗或 cookie 失效时抛出"""
+    pass
+
+
 # ─── NoteDetail ───────────────────────────────────────────
 
 
@@ -142,7 +155,8 @@ class NoteDetailCollector:
     def __init__(self, browser, context):
         self.browser = browser
         self.context = context
-        # 不在这里创建 page，enrich_all 里每个 note 单独建/关 page
+        # 全局 URL 格式状态：初始 explore，第一条笔记触发 300013 后全局切换为 search_result
+        self._url_format = "explore"
         _log_stage("创建 NoteDetailCollector")
 
 
@@ -216,23 +230,19 @@ class NoteDetailCollector:
             return detail
 
         last_error = ""
-        # 优先 explore 格式（更稳定），explore 触发 300013 再切 search_result
-        url_format = "explore"
 
         for attempt in range(1, max_retries + 1):
             try:
                 if not page:
                     raise RuntimeError("Page 未初始化")
 
-                # ── 切换 URL 格式（explore 触发 300013 时切 search_result）────
-                if url_format == "search_result":
+                # ── 全局 URL 格式（explore / search_result，后续所有笔记生效）────
+                if self._url_format == "search_result":
                     detail_url = self._build_detail_url_search_result(feed)
-                    print(f"[Detail] explore 300013, retry with search_result URL: {detail_url}")
                 else:
                     detail_url = self._build_detail_url_fallback(feed)
-                    print(f"[Detail] 300013 detected, retry with explore URL: {detail_url}")
 
-                _log_stage(f"  goto: {detail_url}", flush=False)
+                _log_stage(f"  [{self._url_format}] goto: {detail_url[:80]}", flush=False)
                 page.goto(detail_url, wait_until="networkidle")
                 _log_stage(f"  page.goto 完成", flush=False)
 
@@ -251,7 +261,13 @@ class NoteDetailCollector:
 
                 # 检测是否跳转到了登录/安全限制页（URL 异常或页面内容异常）
                 final_url = page.url
-                if any(kw in final_url.lower() for kw in ["login", "/w/user/login", "/w/login", "error_code=", "website-login/error"]):
+                # 优先精确检测 300013 再走通用登录检测
+                if "error_code=300013" in final_url or "error_code=300013" in str(last_error):
+                    page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_detail_300013.png")
+                    raise RateLimitError(
+                        f"详情页触发 300013 访问频繁（{final_url[:80]}），需切换 URL 格式重试"
+                    )
+                if any(kw in final_url.lower() for kw in ["login", "/w/user/login", "/w/login", "website-login/error"]):
                     page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_detail_login.png")
                     raise LoginRequiredError(
                         f"详情页 URL 异常（{final_url[:60]}），cookie 可能已失效"
@@ -304,15 +320,15 @@ class NoteDetailCollector:
                 last_error = str(e)
                 print(f"[Detail] FAIL {attempt}/3: {last_error}")
 
-                # 检测 300013 访问频繁，切换 URL 格式重试
+                # 检测 300013 访问频繁，全局切换 URL 格式重试
                 if "300013" in last_error or "error_code=300013" in last_error:
-                    if url_format == "explore":
-                        url_format = "search_result"  # explore 失败，切 search_result
-                        print("[Detail] 300013 detected, will retry with search_result URL format")
-                        continue
-                    # search_result 也 300013，彻底失效，退出重试循环
-                    print("[Detail] 300013 on both formats, giving up")
-                    break
+                    if self._url_format == "explore":
+                        self._url_format = "search_result"  # 全局切换
+                        print(f"[Detail] 300013 detected，全局切换 → search_result 格式")
+                    else:
+                        self._url_format = "explore"  # search_result 也失败，切回 explore
+                        print(f"[Detail] 300013 on search_result，切回 explore 重试")
+                    continue
 
                 if attempt < max_retries:
                     time.sleep(config.ENRICHMENT_RETRY_DELAY)

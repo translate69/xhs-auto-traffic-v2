@@ -67,7 +67,7 @@ class RecentStorage:
                 except Exception:
                     pass
                 self._count += 1
-                if self._count % 20 == 0:
+                if self._count % 2000 == 0:
                     self._cleanup()
 
     def _cleanup(self, force: bool = False):
@@ -204,6 +204,7 @@ class CollectedStorage:
                             "comments": detail.comments or 0,
                             "published_at": detail.published_at or "",
                             "author_id": getattr(detail, "author_id", "") or "",
+                            "note_id": detail.note_id or "",
                             "keyword": keyword,
                             "collected_at": datetime.now().isoformat(),
                             "run_id": run_id,
