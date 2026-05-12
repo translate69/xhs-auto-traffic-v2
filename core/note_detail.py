@@ -180,6 +180,8 @@ class NoteDetailCollector:
         返回 NoteDetail 列表（失败条目降级保留搜索页数据）。
         """
         results = []
+        from utils.storage import RecentStorage
+        recent_storage = RecentStorage()
         _log_stage(f"enrich_all 开始，共 {len(feeds)} 条")
 
         for i, feed in enumerate(feeds):
@@ -195,6 +197,10 @@ class NoteDetailCollector:
                 print(f"[Detail] [{i+1}/{len(feeds)}] {feed.url}")
 
                 detail = self._enrich_single(feed, page)
+
+                # ── enrichment 成功，写入 recent storage ──
+                if feed.note_id:
+                    recent_storage.mark_seen(feed.note_id)
 
                 # ── 暂停节奏 ──
                 pause = random.uniform(*config.PAUSE_BETWEEN_NOTES)

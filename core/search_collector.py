@@ -431,8 +431,4 @@ class SearchCollector:
 
             result.append(feed)
 
-            # 记录
-            if note_id:
-                self.storage.mark_seen(note_id)
-
         return result
