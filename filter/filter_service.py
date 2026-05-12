@@ -303,7 +303,7 @@ class FilterService:
         return FilterResult(
             passed=True,
             reasons=",".join(passed_reasons),
-            note_type=",".join(note_types) if note_types else "",
+            note_type=",".join(note_types) if note_types else "其他",
         )
 
     # ─── 辅助方法 ───────────────────────────────────────
