@@ -171,9 +171,11 @@ class ReviewService:
         # 进一步判断 strong_ask 是否足够强——不够强则剥掉 ask 并拒绝。
         # 这里补上这个逻辑，防止分享贴借「弱问句」逃逸。
         if has_signal(content_no_tags, ASK_SIGNALS):
+            # 「求带」引用语境：说求带/同学求带等模式不是真实求助，是引用别人说的话
+            qiudai_quote = bool(__import__('re').search(r'[^我]求带|同学.*求带|[喊让叫]我求带', content_no_tags))
             share_hit = [kw for kw in self._filter.EXPERIENCE_SHARE_KEYWORDS
                          if kw in content_no_tags or kw in title]
-            if share_hit:
+            if share_hit or qiudai_quote:
                 # 强 ask：想问/求/求助/有什么/有没有（有具体需求意向）
                 strong_ask = has_signal(content_no_tags, ["想问", "求", "求助", "有什么", "有没有"])
                 has_recommend_ask = bool(__import__('re').search(r"有.{0,6}推荐", content_no_tags))
@@ -191,6 +193,8 @@ class ReviewService:
                 ))
                 if blogger_ask_pattern:
                     strong_ask = False
+                if qiudai_quote:
+                    return ReviewResult(passed=False, reason="求带引用语境(非真实求助)")
                 if not strong_ask and not has_recommend_ask:
                     return ReviewResult(passed=False, reason=f"分享贴借弱问句逃逸({share_hit[0]})")
 

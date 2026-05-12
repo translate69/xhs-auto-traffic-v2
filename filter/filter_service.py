@@ -671,6 +671,14 @@ class FilterService:
         content_has_ask = has_signal(content_no_tags, ASK_SIGNALS)
         title_has_ask = has_signal(title_clean, ASK_SIGNALS)
 
+        # 「求带」引用语境检测：说求带/同学求带/让我求带等模式不是真实求助，是引用别人说的话
+        # 例：「昨天同学看了视频，求带」= 引用朋友的话，不是作者自己的求助
+        qiudai_quote_pattern = re.search(r'[^我]求带|同学.*求带|[喊让叫]我求带', content_no_tags)
+        if qiudai_quote_pattern:
+            # 命中「求带」引用语境，从 ask 信号中移除
+            content_has_ask = False
+            has_ask_signal = False
+
         if has_ask_signal:
             # 自语帖
             if self._is_self_talk(content_no_tags):
