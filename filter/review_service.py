@@ -22,7 +22,7 @@ from pathlib import Path
 
 import config
 from core.note_detail import NoteDetail
-from filter.filter_service import FilterService
+from filter.filter_service import FilterService, has_signal, ASK_SIGNALS
 
 
 # ─── 复查常量（仅用于快速兜底，不参与核心判断）───────────────
@@ -138,34 +138,73 @@ class ReviewService:
         if note.author and self._is_merchant_author(note.author):
             return ReviewResult(passed=False, reason=f"商家账号({note.author})")
 
-        # ── 步骤2：避雷类标题 ───────────────────────────
+        # ── 步骤2：搭子标签（正文无真实同行意图则放行，hashtag平台标签不计入）──
+        user_text_for_companion = f"{title} {content_no_tags}"
+        REAL_COMPANION_INTENT_REVIEW = [
+            "找搭子", "求搭子", "招募同行", "约伴", "求捡",
+            "拼车", "捡人同游", "一起组队", "求组队同游",
+        ]
+        has_real_companion = any(kw in user_text_for_companion for kw in REAL_COMPANION_INTENT_REVIEW)
+        if has_real_companion:
+            return ReviewResult(passed=False, reason="找搭子/旅游同伴")
+
+        # ── 步骤3：避雷类标题（始终检查）───
         if (not title.startswith("求")
                 and not any(kw in title for kw in ["求推荐", "求住", "求带"])
                 and any(kw in title for kw in _BLEI_KEYWORDS)):
             return ReviewResult(passed=False, reason="避雷类分享贴")
 
-        # ── 步骤3：推荐格式标题（镜像执行 filter._is_recommendation_format）───
+        # ── 步骤4：推荐格式标题（镜像执行 filter._is_recommendation_format）───
         # 修复"怎么选"误判后，这里能 catch 住"xxx怎么选xxx"格式的分享贴
         if self._filter._is_recommendation_format(title):
             return ReviewResult(passed=False, reason="纯分享推荐格式")
 
-        # ── 步骤4：纯分享攻略贴（镜像执行 filter._is_share_post_only）─────────
+        # ── 步骤5：纯分享攻略贴（镜像执行 filter._is_share_post_only）─────────
         # _is_share_post_only 返回 "纯分享攻略贴" 字符串时表示拒绝
         share_reject = self._filter._is_share_post_only(title, content_no_tags)
         if share_reject:
             return ReviewResult(passed=False, reason=share_reject)
 
-        # ── 步骤5：自语帖（镜像执行 filter._is_self_talk）────────────────
+        # ── 步骤4b：（镜像执行 filter._get_pass_reasons 中的 share_hit 逻辑）───
+        # _is_share_post_only 在 has_any_ask=True 时直接放行（不做分享关键词检查）。
+        # 但 filter 的 _get_pass_reasons 会在「有 ask + 有 EXPERIENCE_SHARE_KEYWORDS」时
+        # 进一步判断 strong_ask 是否足够强——不够强则剥掉 ask 并拒绝。
+        # 这里补上这个逻辑，防止分享贴借「弱问句」逃逸。
+        if has_signal(content_no_tags, ASK_SIGNALS):
+            share_hit = [kw for kw in self._filter.EXPERIENCE_SHARE_KEYWORDS
+                         if kw in content_no_tags or kw in title]
+            if share_hit:
+                # 强 ask：想问/求/求助/有什么/有没有（有具体需求意向）
+                strong_ask = has_signal(content_no_tags, ["想问", "求", "求助", "有什么", "有没有"])
+                has_recommend_ask = bool(__import__('re').search(r"有.{0,6}推荐", content_no_tags))
+                # 反问语气：有 "有什么" 但上下文是满足/感叹语气，不算真求助
+                is_rhetorical_what = bool(__import__('re').search(
+                    r'还有什么[^一-龥]*?(烦恼|忧愁|不爽|难过)|有什么.?.?(不|没|么)\w',
+                    content_no_tags
+                ))
+                if is_rhetorical_what:
+                    strong_ask = False
+                # 博主结尾邀请提问 ≠ 真实求助（"还有什么想问的/尽管问/评论区问"）
+                blogger_ask_pattern = bool(__import__('re').search(
+                    r'还有什么想问的|尽管问|评论区[问們]|有问题想问',
+                    content_no_tags
+                ))
+                if blogger_ask_pattern:
+                    strong_ask = False
+                if not strong_ask and not has_recommend_ask:
+                    return ReviewResult(passed=False, reason=f"分享贴借弱问句逃逸({share_hit[0]})")
+
+        # ── 步骤6：自语帖（镜像执行 filter._is_self_talk）────────────────
         # 正文含"有什么/有啥"但前方有"想/我在"等自语标记 → 不是真求助
         if self._filter._is_self_talk(content_no_tags):
             return ReviewResult(passed=False, reason="自语帖")
 
-        # ── 步骤6：软广问句开场（镜像执行 filter._is_soft_ad_question）───
+        # ── 步骤7：软广问句开场（镜像执行 filter._is_soft_ad_question）───
         # 正文前几句以问句开场 + 含>=2个软广特征词 → 探店软广
         if self._filter._is_soft_ad_question(content_no_tags):
             return ReviewResult(passed=False, reason="软广问句开场")
 
-        # ── 步骤7：民宿商家自推广（镜像执行 filter._is_merchant_accommodation）───
+        # ── 步骤8：民宿商家自推广（镜像执行 filter._is_merchant_accommodation）───
         if self._filter._is_merchant_accommodation(combined):
             return ReviewResult(passed=False, reason="民宿商家推广")
 

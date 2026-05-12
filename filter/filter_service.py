@@ -238,8 +238,11 @@ class FilterService:
         if other_city:
             return FilterResult(passed=False, reasons=f"跨城市蹭流量({other_city})")
 
-        # ── 3. 强拒绝关键词 ────────────────────────────
-        if any(kw in combined for kw in STRONG_REJECT_KEYWORDS):
+        # ── 3. 强拒绝关键词（正文+标题中检查，hashtag平台标签不计入）────
+        # 「旅游搭子/找搭子」等词若只出现在 hashtag 中（平台生成标签），不是用户真实找搭子意图
+        # 仅当用户正文（含标题）中有真实同行意图词时才拒绝
+        user_text_for_reject = f"{title} {content_no_tags}"
+        if any(kw in user_text_for_reject for kw in STRONG_REJECT_KEYWORDS):
             return FilterResult(passed=False, reasons="找搭子/旅游同伴")
 
         # ── 4. 商家账号 ────────────────────────────────
@@ -678,6 +681,15 @@ class FilterService:
             else:
                 reasons.append("ask")
 
+        # 邀请式 ask 检测：「欢迎大家留下...抄作业」类结构 = 邀请推荐，本质是 ask
+        # （不是「想问/求推荐」显性词，但邀请他人提供信息 = 真实求助意向）
+        invite_ask_pattern = re.search(
+            r'欢迎[大家各位小红书们]+.*?(抄作业|推荐|说说|告诉我|告诉我|告诉我|给些?意见)',
+            content_no_tags
+        )
+        if invite_ask_pattern:
+            reasons.append("ask")
+
         # 正文含体验分享/种草词 → 拦截（即使有 ask 信号也不放行）
         # 这些帖子：有 ask 信号但本质是分享/种草/陪伴记录，不算真求助
         # 检测范围：正文 + 标题（因为「避雷」/「吐槽」可能只出现在标题）
@@ -747,9 +759,6 @@ class FilterService:
             # 限制：只用特定的行程咨询信号，不使用泛化的「吗/么/呢」问号
             # 因为「你们见过吗」是描述性问句，不等于求助
             if any(kw in content_no_tags for kw in ["怎么安排", "来得及吗", "来得及么", "够吗", "合适吗", "可以吗", "方便吗", "行吗", "适合吗"]) or "哪儿" in content_no_tags:
-                reasons.append("type_match")
-            # 内容较长 + 有意图词（排除被否定修饰的） → 通过
-            # Removed: len>30 fallback too loose for type_match; require genuine ask signal
                 reasons.append("type_match")
 
         return reasons
