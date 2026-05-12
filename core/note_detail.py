@@ -463,8 +463,13 @@ class NoteDetailCollector:
         pub_dt = parse_published_at(time_clean)
         published_at = pub_dt.strftime("%Y-%m-%d") if pub_dt else ""
 
+        # 清洗正文：从 content 中移除 #标签 文本（因为标签已有独立 tags 字段）
+        raw_content = data.get("content", "")
+        import re
+        content = re.sub(r'#[^\s#]+', '', raw_content).strip()
+
         return NoteDetail(
-            content=data.get("content", ""),
+            content=content,
             tags=data.get("tags", []),
             images=data.get("images", []),
             likes=data.get("likes", 0),
