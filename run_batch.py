@@ -119,7 +119,7 @@ def run_one_keyword(
         _log(keyword, "INFO", f"采集完成: {len(feeds)} 条 Feeds")
 
         # Enrichment
-        detail_collector = NoteDetailCollector(browser_manager.browser, context)
+        detail_collector = NoteDetailCollector(browser_manager.browser, context, browser_manager.cookie_file)
         notes = detail_collector.enrich_all(feeds)
         # 丢弃不可访问的帖子（删/私/限）
         accessible_notes = [n for n in notes if n.content != "[内容无法获取]"]
@@ -169,6 +169,26 @@ def run_one_keyword(
                 _log(keyword, "INFO", "飞书写入完成")
             except Exception as e:
                 _log(keyword, "ERROR", f"飞书写入失败: {e}")
+
+        # 企业微信通知（采集结果推送给运营群）
+        # 仅对"已通知"未勾选且飞书写入成功的笔记发送微信，发送后仅标记真正发送成功的
+        if reviewed:
+            try:
+                feishu_svc = FeishuOutputService()
+                notified_ids = feishu_svc.get_notified_note_ids()
+                to_notify = [n for n in reviewed if n.note_id not in notified_ids]
+                if to_notify:
+                    from utils.notify_client import notify_notes as _send_notify
+                    sent_ids = _send_notify(to_notify, dry_run=False)
+                    if sent_ids:
+                        feishu_svc.mark_notified(sent_ids)
+                        _log(keyword, "INFO", f"微信通知发送完成 ({len(sent_ids)} 条)")
+                    else:
+                        _log(keyword, "INFO", "微信通知全部失败，未标记已通知")
+                else:
+                    _log(keyword, "INFO", "微信通知: 全部已通知，跳过")
+            except Exception as e:
+                _log(keyword, "ERROR", f"微信通知失败: {e}")
 
         storage.save(run_id, keyword, notes)
         storage.append_manifest(run_id, keyword, len(passed_notes))

@@ -373,6 +373,10 @@ class FilterService:
         if re.search(r"有没有|有无|在线蹲", title):
             return False
         # 匹配 "xxx推荐xxx" 格式（推荐前后都有内容）
+        # 但「不推荐」「被推荐」「说推荐」等是否定上下文，不是分享推荐
+        neg_before = re.search(r"[不没被都说也还就才]\s*推荐", title)
+        if neg_before:
+            return False
         return bool(re.search(r".{0,10}推荐.{0,15}", title))
 
     def _is_topic_description_format(self, title: str) -> bool:
@@ -499,6 +503,14 @@ class FilterService:
         for marker in SELF_TALK_MARKERS:
             if marker in pre_window:
                 return True
+
+        # Pattern: 「有什么〦勃定」 = 个人隂性心态描这\uff0c不是真求助
+        # 例：「有什么公交车来就勃定去哪里吃」 = 描这自己的旅�%A1�方式\uff0c不是问别人推荐
+        if re.search(r'有什么.{0,20}(就决定|就看|就跟|就根据|就去|就走|就算|就当|就算它|就当是)', content):
+            return True
+        # Pattern: 明显随机/随性心态描述（无「有什么」前缀）
+        if re.search(r'(走到哪|走到哪算哪|随便|随意|随性)', content):
+            return True
 
         return False
 

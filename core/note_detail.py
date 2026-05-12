@@ -152,11 +152,16 @@ class NoteDetailCollector:
     # 每 N 条重启 context，释放主进程堆内存，防止 Windows 内存压缩发 SIGKILL
     RESTART_EVERY = 10
 
-    def __init__(self, browser, context):
+    def __init__(self, browser, context, cookie_file: Path | None = None):
         self.browser = browser
         self.context = context
+        # Cookie 文件路径（传入而非硬编码，保持与 BrowserManager 一致）
+        self._cookie_file = cookie_file or (Path(__file__).parent.parent / "xhs_cookies.json")
         # 全局 URL 格式状态：初始 explore，第一条笔记触发 300013 后全局切换为 search_result
         self._url_format = "explore"
+        # Batch 级别 300013 统计（用于检测 token 过期）
+        self._batch_300013_count = 0
+        self._batch_total = 0
         _log_stage("创建 NoteDetailCollector")
 
 
@@ -165,10 +170,7 @@ class NoteDetailCollector:
         old = self.context
         self.context = self.browser.new_context()
         old.close()
-        # 重建 cookie
-        from pathlib import Path
-        cookie_file = Path(__file__).parent.parent / "xhs_cookies.json"
-        with open(cookie_file, encoding="utf-8") as f:
+        with open(self._cookie_file, encoding="utf-8") as f:
             cookies = json.load(f)
         self.context.add_cookies(cookies)
         _log_stage(f"  [Context 重启完成]")
@@ -182,6 +184,8 @@ class NoteDetailCollector:
         results = []
         from utils.storage import RecentStorage
         recent_storage = RecentStorage()
+        self._batch_total = 0
+        self._batch_300013_count = 0
         _log_stage(f"enrich_all 开始，共 {len(feeds)} 条")
 
         for i, feed in enumerate(feeds):
@@ -202,6 +206,8 @@ class NoteDetailCollector:
                 if feed.note_id:
                     recent_storage.mark_seen(feed.note_id)
 
+                self._batch_total += 1
+
                 # ── 暂停节奏 ──
                 pause = random.uniform(*config.PAUSE_BETWEEN_NOTES)
                 time.sleep(pause)
@@ -213,6 +219,7 @@ class NoteDetailCollector:
 
             except Exception as e:
                 _log_stage(f"  例外: {e}", flush=True)
+                self._batch_total += 1
                 detail = NoteDetail()
                 detail.merge_from_feed(feed)
 
@@ -223,6 +230,13 @@ class NoteDetailCollector:
             results.append(detail)
 
         _log_stage(f"enrich_all 完成，返回 {len(results)} 条")
+
+        # ── Token 过期 / 会话级风控警告 ──
+        if self._batch_total > 0 and self._batch_300013_count == self._batch_total:
+            print(f"\n🚨 [CRITICAL] Batch 内全部 {self._batch_total} 条笔记均触发 300013！")
+            print(f"   原因可能是 xsec_token 已过期或会话级风控，建议重新采集搜索页以刷新 token。")
+            print(f"   当前 cookie 文件: {self._cookie_file}")
+
         return results
 
     def _enrich_single(self, feed: FeedNote, page, max_retries: int = 3) -> NoteDetail:
@@ -328,6 +342,7 @@ class NoteDetailCollector:
 
                 # 检测 300013 访问频繁，全局切换 URL 格式重试
                 if "300013" in last_error or "error_code=300013" in last_error:
+                    self._batch_300013_count += 1
                     if self._url_format == "explore":
                         self._url_format = "search_result"  # 全局切换
                         print(f"[Detail] 300013 detected，全局切换 → search_result 格式")
