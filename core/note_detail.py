@@ -157,8 +157,9 @@ class NoteDetailCollector:
         self.context = context
         # Cookie 文件路径（传入而非硬编码，保持与 BrowserManager 一致）
         self._cookie_file = cookie_file or (Path(__file__).parent.parent / "xhs_cookies.json")
-        # 全局 URL 格式状态：初始 explore，第一条笔记触发 300013 后全局切换为 search_result
-        self._url_format = "explore"
+        # 全局 URL 格式状态：初始 search_result（explore 格式稳定触发 300011，优先用 search_result）
+        # 触发 300013 后降级为 explore
+        self._url_format = "search_result"
         # Batch 级别 300013 统计（用于检测 token 过期）
         self._batch_300013_count = 0
         self._batch_total = 0
@@ -343,12 +344,12 @@ class NoteDetailCollector:
                 # 检测 300013 访问频繁，全局切换 URL 格式重试
                 if "300013" in last_error or "error_code=300013" in last_error:
                     self._batch_300013_count += 1
-                    if self._url_format == "explore":
-                        self._url_format = "search_result"  # 全局切换
-                        print(f"[Detail] 300013 detected，全局切换 → search_result 格式")
+                    if self._url_format == "search_result":
+                        self._url_format = "explore"  # 全局切换
+                        print(f"[Detail] 300013 detected，全局切换 → explore 格式")
                     else:
-                        self._url_format = "explore"  # search_result 也失败，切回 explore
-                        print(f"[Detail] 300013 on search_result，切回 explore 重试")
+                        self._url_format = "search_result"  # explore 也失败，切回 search_result
+                        print(f"[Detail] 300013 on explore，切回 search_result 重试")
                     continue
 
                 if attempt < max_retries:
