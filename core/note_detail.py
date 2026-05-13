@@ -196,7 +196,24 @@ class NoteDetailCollector:
                 self._restart_context()
 
             # ── 每条笔记独立 page，用完即关 ──
-            page = self.context.new_page()
+            page = None
+            try:
+                page = self.context.new_page()
+            except Exception as e:
+                if "Target page, context or browser has been closed" in str(e) or "Protocol error" in str(e):
+                    _log_stage(f"  [WARN] Browser 已关闭，尝试重建 context...", flush=True)
+                    self._restart_context()
+                    try:
+                        page = self.context.new_page()
+                    except Exception:
+                        _log_stage(f"  [ERROR] 重建 context 失败，跳过笔记", flush=True)
+                        self._batch_total += 1
+                        results.append(NoteDetail())
+                        results[-1].merge_from_feed(feed)
+                        continue
+                else:
+                    raise
+
             try:
                 _log_stage(f"处理笔记 {i+1}/{len(feeds)}: {feed.note_id}", flush=False)
                 print(f"[Detail] [{i+1}/{len(feeds)}] {feed.url}")
@@ -225,7 +242,11 @@ class NoteDetailCollector:
                 detail.merge_from_feed(feed)
 
             finally:
-                page.close()  # 立即关闭，释放 DOM 内存
+                if page:
+                    try:
+                        page.close()
+                    except Exception:
+                        pass  # 页面已关闭，忽略
                 _log_stage(f"  Page 已关闭")
 
             results.append(detail)
