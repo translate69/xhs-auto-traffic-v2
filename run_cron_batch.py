@@ -20,21 +20,16 @@ import time
 import signal
 import subprocess
 from pathlib import Path
+from itertools import islice
 
 PROJECT_ROOT = Path(__file__).parent
 LOCK_FILE = PROJECT_ROOT / ".batch_lock"
 PROGRESS_FILE = PROJECT_ROOT / ".batch_progress"
 LOG_FILE = PROJECT_ROOT / "logs" / "cron_batch.log"
 PID_FILE = PROJECT_ROOT / ".playwright_pids"
-
-# 批次配置（每批3个关键词，与 keywords.txt 保持同步）
-BATCHES = [
-    ["汕尾美食推荐", "汕尾住宿推荐", "汕尾旅游攻略"],
-    ["汕尾红海湾攻略", "汕尾有什么好吃的推荐", "汕尾住哪里好"],
-    ["汕尾本地人推荐美食", "汕尾金町湾民宿推荐", "汕尾红海湾民宿"],
-    ["汕尾三天两晚攻略", "汕尾亲子游攻略"],
-]
-BATCH_TIMEOUT_SECONDS = 660  # 11分钟，单关键词允许更长
+KEYWORDS_FILE = PROJECT_ROOT / "keywords.txt"
+KEYWORDS_PER_BATCH = 3  # 每批几个关键词
+BATCH_TIMEOUT_SECONDS = 660  # 11分钟
 
 
 def _get_progress() -> int:
@@ -46,6 +41,31 @@ def _get_progress() -> int:
 
 def _set_progress(batch_idx: int):
     PROGRESS_FILE.write_text(str(batch_idx))
+
+
+def _load_batches_from_keywords() -> list[list[str]]:
+    """从 keywords.txt 动态读取关键词，自动按 BATCH_SIZE 分批。"""
+    keywords = []
+    if KEYWORDS_FILE.exists():
+        for line in KEYWORDS_FILE.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            kw = line.rsplit(",", 1)[0].strip()
+            if kw:
+                keywords.append(kw)
+    if not keywords:
+        raise RuntimeError(f"keywords.txt 为空或不存在: {KEYWORDS_FILE}")
+
+    # 每 KEYWORDS_PER_BATCH 个一批，最后一批不足也单独成批
+    batches = []
+    it = iter(keywords)
+    while True:
+        batch = list(islice(it, KEYWORDS_PER_BATCH))
+        if not batch:
+            break
+        batches.append(batch)
+    return batches
 
 
 def _log(msg: str):
@@ -167,6 +187,10 @@ def main():
         sys.exit(0)
 
     # ---- 读进度 ----
+    # ---- 动态读取关键词批次 ----
+    BATCHES = _load_batches_from_keywords()
+    _log(f"共 {len(BATCHES)} 批，动态加载自 keywords.txt")
+
     current = _get_progress()
     if current < 0 or current >= len(BATCHES):
         current = 0
@@ -176,14 +200,9 @@ def main():
 
     # ---- 构造临时关键词文件 ----
     batch_file = PROJECT_ROOT / ".batch_current.txt"
-    core_kw_set = {
-        "汕尾旅游攻略", "汕尾住宿推荐", "汕尾美食推荐",
-        "汕尾去哪吃", "汕尾去哪住", "汕尾旅游", "汕尾美食",
-    }
     with open(batch_file, "w", encoding="utf-8") as f:
         for kw in keywords:
-            group = "core" if kw in core_kw_set else "longtail"
-            f.write(f"{kw},{group}\n")
+            f.write(f"{kw},core\n")
 
     # ---- 启动后台子进程（不 capture，避免 buffer 阻塞）----
     start_time = time.time()
