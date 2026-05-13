@@ -1,24 +1,19 @@
-# 小红书截流关键词配置
+# 小红书截流关键词配置 v2
+# 原则：意图型 > 主题型，避免纯主题词（搜出来广告/分享帖太多）
 # 格式：关键词,[分组]
-# 分组：core=核心高需求, longtail=长尾精准
+# 分组：core=核心刚需, longtail=长尾精准
 
-# === 核心高需求 ===
-汕尾旅游攻略,core
-汕尾住宿推荐,core
+# === 核心刚需（带求助语气/推荐意图）===
 汕尾美食推荐,core
-汕尾去哪吃,core
-汕尾去哪住,core
-汕尾旅游,core
-汕尾美食,core
+汕尾住宿推荐,core
+汕尾旅游攻略,core
+汕尾红海湾攻略,core
 
-# === 长尾精准 ===
-广州到汕尾自驾住哪,longtail
-深圳到汕尾自驾住哪,longtail
-汕尾红海湾民宿,longtail
-汕尾红海湾攻略,longtail
-汕尾3天2晚攻略,longtail
-汕尾2天1晚行程,longtail
+# === 长尾精准（带具体修饰：本地人/民宿/几天几晚/哪里）===
+汕尾有什么好吃的推荐,longtail
+汕尾住哪里好,longtail
 汕尾本地人推荐美食,longtail
-汕尾海边民宿推荐,longtail
-汕尾周末去哪玩,longtail
-汕尾亲子游,longtail
+汕尾金町湾民宿推荐,longtail
+汕尾红海湾民宿,longtail
+汕尾三天两晚攻略,longtail
+汕尾亲子游攻略,longtail
