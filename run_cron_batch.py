@@ -27,7 +27,8 @@ LOCK_FILE = PROJECT_ROOT / ".batch_lock"
 PROGRESS_FILE = PROJECT_ROOT / ".batch_progress"
 LOG_FILE = PROJECT_ROOT / "logs" / "cron_batch.log"
 PID_FILE = PROJECT_ROOT / ".playwright_pids"
-KEYWORDS_FILE = PROJECT_ROOT / os.environ.get("XHS_KEYWORDS_FILE", "keywords.txt")
+# keywords_v2.txt 是当前生产配置文件，固定读这个
+KEYWORDS_FILE = PROJECT_ROOT / "keywords_v2.txt"
 KEYWORDS_PER_BATCH = 3  # 每批几个关键词
 BATCH_TIMEOUT_SECONDS = 660  # 11分钟
 
