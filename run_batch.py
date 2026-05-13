@@ -196,7 +196,7 @@ def run_one_keyword(
                     })
 
                 from utils.notify_client import notify_notes as _send_notify
-                sent_ids = _send_notify(unnotified_notes, dry_run=False)
+                sent_ids = _send_notify(unnotified_notes, dry_run=False, merge=True)
                 if sent_ids:
                     feishu_svc.mark_notified(sent_ids)
                     _log(keyword, "INFO", f"微信通知发送完成 ({len(sent_ids)} 条)")

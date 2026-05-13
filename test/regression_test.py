@@ -62,12 +62,16 @@ def run_regression():
         # review gate（镜像执行）
         review_result = rev._review_one(note)
 
-        # 最终判定：filter AND review 都要通过才算 pass
-        final_pass = result.passed and review_result.passed
         expected = item.get("expected", False)
-
-        status = "✅" if final_pass == expected else "❌"
-        if final_pass != expected:
+        # 新架构判定（filter 弱 + review 强）：
+        #   expected=True  → filter AND review 都要 pass
+        #   expected=False → filter 必须 reject（review 是守门员，但 filter 先拦住也行）
+        if expected:
+            ok = result.passed and review_result.passed
+        else:
+            ok = (not result.passed) or (not review_result.passed)  # filter 或 review 任一拒绝都算
+        status = "✅" if ok else "❌"
+        if not ok:
             all_pass = False
 
         filter_status = "PASS" if result.passed else "REJECT"

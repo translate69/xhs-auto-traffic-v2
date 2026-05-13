@@ -91,7 +91,7 @@ def load_all_records() -> list[dict]:
             "note_id": fields.get("笔记ID", ""),
             "title": fields.get("标题", ""),
             "note_url": _extract_url(fields.get("链接")),
-            "content": fields.get("正文摘要", ""),
+            "content": fields.get("正文内容", ""),
             "author": fields.get("作者", ""),
             "likes": fields.get("点赞", 0),
             "collects": fields.get("收藏", 0),
@@ -147,6 +147,50 @@ def delete_record(record_id: str) -> bool:
     except Exception as e:
         print(f"[Feishu] 删除失败 {record_id}: {e}")
         return False
+
+
+def update_record_fields(record_id: str, fields: dict) -> bool:
+    """
+    根据 record_id 更新记录的指定字段。
+    返回 True 成功，False 失败。
+    """
+    token = os.environ.get("FEISHU_TOKEN", "") or _get_tenant_token()
+    if not token:
+        return False
+    app_token = config.FEISHU_APP_TOKEN
+    table_id = config.FEISHU_TABLE_ID
+    url = (f"https://open.feishu.cn/open-apis/bitable/v1/apps/{app_token}"
+           f"/tables/{table_id}/records/{record_id}")
+    payload = json.dumps({"fields": fields}, ensure_ascii=False).encode("utf-8")
+    req = urllib.request.Request(
+        url, data=payload,
+        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        method="PUT",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            return json.load(resp).get("code") == 0
+    except Exception:
+        return False
+
+
+def mark_notified(note_ids: list[str]) -> tuple[int, int]:
+    """
+    批量将指定 note_id 对应的记录标记为已通知（勾选"已通知"字段）。
+    返回 (updated, failed)。
+    """
+    updated = 0
+    failed = 0
+    for nid in note_ids:
+        exists, record_id = check_note_exists(nid)
+        if not exists or not record_id:
+            failed += 1
+            continue
+        if update_record_fields(record_id, {"已通知": True}):
+            updated += 1
+        else:
+            failed += 1
+    return updated, failed
 
 
 def batch_delete_note_ids(note_ids: list[str]) -> tuple[int, int]:
@@ -259,8 +303,7 @@ def _to_url(val: str) -> dict | None:
 def _build_fields(note_id: str, row: dict) -> dict:
     """将 row dict 映射为飞书字段（跟 v1 兼容）"""
     content = row.get("content", "")
-    if len(content) > 500:
-        content = content[:500] + "..."
+    pass  # no truncation
 
     tags = row.get("tags", "")
     if isinstance(tags, list):
@@ -275,7 +318,7 @@ def _build_fields(note_id: str, row: dict) -> dict:
         "笔记ID": note_id,
         "标题": row.get("title", ""),
         "链接": _to_url(row.get("note_url", "")),
-        "正文摘要": content,
+        "正文内容": content,
         "作者": row.get("author", ""),
         "点赞": int(row.get("likes", 0)) or 0,
         "收藏": int(row.get("collects", 0)) or 0,

@@ -19,9 +19,11 @@ from utils.feishu_client import (
     batch_write,
     load_existing_note_ids,
     load_all_records,
+    _load_all_records_raw,
     check_note_exists,
     delete_record,
     batch_delete_note_ids,
+    mark_notified,
 )
 
 
@@ -98,14 +100,16 @@ class FeishuOutputService:
         # ── filter_result ──────────────────────────
         fr = detail.filter_result
         type_str = fr.note_type if fr else ""
+        # MultiSelect 字段需要列表格式
+        note_type_list = [t.strip() for t in type_str.split(",") if t.strip()] if type_str else []
         reasons_str = fr.reasons if fr else ""
 
         return {
             "title": title,
             "note_url": note_url,
             "note_id": note_id,
-            "type": type_str,
-            "content": detail.content[:500] if detail.content else "",
+            "type": note_type_list,
+            "content": detail.content if detail.content else "",
             "author": detail.author or "",
             "likes": detail.likes or 0,
             "collects": detail.collects or 0,
@@ -182,3 +186,36 @@ class FeishuOutputService:
         返回 (deleted, failed)。
         """
         return batch_delete_note_ids(note_ids)
+
+    def get_notified_note_ids(self) -> set[str]:
+        """
+        返回当前表格中已勾选"已通知"的 note_id 集合。
+        """
+        raw_records = _load_all_records_raw()
+        notified = set()
+        for raw in raw_records:
+            fields = raw.get("fields", {})
+            nid = fields.get("笔记ID", "")
+            if nid and fields.get("已通知"):
+                notified.add(nid)
+        return notified
+
+    def mark_notified(self, note_ids: list[str]) -> tuple[int, int]:
+        """
+        批量标记指定 note_id 为已通知。
+        返回 (updated, failed)。
+        """
+        return mark_notified(note_ids)
+
+    def get_unnotified_records(self) -> list[dict]:
+        """
+        返回所有"已通知"未勾选的记录原始字典（含 fields）。
+        用于通知模块查询孤儿笔记。
+        """
+        notified_ids = self.get_notified_note_ids()
+        raw_records = _load_all_records_raw()
+        return [
+            r for r in raw_records
+            if r.get("fields", {}).get("笔记ID") not in notified_ids
+            and r.get("fields", {}).get("笔记ID")
+        ]

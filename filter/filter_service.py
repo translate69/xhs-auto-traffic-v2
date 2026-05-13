@@ -85,12 +85,16 @@ ASK_SIGNALS = [
     "帮帮我",
     "有什么", "哪家好", "哪里好",
     "去哪吃", "去哪儿吃", "想问下", "请问",
+    # 隐性求助/强需求表达（正文含这些说明不是纯分享，是有实际需求）
+    "甩给我", "巨听劝", "非常需要",
 ]
 
 STRONG_REJECT_KEYWORDS = [
     "旅游搭子", "找旅游搭子", "找搭子", "求搭子", "旅行搭子",
     "包车", "bao", "带车司机", "配司机", "驾驶员", "地陪", "约拍",
     "河图",
+    # 商业服务请求（不是旅游求助，是找服务商/达人）
+    "烧烤师傅", "一条龙服务", "活动策划",
 ]
 
 QUESTION_SIGNALS = ["?", "？", "吗", "么", "呢"]
@@ -136,8 +140,7 @@ MERCHANT_AUTHOR_KEYWORDS = [
 ]
 
 SHARE_POST_KEYWORDS = [
-    "攻略", "分享", "推荐", "打卡", "避雷", "合集",
-    "探店", "测评", "我的", "我去", "我吃",
+    "打卡", "避雷", "合集",
     "不踩坑", "不踩雷", "保姆级", "超全",
     "没有攻略", "无攻略", "没攻略",  # 否定语气，非求助
 ]
@@ -380,13 +383,17 @@ class FilterService:
         neg_before = re.search(r"[不没被都说也还就才]\s*推荐", title)
         if neg_before:
             return False
+        # 排除问句中的「推荐」（如「有什么好吃的推荐吗」「有什么...推荐的吗」）
+        # 这类标题是真实求助，「推荐」是名词性结构，不是分享语气
+        if re.search(r"推荐[的了的话么]", title):
+            return False
         return bool(re.search(r".{0,10}推荐.{0,15}", title))
 
     def _is_topic_description_format(self, title: str) -> bool:
         """
         检查标题是否为话题描述格式（topic-description）。
-        这种格式的特征是：以「xxx怎么选xxx」结构呈现一个话题，不是真求助。
-        例如：「广东沙滩怎么选」「汕尾民宿怎么选」
+        这种格式的特征是：以「xxx怎么Xxxx」结构呈现一个话题，不是真求助。
+        例如：「广东沙滩怎么选」「汕尾怎么玩」「汕尾怎么逛」
 
         排除：后面有问号/吗/么（真问句），或以「求/请问」开头（求助格式）。
         """
@@ -394,7 +401,8 @@ class FilterService:
             return False
         if title.startswith("求") or title.startswith("请问"):
             return False
-        if re.search(r".{2,10}怎么选", title) and not re.search(r"怎么选[么吗?？]", title):
+        # 「xxx怎么选/怎么玩/怎么逛/怎么吃」格式：文章/攻略标题，不是真实提问
+        if re.search(r".{2,10}怎么[选玩逛吃]", title) and not re.search(r"怎么[选玩逛吃][么吗?？]", title):
             return True
         return False
 
@@ -596,6 +604,8 @@ class FilterService:
         "家人们谁懂啊", "谁懂啊", "家人们谁懂",
         "我来啦", "冲鸭", "绝了绝了", "太爱了", "太可了",
         "真的哭死", "哭死", "太治愈了", "太浪漫了",
+        # 博主邀请式分享（"给你们看看/有没有人想看xxx"不是真求助，是邀请反馈）
+        "给你们看看", "有没有人想看",
     ]
     # 正文太短时的 ask 依赖阈值（正文不足30字 + 只有标题/标签 ask = 不可靠）
     MIN_CONTENT_LEN_FOR_TAG_ASK = 30
@@ -731,6 +741,13 @@ class FilterService:
                 else:
                     strong_ask = has_signal(content_no_tags, ["想问", "求", "求助", "有什么", "有没有"])
                 has_recommend_ask = bool(re.search(r"有.{0,6}推荐", content_no_tags))
+                # 博主邀请式分享：「给你们看看xxx有什么/有没有人想看xxx」= 展示发现而非真实求助
+                is_blogger_invite = bool(re.search(
+                    r'给你们看看[^.。！]*有什么|有没有人想看',
+                    content_no_tags
+                ))
+                if is_blogger_invite:
+                    strong_ask = False
                 if not strong_ask and not has_recommend_ask:
                     if reasons and "ask" in reasons:
                         reasons.remove("ask")

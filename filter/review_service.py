@@ -148,10 +148,25 @@ class ReviewService:
         if has_real_companion:
             return ReviewResult(passed=False, reason="找搭子/旅游同伴")
 
+        # ── 步骤2.5：商业信息帖（无 ask 信号的资讯/推广标题）───
+        # 这类标题不是求助（如「首家xxx」「实时天气」「地图副本」「去哪玩」），
+        # filter 可能因无 ask 信号而拒绝，也可能因其他规则而拒绝。
+        # review 独立检测，确保这类标题不会借任何漏网情况逃逸。
+        if not has_signal(content_no_tags, ASK_SIGNALS):
+            info_post_keywords = [
+                "首家", "实时天气", "地图副本",
+                "土著带路", "盘点", "去哪玩",
+            ]
+            if any(kw in title for kw in info_post_keywords):
+                matched = [kw for kw in info_post_keywords if kw in title][0]
+                return ReviewResult(passed=False, reason=f"商业信息帖({matched})")
+
         # ── 步骤3：避雷类标题（始终检查）───
-        if (not title.startswith("求")
-                and not any(kw in title for kw in ["求推荐", "求住", "求带"])
-                and any(kw in title for kw in _BLEI_KEYWORDS)):
+        # 「有没有推荐的，避雷贴」= 真实求助（问大家推荐什么+顺便求避雷），不是分享
+        # 只有纯分享帖才会用「避雷」做标题关键词（博主主动输出负向体验）
+        if (any(kw in title for kw in _BLEI_KEYWORDS)
+                and not any(c in title for c in ["有没有", "求", "请问", "想问", "吗", "么", "呢", "？"])
+                and not title.startswith(("求", "想问", "请问"))):
             return ReviewResult(passed=False, reason="避雷类分享贴")
 
         # ── 步骤4：推荐格式标题（镜像执行 filter._is_recommendation_format）───
@@ -165,38 +180,41 @@ class ReviewService:
         if share_reject:
             return ReviewResult(passed=False, reason=share_reject)
 
-        # ── 步骤4b：（镜像执行 filter._get_pass_reasons 中的 share_hit 逻辑）───
+        # ── 步骤4b：分享贴补拦（无论有没有 ask 信号，有分享语气词就拦截）──
         # _is_share_post_only 在 has_any_ask=True 时直接放行（不做分享关键词检查）。
-        # 但 filter 的 _get_pass_reasons 会在「有 ask + 有 EXPERIENCE_SHARE_KEYWORDS」时
-        # 进一步判断 strong_ask 是否足够强——不够强则剥掉 ask 并拒绝。
-        # 这里补上这个逻辑，防止分享贴借「弱问句」逃逸。
-        if has_signal(content_no_tags, ASK_SIGNALS):
-            # 「求带」引用语境：说求带/同学求带等模式不是真实求助，是引用别人说的话
-            qiudai_quote = bool(__import__('re').search(r'[^我]求带|同学.*求带|[喊让叫]我求带', content_no_tags))
-            share_hit = [kw for kw in self._filter.EXPERIENCE_SHARE_KEYWORDS
-                         if kw in content_no_tags or kw in title]
-            if share_hit or qiudai_quote:
-                # 强 ask：想问/求/求助/有什么/有没有（有具体需求意向）
-                strong_ask = has_signal(content_no_tags, ["想问", "求", "求助", "有什么", "有没有"])
-                has_recommend_ask = bool(__import__('re').search(r"有.{0,6}推荐", content_no_tags))
-                # 反问语气：有 "有什么" 但上下文是满足/感叹语气，不算真求助
-                is_rhetorical_what = bool(__import__('re').search(
-                    r'还有什么[^一-龥]*?(烦恼|忧愁|不爽|难过)|有什么.?.?(不|没|么)\w',
-                    content_no_tags
-                ))
-                if is_rhetorical_what:
-                    strong_ask = False
-                # 博主结尾邀请提问 ≠ 真实求助（"还有什么想问的/尽管问/评论区问"）
-                blogger_ask_pattern = bool(__import__('re').search(
-                    r'还有什么想问的|尽管问|评论区[问們]|有问题想问',
-                    content_no_tags
-                ))
-                if blogger_ask_pattern:
-                    strong_ask = False
-                if qiudai_quote:
-                    return ReviewResult(passed=False, reason="求带引用语境(非真实求助)")
-                if not strong_ask and not has_recommend_ask:
-                    return ReviewResult(passed=False, reason=f"分享贴借弱问句逃逸({share_hit[0]})")
+        # 这里补上这个逻辑，防止分享贴借「弱问句」逃逸，或根本没有 ask 信号但有分享语气词的情况。
+        share_hit = [kw for kw in self._filter.EXPERIENCE_SHARE_KEYWORDS
+                     if kw in content_no_tags or kw in title]
+        qiudai_quote = bool(__import__('re').search(r'[^我]求带|同学.*求带|[喊让叫]我求带', content_no_tags))
+        if share_hit or qiudai_quote:
+            has_any_ask = has_signal(content_no_tags, ASK_SIGNALS)
+            strong_ask = has_signal(content_no_tags, ["想问", "求", "求助", "有什么", "有没有"])
+            has_recommend_ask = bool(__import__('re').search(r"有.{0,6}推荐", content_no_tags))
+            is_rhetorical_what = bool(__import__('re').search(
+                r'还有什么[^一-龥]*?(烦恼|忧愁|不爽|难过)|有什么.?.?(不|没|么)\w',
+                content_no_tags
+            ))
+            if is_rhetorical_what:
+                strong_ask = False
+            blogger_ask_pattern = bool(__import__('re').search(
+                r'还有什么想问的|尽管问|评论区[问們]|有问题想问',
+                content_no_tags
+            ))
+            if blogger_ask_pattern:
+                strong_ask = False
+            is_blogger_invite = bool(__import__('re').search(
+                r'给你们看看[^.。！]*有什么|有没有人想看',
+                content_no_tags
+            ))
+            if is_blogger_invite:
+                strong_ask = False
+            if qiudai_quote:
+                return ReviewResult(passed=False, reason="求带引用语境(非真实求助)")
+            if not has_any_ask:
+                # 没有 ask 信号但有分享语气词 → 纯分享贴
+                return ReviewResult(passed=False, reason=f"分享贴借弱问句逃逸({share_hit[0]})")
+            if not strong_ask and not has_recommend_ask:
+                return ReviewResult(passed=False, reason=f"分享贴借弱问句逃逸({share_hit[0]})")
 
         # ── 步骤6：自语帖（镜像执行 filter._is_self_talk）────────────────
         # 正文含"有什么/有啥"但前方有"想/我在"等自语标记 → 不是真求助
