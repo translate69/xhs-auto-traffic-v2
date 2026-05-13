@@ -27,7 +27,7 @@ LOCK_FILE = PROJECT_ROOT / ".batch_lock"
 PROGRESS_FILE = PROJECT_ROOT / ".batch_progress"
 LOG_FILE = PROJECT_ROOT / "logs" / "cron_batch.log"
 PID_FILE = PROJECT_ROOT / ".playwright_pids"
-KEYWORDS_FILE = PROJECT_ROOT / "keywords_v2.txt"
+KEYWORDS_FILE = PROJECT_ROOT / os.environ.get("XHS_KEYWORDS_FILE", "keywords.txt")
 KEYWORDS_PER_BATCH = 3  # 每批几个关键词
 BATCH_TIMEOUT_SECONDS = 660  # 11分钟
 
@@ -113,8 +113,14 @@ def _acquire_lock() -> bool:
                 if age < BATCH_TIMEOUT_SECONDS:
                     _log(f"进程 {pid} 还在跑（已运行 {age:.0f}s），跳过本次")
                     return False
-                # 超时了，当作锁已失效，下次 acquire 会清理
-                _log(f"进程 {pid} 已超时（{age:.0f}s），清理陈旧锁")
+                # 超时了，强制 kill 残留进程，清理锁，继续执行
+                _log(f"进程 {pid} 已超时（{age:.0f}s），强制 kill 后继续")
+                try:
+                    subprocess.run(["taskkill", "/F", "/PID", str(pid)],
+                                  capture_output=True, timeout=10)
+                except Exception:
+                    pass
+                time.sleep(1)
         except Exception:
             pass
     import json
@@ -168,10 +174,8 @@ def _cleanup_orphaned_batch():
             killed = []
             for p in alive:
                 try:
-                    subprocess.run(
-                        ["taskkill", "/F", "/PID", str(p)],
-                        capture_output=True, timeout=5
-                    )
+                    subprocess.run(["taskkill", "/F", "/PID", str(p)],
+                                  capture_output=True, timeout=5)
                     killed.append(p)
                 except Exception:
                     pass
