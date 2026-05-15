@@ -10,6 +10,15 @@ PROJECT_ROOT = Path(__file__).parent
 DATA_DIR = PROJECT_ROOT / "data"
 COOKIE_FILE = PROJECT_ROOT / "xhs_cookies.json"
 
+# ─── 小红书/红书域名 ───────────────────────────────────────
+# 小红书已切换到 xiaohongshu.com，旧域名 xiaohongshu.com 不再使用
+XHS_BASE_URL = "https://www.xiaohongshu.com"
+XHS_HOME_URL = XHS_BASE_URL
+XHS_LOGIN_URL = XHS_BASE_URL + "/login"
+XHS_SEARCH_URL_TPL = XHS_BASE_URL + "/search_result?keyword={keyword}&type=51"
+XHS_DETAIL_URL_TPL = XHS_BASE_URL + "/explore/{note_id}"
+XHS_PROFILE_URL_TPL = XHS_BASE_URL + "/user/profile"
+
 # ─── 浏览器配置 ────────────────────────────────────────────
 
 # 生产环境 headless，调试环境 headed

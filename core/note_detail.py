@@ -261,24 +261,33 @@ class NoteDetailCollector:
 
         return results
 
-    def _enrich_single(self, feed: FeedNote, page, max_retries: int = 3) -> NoteDetail:
-        """单条笔记 enrichment，支持重试"""
+    def _switch_url_format_on_300013(self, switch_count: int) -> str:
+        """
+        内部封装：遇到 300013 后切换 URL 格式。
+        switch_count=0 → search_result 触发 300013 → 切换到 explore
+        switch_count=1 → explore 也触发 300013 → 切换回 search_result
+        switch_count=2 → 两种格式都失败了，放弃切格式
+        """
+        if switch_count == 0:
+            self._url_format = "explore"
+            print(f"[Detail] 300013 detected，全局切换 → explore 格式")
+        elif switch_count == 1:
+            self._url_format = "search_result"
+            print(f"[Detail] 300013 on explore，切回 search_result 重试")
+        # switch_count >= 2 不再切换，用当前格式硬撑
 
-        detail_url = self._build_detail_url(feed)
-        if not detail_url:
-            print(f"[Detail] WARN: URL 为空，降级保留搜索页数据")
-            detail = NoteDetail()
-            detail.merge_from_feed(feed)
-            return detail
+    def _enrich_single(self, feed: FeedNote, page, max_retries: int = 3) -> NoteDetail:
+        """单条笔记 enrichment，支持重试 + URL 格式自动切换"""
 
         last_error = ""
+        format_switch_count = 0  # 记录本次笔记内切换了几次 URL 格式
 
         for attempt in range(1, max_retries + 1):
             try:
                 if not page:
                     raise RuntimeError("Page 未初始化")
 
-                # ── 全局 URL 格式（explore / search_result，后续所有笔记生效）────
+                # ── 根据当前格式构建 URL ────────────────────────────
                 if self._url_format == "search_result":
                     detail_url = self._build_detail_url_search_result(feed)
                 else:
@@ -289,7 +298,6 @@ class NoteDetailCollector:
                 _log_stage(f"  page.goto 完成", flush=False)
 
                 # ── 登录态检测（与 SearchCollector 一致）─────────────────────
-                # 检测登录弹窗
                 try:
                     page.wait_for_selector(
                         "[class*='login'], [class*='login-modal'], .login-container",
@@ -301,14 +309,15 @@ class NoteDetailCollector:
                 except Exception:
                     pass  # 正常，无弹窗
 
-                # 检测是否跳转到了登录/安全限制页（URL 异常或页面内容异常）
+                # ── 300013 检测（优先于通用登录检测）─────────────────
                 final_url = page.url
-                # 优先精确检测 300013 再走通用登录检测
-                if "error_code=300013" in final_url or "error_code=300013" in str(last_error):
+                if "error_code=300013" in final_url:
                     page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_detail_300013.png")
                     raise RateLimitError(
                         f"详情页触发 300013 访问频繁（{final_url[:80]}），需切换 URL 格式重试"
                     )
+
+                # 检测是否跳转登录/安全限制页
                 if any(kw in final_url.lower() for kw in ["login", "/w/user/login", "/w/login", "website-login/error"]):
                     page.screenshot(path="E:/translate/claw/xhs-auto-traffic-v2/debug_detail_login.png")
                     raise LoginRequiredError(
@@ -362,16 +371,16 @@ class NoteDetailCollector:
                 last_error = str(e)
                 print(f"[Detail] FAIL {attempt}/3: {last_error}")
 
-                # 检测 300013 访问频繁，全局切换 URL 格式重试
+                # ── 300013：切换 URL 格式后重试（每张笔记最多切换 2 次）──────
                 if "300013" in last_error or "error_code=300013" in last_error:
                     self._batch_300013_count += 1
-                    if self._url_format == "search_result":
-                        self._url_format = "explore"  # 全局切换
-                        print(f"[Detail] 300013 detected，全局切换 → explore 格式")
+                    if format_switch_count < 2:
+                        self._switch_url_format_on_300013(format_switch_count)
+                        format_switch_count += 1
+                        continue  # 用新格式重试
                     else:
-                        self._url_format = "search_result"  # explore 也失败，切回 search_result
-                        print(f"[Detail] 300013 on explore，切回 search_result 重试")
-                    continue
+                        print(f"[Detail] 两种格式均触发 300013，放弃重试")
+                        break  # 跳出 retry 循环，降级保留搜索页数据
 
                 if attempt < max_retries:
                     time.sleep(config.ENRICHMENT_RETRY_DELAY)
